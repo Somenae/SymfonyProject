@@ -1,6 +1,7 @@
 # SymfonyProject
 Symfony Project E-Shop
 
+Thème du E-Shop : vente de vyniles
 Vous devez réaliser une applicaton e-commerce.
 Le back office doit permettre :
 - D’ajouter des administrateurs
