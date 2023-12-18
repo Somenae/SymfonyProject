@@ -14,7 +14,7 @@ class Users
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
+    #[ORM\Column]
     private array $role = [];
 
     #[ORM\Column(length: 50)]
