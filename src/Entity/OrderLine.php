@@ -31,6 +31,10 @@ class OrderLine
     #[ORM\Column]
     private ?float $sales = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orderLines')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Orders $Orders = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +108,18 @@ class OrderLine
     public function setSales(float $sales): static
     {
         $this->sales = $sales;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Orders
+    {
+        return $this->Orders;
+    }
+
+    public function setOrders(?Orders $Orders): static
+    {
+        $this->Orders = $Orders;
 
         return $this;
     }

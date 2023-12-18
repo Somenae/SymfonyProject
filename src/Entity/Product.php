@@ -30,9 +30,20 @@ class Product
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
     private Collection $ProductCategory;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Taxes $ProductTaxes = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartLine::class)]
+    private Collection $ProductCartLine;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Sales $ProductSales = null;
+
     public function __construct()
     {
         $this->ProductCategory = new ArrayCollection();
+        $this->ProductCartLine = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,6 +119,60 @@ class Product
     public function removeProductCategory(Category $productCategory): static
     {
         $this->ProductCategory->removeElement($productCategory);
+
+        return $this;
+    }
+
+    public function getProductTaxes(): ?Taxes
+    {
+        return $this->ProductTaxes;
+    }
+
+    public function setProductTaxes(?Taxes $ProductTaxes): static
+    {
+        $this->ProductTaxes = $ProductTaxes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CartLine>
+     */
+    public function getProductCartLine(): Collection
+    {
+        return $this->ProductCartLine;
+    }
+
+    public function addProductCartLine(CartLine $productCartLine): static
+    {
+        if (!$this->ProductCartLine->contains($productCartLine)) {
+            $this->ProductCartLine->add($productCartLine);
+            $productCartLine->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductCartLine(CartLine $productCartLine): static
+    {
+        if ($this->ProductCartLine->removeElement($productCartLine)) {
+            // set the owning side to null (unless already changed)
+            if ($productCartLine->getProduct() === $this) {
+                $productCartLine->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProductSales(): ?Sales
+    {
+        return $this->ProductSales;
+    }
+
+    public function setProductSales(?Sales $ProductSales): static
+    {
+        $this->ProductSales = $ProductSales;
 
         return $this;
     }

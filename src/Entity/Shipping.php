@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ShippingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShippingRepository::class)]
@@ -21,6 +23,14 @@ class Shipping
 
     #[ORM\Column]
     private ?float $shipping_price = null;
+
+    #[ORM\OneToMany(mappedBy: 'shipping', targetEntity: orders::class)]
+    private Collection $Orders;
+
+    public function __construct()
+    {
+        $this->Orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +69,36 @@ class Shipping
     public function setShippingPrice(float $shipping_price): static
     {
         $this->shipping_price = $shipping_price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->Orders;
+    }
+
+    public function addOrder(orders $order): static
+    {
+        if (!$this->Orders->contains($order)) {
+            $this->Orders->add($order);
+            $order->setShipping($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(orders $order): static
+    {
+        if ($this->Orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getShipping() === $this) {
+                $order->setShipping(null);
+            }
+        }
 
         return $this;
     }
