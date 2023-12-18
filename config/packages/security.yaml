@@ -23,7 +23,7 @@ security:
             custom_authenticator: App\Security\AdminAuthenticator
             logout:
                 path: app_admin_logout
-                target: app_index
+                target: app_admin_login
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -39,10 +39,11 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
+                default_target_path: app_index
                 enable_csrf: true
             logout:
                 path: app_logout
-                target: app_index
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
