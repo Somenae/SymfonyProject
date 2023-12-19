@@ -20,21 +20,15 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-
-    //  public function findAllGreaterThanPrice(): array
-    //  {
-    //      $entityManager = $this->getEntityManager();
-
-    //      $query = $entityManager->createQuery(
-    //          'SELECT p
-    //          FROM App\Entity\Product p
-    //          ORDER BY "RAND()"
-    //          LIMIT 4'
-    //      );
-
-         // returns an array of Product objects
-    //     return $query->getResult();
-    // }
+    
+    public function searchByName(string $name): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.name like :val')
+            ->setParameter('val', '%'.$name.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function getRandomProduct()
     {

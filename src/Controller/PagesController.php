@@ -14,11 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class PagesController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    public function index(ProductRepository $productrepo ): Response
+    public function index(ProductRepository $productrepo, Request $request ): Response
     {
-        $products = $productrepo->getRandomProduct();
+        if (isset($_GET["submit"])){
+            $products = $productrepo->searchByName($request->query->get('product',''));
+        } else {
+            $products = $productrepo->getRandomProduct();
+        }
+       
+        ;
         return $this->render('pages/index.html.twig', [
             'products' =>  $products ,
+            'product' => $request->query->get('product','')
         ]);
     }
 }
