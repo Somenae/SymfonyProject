@@ -29,6 +29,13 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function searchByIDSale(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.ProductSales >= 0')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function getRandomProduct()
     {
