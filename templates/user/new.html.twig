@@ -2,7 +2,7 @@
 
 {% block title %} {{ title }} {% endblock %}
 
-{% block body %}
+{% block main %}
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
 {{ form_end(form) }}
