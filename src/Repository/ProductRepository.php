@@ -21,6 +21,40 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    //  public function findAllGreaterThanPrice(): array
+    //  {
+    //      $entityManager = $this->getEntityManager();
+
+    //      $query = $entityManager->createQuery(
+    //          'SELECT p
+    //          FROM App\Entity\Product p
+    //          ORDER BY "RAND()"
+    //          LIMIT 4'
+    //      );
+
+         // returns an array of Product objects
+    //     return $query->getResult();
+    // }
+
+    public function getRandomProduct()
+    {
+        $sql = "SELECT * FROM `product` ORDER BY RAND() LIMIT 6";
+        $query = $this->getEntityManager()->getConnection()
+                ->executeQuery($sql);
+        $result = $query->fetchAllAssociative();
+       
+        $products = [];
+        foreach($result as $preproduct) {
+            $product = $this->find($preproduct['id']);
+            $products[] = $product;
+        }
+        // var_dump($products);
+        return $products;
+    }
+    
+
+
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

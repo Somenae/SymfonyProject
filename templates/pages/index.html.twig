@@ -2,19 +2,26 @@
 
 {% block title %}Hello PagesController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Diginamic/Documents/MiniPresta/SymfonyProject/src/Controller/PagesController.php'|file_link(0) }}">src/Controller/PagesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Diginamic/Documents/MiniPresta/SymfonyProject/templates/pages/index.html.twig'|file_link(0) }}">templates/pages/index.html.twig</a></code></li>
-    </ul>
+{% block main %}
+<div class="container">
+ <div class="row align-items-center">
+    
+    
+{% for item in products %}
+<div class="col-4">
+ 
+    
+        <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}</h6>
+    <p class="card-text">{{ item.description }}</p>
+    <a href="" class="btn btn-primary">Acceder à ce produit</a>
+  </div>
 </div>
+</div>
+    {% endfor %}
+    </div>
+    </div>
 {% endblock %}
