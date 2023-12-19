@@ -20,7 +20,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-
+    
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
