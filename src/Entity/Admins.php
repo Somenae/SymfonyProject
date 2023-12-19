@@ -114,7 +114,4 @@ class Admins implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
-
- 
 }
