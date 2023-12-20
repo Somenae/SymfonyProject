@@ -93,5 +93,27 @@ class CategoryController extends AbstractController
         }
         return $this->redirectToRoute('app_admin_create_category');
     }
+
+    #[Route ('/indexCategories', name: 'app_admin_index_categories')]
+    public function indexCategories(CategoryRepository $categoryRepository): Response
+    {
+      $categories = $categoryRepository->findAll();
+
+      return $this->render('category/index.html.twig', [
+          'categories' => $categories,
+      ]);
+    }
+
+   /* #[Route('/indexCategory', name: 'app_admin_index_category')]
+    public function index(CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->findAllOrderedByProductCount();
+
+        return $this->render('base.html.twig', [
+        'categories' => $categories,
+        ]);
+    }*/
+
+
 }
 
