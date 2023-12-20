@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer un produit{% endblock %}
+
+{% block main %}
+    CREER UN PRODUIT
+    {{ form(form, {'method': 'POST'}) }}
+   <a href="{{ path('app_product') }}">RETOUR</a>
+{% endblock %}
+

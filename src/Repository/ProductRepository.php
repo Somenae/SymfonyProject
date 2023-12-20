@@ -20,6 +20,41 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+    
+    public function searchByName(string $name): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.name like :val')
+            ->setParameter('val', '%'.$name.'%')
+            ->getQuery()
+            ->getResult();
+    }
+    public function searchByIDSale(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.ProductSales >= 0')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getRandomProduct()
+    {
+        $sql = "SELECT * FROM `product` ORDER BY RAND() LIMIT 6";
+        $query = $this->getEntityManager()->getConnection()
+                ->executeQuery($sql);
+        $result = $query->fetchAllAssociative();
+       
+        $products = [];
+        foreach($result as $preproduct) {
+            $product = $this->find($preproduct['id']);
+            $products[] = $product;
+        }
+        // var_dump($products);
+        return $products;
+    }
+    
+
+
 
 //    /**
 //     * @return Product[] Returns an array of Product objects
