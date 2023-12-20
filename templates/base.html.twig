@@ -19,7 +19,11 @@
  <body>
         <header>
             {% block header %}
-            <li><a href="{{ path('app_index') }}">Accueil</a></li>
+            <ul>
+                <li><a href="{{ path('app_index') }}">Accueil</a></li>
+                {% if {{ is_granted('IS_AUTHENTICATED_FULLY') }} %}
+                <li><a href=""></a></li>
+            </ul>
             {% endblock %}
         </header>
         <main>
