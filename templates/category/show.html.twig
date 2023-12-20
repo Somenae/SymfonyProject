@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+
+
+{% block main %}
+
+<h2>{{ category.name }}</h2>
+<p>{{ category.description }}</p>
+<a href="{{ path('app_admin_update_category', {'id': category.id}) }}" class="btn btn-primary">Modifier</a>
+ <a href="{{ path('app_admin_delete_category', {'id': category.id}) }}" onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-primary">Suprimer</a>
+<a href="{{ path('app_admin_create_category', {'id': category.id}) }}" class="btn btn-primary">Créer nouvelle categorie</a>
+<a href="{{ path ('app_admin_list_categories')}}" class="btn btn-primary">Retourner à categories</a>
+
+{% endblock %}
+

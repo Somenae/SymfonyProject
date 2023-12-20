@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a category{% endblock %}
+
+{% block body %}
+{% block main %}
+   
+   {{ form(form, {'method': 'POST'}) }}
+
+    <a href="{{ path('app_admin_list_categories') }}" class="btn btn-primary">Retourner à Categories</a>
+
+{% endblock %}
+
+{% endblock %}
