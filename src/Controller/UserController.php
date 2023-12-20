@@ -42,4 +42,56 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route(path:'account', name:'app_user_account')]
+    public function account(
+        Security $security,
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $hasher,
+    ): Response
+    {
+        $user = $security->getUser();
+        if ($user === NULL) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createForm(UserFormType::class, $user);
+        $plainTextPassword = '';
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainTextPassword = $_POST['user_form']['password']['first'];
+            $hashedPassword = $hasher->hashPassword(
+                $user,
+                $plainTextPassword
+            );
+            $user->setPassword($hashedPassword);
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return $this->render('user/new.html.twig', [
+            'title'=> 'Modifiez les informations de votre compte',
+            'form'=> $form,
+        ]);
+    }
+
+    #[Route(path:'history', name:'app_user_history')]
+    public function history(
+        Security $security,
+        ?Users $user,
+    ): Response
+    {
+        $user = $security->getUser();
+        if ($user === NULL) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $orders = $user->getOrders();
+
+        return $this->render('user/history.html.twig', [
+            'title' => 'Historique des commandes',
+            'orders' => $orders,
+        ]);
+    }
 }
