@@ -21,8 +21,13 @@
             {% block header %}
             <ul>
                 <li><a href="{{ path('app_index') }}">Accueil</a></li>
-                {% if {{ is_granted('IS_AUTHENTICATED_FULLY') }} %}
-                <li><a href=""></a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# use this to protect links user shouldn't access unless fully connected #}
+                    <li><a href="{{ path('app_user_account') }}">Mon compte</a></li>
+                    <li><a href="{{ path('app_user_history') }}">Historique</a></li>
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                {% endif %}
             </ul>
             {% endblock %}
         </header>
