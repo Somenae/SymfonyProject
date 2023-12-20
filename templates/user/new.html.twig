@@ -3,7 +3,11 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block main %}
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {% if app.request.attributes.get('_route') is same as('app_user_account') %}
+        <a href="{{ path('app_user_update_address') }}">Modifier votre adresse</a>
+    {% endif %}
 {% endblock %}

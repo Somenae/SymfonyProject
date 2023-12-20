@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Users;
+use App\Form\UserAddressFormType;
 use App\Form\UserFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,6 +74,46 @@ class UserController extends AbstractController
 
         return $this->render('user/new.html.twig', [
             'title'=> 'Modifiez les informations de votre compte',
+            'form'=> $form,
+        ]);
+    }
+
+    #[Route(path:'address', name:'app_user_update_address')]
+    public function updateAdress(
+        Security $security,
+        Request $request,
+        EntityManagerInterface $em,
+    ) : Response
+    {
+        $user = $security->getUser();
+        if ($user === NULL) {
+            return $this->redirectToRoute('app_login');
+        }
+        $address = $user->getAddress();
+        /* If user doesn't have any address atm it creates a new address entity and linked it to them, it probably can be written with less code, don't hesitate to 
+        check on it later */
+        if ($address !== NULL) {
+            $form = $this->createForm(UserAddressFormType::class, $address);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setAddress($address);
+                $em->persist($user);
+                $em->flush();
+            }
+        } else {
+            $address = new Address();
+            $address->addUser($user);
+            $form = $this->createForm(UserAddressFormType::class, $address);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $address->setAddress($form->get('address')->getData());
+                $em->persist($address);
+                $em->flush();
+            }
+        }
+
+        return $this->render('user/new.html.twig', [
+            'title'=> 'Modifier Adresse',
             'form'=> $form,
         ]);
     }
