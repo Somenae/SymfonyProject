@@ -21,8 +21,17 @@ class AdminPagesController extends AbstractController
     }
 
     #[Route('/dashboard', name: 'app_admin_dashboard')]
-    public function dashboard(): Response
+    public function dashboard(
+        Security $security,
+    ): Response
     {
+        {
+            if (!$security->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('app_admin_login');
+            }
+            return $this->redirectToRoute('app_admin_dashboard');
+        }
+
         return $this->render('admin_pages/dashboard.html.twig', [
             'title' => 'Dahsboard',
         ]);
