@@ -20,7 +20,17 @@
  <body>
         <header>
             {% block header %}
-            <li><a href="{{ path('app_index') }}">Accueil</a></li>
+            <ul>
+                <li><a href="{{ path('app_index') }}">Accueil</a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# use this to protect links user shouldn't access unless fully connected #}
+                    <li><a href="{{ path('app_user_account') }}">Mon compte</a></li>
+                    <li><a href="{{ path('app_user_history') }}">Historique</a></li>
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                    <li><a href="{{ path('app_new_user') }}">Créer un compte</a></li>
+                {% endif %}
+            </ul>
             {{ render(controller(
                 'App\\Controller\\PagesController::cartCount'
             )) }}

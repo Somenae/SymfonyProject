@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends app.request.attributes.get('_route') is same as('app_login') ? 'base.html.twig' : 'adminBase.html.twig' %}
 
 {% block title %}Log in!
 {% endblock %}
