@@ -12,6 +12,7 @@
             {{ ux_controller_link_tags() }}
         {% endblock %}
 
+
         {# {% block javascripts %}
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %} #}
@@ -20,6 +21,9 @@
         <header>
             {% block header %}
             <li><a href="{{ path('app_index') }}">Accueil</a></li>
+            {{ render(controller(
+                'App\\Controller\\PagesController::cartCount'
+            )) }}
             {% endblock %}
         </header>
         <main>
