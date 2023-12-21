@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+
+    {% for category in categories %}
+    <li><a href="{{ path('app_category_products', {'id': category.id}) }}">{{ category.name }}</a></li>
+    {% endfor %}
+
+{% endblock %}

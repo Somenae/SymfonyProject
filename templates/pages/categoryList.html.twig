@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
+
+{% block main %}
+<h1>Categories:</h1>
+
+<form method="get" action="{{ path('app_search_categories') }}">
+    <input type="text" name="search" placeholder="Rechercher categorie">
+    <button type="submit">Rechercher</button>
+</form>
+
+{% for category in categories %}
+    <h3><a href="{{ path('app_category_products', {'id': category.id}) }}">{{ category.name }}</a></h3>
+{% endfor %}
+
+
+{% endblock %}

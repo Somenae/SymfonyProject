@@ -21,17 +21,26 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    /*public function findAllOrderedByProductCount()
+    public function findTop4Categories()
     {
         return $this->createQueryBuilder('c')
-               ->select('c, p')
-               ->leftJoin('c.products', 'p')
-               ->groupBy('c.id')
-               ->addSelect('COUNT(p.id) as HIDDEN productCount')
-               ->orderBy('productCount', 'DESC')
-               ->getQuery()
-               ->getResult();
-    }*/
+            ->select('c.id, c.name')
+            ->join('c.products', 'p')
+            ->groupBy('c.id')
+            ->orderBy('COUNT(p)', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
+    public function search($searchTerm)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.name LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Category[] Returns an array of Category objects
