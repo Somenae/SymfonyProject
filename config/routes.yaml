@@ -7,3 +7,8 @@ controllers:
 app_logout:
     path: /logout
     methods: GET
+    
+landing_page:
+    path: /landing
+    controller: App\Controller\PagesController::index
+    methods: ['GET']
