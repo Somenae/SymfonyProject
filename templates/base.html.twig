@@ -12,6 +12,7 @@
             {{ ux_controller_link_tags() }}
         {% endblock %}
 
+
         {# {% block javascripts %}
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %} #}
@@ -30,6 +31,9 @@
                     <li><a href="{{ path('app_new_user') }}">Créer un compte</a></li>
                 {% endif %}
             </ul>
+            {{ render(controller(
+                'App\\Controller\\PagesController::cartCount'
+            )) }}
             {% endblock %}
         </header>
         <main>
