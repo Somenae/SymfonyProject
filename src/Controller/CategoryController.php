@@ -3,95 +3,79 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Form\categoryFormType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin')]
-class CategoryController extends AbstractController
+
+Class CategoryController extends AbstractController
 {
-    #[Route('/createCategory', name: 'app_admin_create_category')]
-    public function createCategory(EntityManagerInterface $em, Request $request): Response
-    {
-        $category = new Category();
-        $form = $this->createForm(CategoryFormType::class, $category,[
-            'label_name' => "Créer nouvelle categorie"
-        ]);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($category);
-            $em->flush();
-            return $this->redirectToRoute('app_admin_show_category', ['id' => $category->getId()]);    
-            }
-           
-                
-        return $this->render('category/create.html.twig', [
-            'form' => $form,
-                    
-                ]);
-            
-    }
-
-    #[Route('/showCategory/{id}', name: 'app_admin_show_category')]
-    public function showCategory(Category $category): Response
-    {
-        return $this->render('category/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
-    #[Route('/listCategories', name: 'app_admin_list_categories')]
-    public function listCategories(CategoryRepository $categoryRepository): Response
+    #[Route('/categories', name: 'app_index_categories')]
+    public function indexCategories(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
 
-        return $this->render('category/list.html.twig', [
+        return $this->render('pages/categoryList.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    #[Route('/searchCategories', name: 'app_search_categories')]
+    public function search(Request $request, CategoryRepository $categoryRepository): Response
+{
+    $searchTerm = $request->query->get('search');
+
+    $categories = [];
+    if ($searchTerm) {
+        $categories = $categoryRepository->search($searchTerm);
+    }
+
+    return $this->render('pages/categoryList.html.twig', [
+        'categories' => $categories,
+    ]);
+}
+
+    #[Route('category/{id}/products', name: 'app_category_products')]
+    public function categoryProducts(int $id, CategoryRepository $categoryRepository): Response
+    {
+        $category = $categoryRepository->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
+        return $this->render('pages/categoryProducts.html.twig', [
+            'category' => $category,
+            'products' => $category->getProducts(),
+        ]);
+    }
+
+    public function categoryLink(CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->findTop4Categories();
+
+        return $this->render('_header/_categoryLink.html.twig', [
             'categories' => $categories,
         ]);
     }
 
 
-    #[Route('/updateCategory/{id}', name: 'app_admin_update_category')]
-    public function updateCategory(EntityManagerInterface $em, Request $request, ?Category $category): Response
+    #[Route ('/product/{id}', name:'app_product_details')]
+    public function productDetails(int $id, ProductRepository $productRepository): Response
     {
-        if ($category === null) {
-            throw $this->createNotFoundException('Categorie non trouvée');
-        }
-        $form = $this->createForm(categoryFormType::class, $category);
+    $product = $productRepository->find($id);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($category);
-            $em->flush();
-            return $this->redirectToRoute('app_admin_show_category', ['id' => $category->getId()]);    
-            }
-           
-                
-        return $this->render('category/update.html.twig', [
-            'form' => $form,
-                    
-                ]);
-            
+    if (!$product) {
+        throw $this->createNotFoundException('Product not found');
     }
 
-    #[Route('/deleteCategory/{id}', name: 'app_admin_delete_category')]
-    public function deleteCategory(EntityManagerInterface $em, Request $request, ?Category $category): Response
-    {
-        if ($category === null) {
-            throw $this->createNotFoundException('Categorie non trouvée');
-        }
-        $token = $request->request->get('token');
-
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $token)) {
-        $em->remove($category);
-        $em->flush();
-        }
-        return $this->redirectToRoute('app_admin_create_category');
+    return $this->render('pages/productDetails.html.twig', [
+        'product' => $product,
+    ]);
     }
 }
-

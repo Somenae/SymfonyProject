@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
+
+{% block main %}
+<h1>Categories:</h1>
+
+<h1>{{ category.name }}</h1>
+<ul>
+   {% for product in products %}
+  <h3><a href="{{ path('app_product_details', {'id': product.id}) }}">{{ product.name }}</a></h3>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,8 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les produits{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block main %}
-{{ form(form, {'method': 'POST'}) }}
+    <h1>{{ title }}</h1>
+    
+    <a href="{{ path('app_admin_product') }}">Produits </a>
+    <a href="{{ path('app_admin_product') }}">Produit {{ product.id }} </a>
+
+<div class="card bg-light mb-3" style="max-width: 18rem;">
+
+<div class="card-group"> 
+<div class="card" style="max-width: 18rem;">
+    <div class="card-header">Produit {{ product.id }}</div>
+    
+    <div class="card-body">
+    <p class="card-text">
+        <dl>
+            <dt>Nom :</dt>
+            <dd>{{ product.name }}</dd>
+
+            <dt>Prix :</dt>
+            <dd>{{ product.price }}</dd>
+
+            <dt>Description :</dt>
+            <dd>{{ product.description }}</dd>
+
+            <dt>Taxes :</dt>
+            <dd>{{ product.ProductTaxes.amount }}</dd>
+
+            <dt>Promo :</dt>
+            <dd>{% if product.ProductSales is same as(NULL) %}
+                <td>Pas de promotion</td>
+                {% else %}
+                <td>{{product.ProductSales.AmountPercentage}}</td>
+                {% endif %}
+            </dd>
+
+            
+        </dl>
+    </p>
+    </div>
+
+    <div class="card-footer">
+    <button> <a href="{{ path('app_admin_product') }}">RETOUR</a></button>
+    </div>
+</div>
+
+<div class="card" style="max-width: 18rem;">
+    <div class="card-header">Images</div>
+    
+    <div class="card-body">
+    
+        <dl>
+            <dd>{{ product.image }}</dd>           
+        </dl>
+  
+    </div>
+
+    <div class="card-footer">
+    <button> <a href="{{ path('app_admin_add_image', { 'id': product.id }) }}">Inserer une image</a></button>
+    </div>
+</div>
+</div>
+
+
+
+
 
 {% endblock %}

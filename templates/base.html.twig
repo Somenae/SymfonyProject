@@ -30,6 +30,10 @@
                     <li><a href="{{ path('app_login') }}">Se connecter</a></li>
                     <li><a href="{{ path('app_new_user') }}">Créer un compte</a></li>
                 {% endif %}
+                <li><a href="{{ path('app_index_categories') }}">Categories</a></li>
+                {{ render(controller(
+                'App\\Controller\\CategoryController::categoryLink'
+            )) }}
             </ul>
             {{ render(controller(
                 'App\\Controller\\PagesController::cartCount'
