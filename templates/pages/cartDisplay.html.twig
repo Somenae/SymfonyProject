@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recapitulatif panier!{% endblock %}
+
+{% block main %}
+<h1>Mon Panier</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">Nom Produit</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix par unité</th>
+      <th scope="col">Reduction appliquée</th>
+      <th scope="col">description</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for line in cartline %}
+    <tr>
+      <th scope="row">{{ line.product.name }}</th>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.product.price }}€</td>
+
+       {% if line.product.productsales is same as (NULL) %}
+       <td>Pas de promotion actuellement</td>
+        {% else %}
+        <td>{{ line.product.productsales.amountpercentage }}%</td>
+        {% endif %}
+
+
+      <td>{{ line.product.description }}</td>
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+<h2>Prix du panier: {{ price }}€</h2>
+
+{% endblock %}
