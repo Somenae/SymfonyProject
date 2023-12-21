@@ -31,7 +31,7 @@ class Product
     private Collection $ProductCategory;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Taxes $ProductTaxes = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartLine::class)]
@@ -98,6 +98,9 @@ class Product
 
         return $this;
     }
+
+
+
 
     /**
      * @return Collection<int, Category>
@@ -177,3 +180,5 @@ class Product
         return $this;
     }
 }
+
+

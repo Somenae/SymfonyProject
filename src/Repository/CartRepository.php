@@ -21,6 +21,19 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
+    
+  public function findLastCartByIdUser($value): Cart | NULL
+  {
+      return $this->createQueryBuilder('c')
+          ->andWhere('c.User = :val')
+          ->setParameter('val', $value)
+          ->orderBy('c.id', 'DESC')
+          ->setMaxResults(1)
+          ->getQuery()
+          ->getOneOrNullResult()
+     ;
+  }
+
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */

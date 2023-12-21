@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les produits{% endblock %}
+
+{% block main %}
+    
+  <h1>{{ title }}</h1>
+
+    <div>
+        <a href="{{ ('app_admin_product') }}">produit/</a>
+        <a href="{{ ('list_admin_product') }}">Liste des produits</a>
+    </div>
+    <div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Créer</button>
+    <button> <a href="{{ path('app_admin_product') }}">RETOUR</a></button>
+    {{ form_end(form) }}
+    </div>
+ 
+
+{% endblock %}

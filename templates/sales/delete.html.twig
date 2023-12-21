@@ -1,0 +1,13 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Sales!
+{% endblock %}
+
+{% block main %}
+	<h2>Voulez vous vraiement supprimer cette promotion?</h2>
+	<form method="POST">
+		<button class="btn btn-lg btn-danger" type="submit" name="submit">
+			Supprimer
+		</button>
+	</form>
+{% endblock %}

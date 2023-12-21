@@ -6,6 +6,7 @@ use App\Repository\SalesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SalesRepository::class)]
 class Sales
@@ -16,10 +17,18 @@ class Sales
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(
+        min: 0,
+        max: 100,
+        notInRangeMessage: 'You must write a number between {{ min }} and {{ max }}',
+    )]
     private ?float $amount_percentage = null;
 
     #[ORM\OneToMany(mappedBy: 'ProductSales', targetEntity: Product::class)]
     private Collection $products;
+
+    #[ORM\Column(length: 55)]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -69,6 +78,18 @@ class Sales
                 $product->setProductSales(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

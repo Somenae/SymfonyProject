@@ -26,6 +26,7 @@ class UserSecurityController extends AbstractController
             'last_username' => $last_username,
             "logoutpath" => "app_logout",
             'error' => $error,
+            'extends' => "{% extends \'base.html.twig\' %}"
         ]);
     }
 }

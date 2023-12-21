@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block main %}
+    <h1>{{ title }}</h1>
+    
+ 
+
+<div class="card" style="max-width: 18rem;">
+    <div class="card-header">Images</div>
+    
+    <div class="card-body">
+     <div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button> <a href="{{ path('app_admin_product') }}">RETOUR</a></button>
+    {{ form_end(form) }}
+
+    </div>
+
+    </div>
+
+    <div class="card-footer">
+    {{ message }}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DASHBOARD{% endblock %}
+
+{% block main %}
+    <h1>Tableau de bord</h1>
+    
+<a href="{{ path('app_admin_product') }}">Produits </a>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Image</th>
+                <th scope="col">Description</th>
+                <th scope="col">TVA</th>
+                <th scope="col">Promo</th>
+                <th scope="col">Action</th>
+
+              
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.image }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.ProductTaxes.amount }}</td>
+                    {% if product.ProductSales is same as(NULL) %}
+                <td>Pas de promotion</td>
+                {% else %}
+                <td>{{product.ProductSales.AmountPercentage}}</td>
+                {% endif %}
+
+             
+
+                    
+                    <td> <a href="{{ path('app_admin_show_product', {'id': product.id}) }}">Voir</a>
+                        <a href="{{ path('app_admin_update_product', {'id': product.id}) }}">Modifier</a>
+                        <a href="{{ path('app_admin_delete_product', {'id': product.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ?')">Supprimer</a>
+
+                      
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button><a href="{{ path('app_admin_create_product') }}">AJOUTER</a></button>
+{% endblock %}
+
+  
+
+
+
