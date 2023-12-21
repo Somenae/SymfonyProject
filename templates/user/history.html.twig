@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<table>
+        <tr>
+            <th>Nom client</th>
+            <th>Adresse de livraison</th>
+            <th>Adresse de facturation</th>
+            <th>Prix Total</th>
+            <th>Etat de la commande</th>
+            <th>Type de paiement</th>
+        </tr>
+    {% for item in orders %}
+        <tr>
+            <td>{{ item.clientname }}</td>
+            <td>{{ item.addressshipped.address }}</td>
+            <td>{{ item.billingaddress.address }}</td>
+            <td>{{ item.totalprice }}</td>
+            <td>{{ item.orderstate.label }}</td>
+            <td>{{ item.payment.type }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

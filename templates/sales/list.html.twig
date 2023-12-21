@@ -1,0 +1,39 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Sales!
+{% endblock %}
+
+{% block main %}
+	<table>
+		<tr>
+			<th>Nom de la promotion</th>
+			<th>Pourcentage de réduction</th>
+		</tr>
+		{% for item in sales %}
+
+
+			<tr>
+				<td>{{item.name}}</td>
+				<td>{{item.AmountPercentage}}%</td>
+				<td>
+					<a href="{{ path('app_admin_updatesale',{'id' : item.id}) }}">Modifier</a>
+				</td>
+				<td>
+					<a class="text-danger" href="{{ path('app_admin_deletesale',{'id' : item.id}) }}">Supprimer</a>
+				</td>
+                <td>
+					<a class="text-success" href="{{ path('app_admin_productesale',{'id' : item.id}) }}">Appliquer cette promotion</a>
+				</td>
+
+			</tr>
+		{% endfor %}
+	</table>
+	<li>
+		<a href="{{ path('app_admin_createsale') }}">Creer une nouvelle promotion</a>
+	</li>
+    <li>
+		<a href="{{ path('app_admin_erase_productesale') }}">Supprimer l'application de promotions aux produits</a>
+	</li>
+
+
+{% endblock %}

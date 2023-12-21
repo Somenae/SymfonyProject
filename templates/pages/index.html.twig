@@ -2,35 +2,32 @@
 
 {% block title %}Vintyle - Landing page{% endblock %}
 
-{% block body %}
+{% block main %}
+<h1>Bienvenue sur notre site de vinyle!</h1>
+
+<form>
+        <input type='text' name='product' placeholder='recherchez un produit' value='{{ product }}'>
+        <input type='submit' name='submit' value='rechercher'>
+</form>
+<div class="container">
+ <div class="row align-items-center">
     
-
-   <section class='landing'>
-    <div class="landing-promo">
-        <p>Promotions</p>
-            <div>
-                <a href=""><img src="{{ asset('asset/img/vinylepresentation-bowie.png') }}" alt="Logo"></a>
-                <a href=""><img src="{{ asset('asset/img/vinylepresentation-MassiveAttack.png') }}" alt="Logo"></a>
-            </div>
+    
+{% for item in products %}
+<div class="col-4">
+ 
+    
+        <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}</h6>
+    <p class="card-text">{{ item.description }}</p>
+    <a href="" class="btn btn-primary">Acceder à ce produit</a>
+  </div>
+</div>
+</div>
+    {% endfor %}
     </div>
-    <span></span>
-    <div class="landing-hitproduc">
-        <p>Hit Produits</p>
-        <div>
-            <a href=""><img src="{{ asset('asset/img/vinylepresentation-MassiveAttack.png') }}" alt="Logo"></a>
-            <a href=""><img src="{{ asset('asset/img/vinylepresentation-MassiveAttack.png') }}" alt="Logo"></a>
-        </div>
     </div>
-    <span></span>
-   </section>
-   
-    {# <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ 'C:/Users/Diginamic/Documents/MiniPresta/SymfonyProject/src/Controller/PagesController.php'|file_link(0) }}">src/Controller/PagesController.php</a></code></li>
-            <li>Your template at <code><a href="{{ 'C:/Users/Diginamic/Documents/MiniPresta/SymfonyProject/templates/pages/index.html.twig'|file_link(0) }}">templates/pages/index.html.twig</a></code></li>
-        </ul>
-    </div> #}
 {% endblock %}

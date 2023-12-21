@@ -1,0 +1,5 @@
+            {% if cart is same as (NULL) %}
+            <a href="{{ path('app_cart_display') }}"><img src="{{ asset('asset/img/icons-cart.svg') }}" alt="cart icon"></img>0</a>
+            {% else %}
+            <a href="{{ path('app_cart_display') }}"><img src="{{ asset('asset/img/icons-cart.svg') }}" alt="cart icon"></img>{{ cart.CartLine.count }}</a> 
+            {% endif %}
