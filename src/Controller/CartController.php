@@ -36,10 +36,14 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_login');
      }
 
-        $cart=NULL;
         $price=0 ;
-        if($cart !== NULL){
-            $cart = $cartrepo->findLastCartByIdUser($security->getUser()->getId());
+        $cart = $cartrepo->findLastCartByIdUser($security->getUser()->getId());
+        if($cart === NULL || $cart->getCartLine()=== NULL){
+            return $this->render('pages/cartDisplay.html.twig', [
+                'cartline' =>  NULL ,
+            ]);}
+
+           
             $cartline =  $cart->getCartLine();
 
             foreach($cartline as $line){
@@ -54,20 +58,20 @@ class CartController extends AbstractController
                     echo($line->getProduct()->getProductSales()->getAmountPercentage()%100);
                     echo " Poucentage de reduc    " ;
                 }
-                $price = $price +  $pricel;
+                $price = $price +  $pricel*$line->getQuantity();
 
-                return $this->render('pages/cartDisplay.html.twig', [
-                    'cartline' =>  $cartline,
-                    'price' => $price
-                ]);
+              
 
             }
+            $price =round($price, 2);
+            return $this->render('pages/cartDisplay.html.twig', [
+                'cartline' =>  $cartline,
+                'price' => $price
+            ]);
         }
-        return $this->render('pages/cartDisplay.html.twig', [
-            'cartline' =>  NULL ,
-        ]);
        
-    }
+       
+    
 
     // NON TESTE
     #[Route('/AddtoCart{id}', name: 'app_cart_add')]
@@ -86,7 +90,6 @@ class CartController extends AbstractController
            }
            $cartline = new CartLine;
            $cartline->setQuantity($_POST('quantity'));
-           $cartline->setProduct($product);
            $cartline->setProduct($product);
            $cartline->setCart($cart);
            $em->persist($cart);
