@@ -99,6 +99,9 @@ class Product
         return $this;
     }
 
+
+
+
     /**
      * @return Collection<int, Category>
      */
@@ -177,3 +180,5 @@ class Product
         return $this;
     }
 }
+
+
