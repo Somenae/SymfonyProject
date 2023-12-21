@@ -12,38 +12,29 @@ use App\Form\_ProductFormType;
 use App\Form\ProductFormType;
 use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('admin/')]
+
 class ProductController extends AbstractController
 {
-    #[Route('product', name: 'app_product')]
-    public function index(ProductRepository $ProductRepository): Response
+    #[Route ('/product/{id}', name:'app_product_details')]
+    public function productDetails(int $id, ProductRepository $productRepository): Response
     {
-        $product = $ProductRepository->findAll();
-        return $this->render('product/index.html.twig', [
-            'product' => $product,  
+        $product = $productRepository->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        $description = $product->getDescription();
+        $price = $product->getPrice();
+        $image = $product->getImage();
+
+        return $this->render('pages/productDetails.html.twig', [
+            'product' => $product,
+            'description' => $description,
+            'price' => $price,
+            'image' => $image,
         ]);
     }
 
 
-    #[Route('createproduct', name:'app_create_product')]
-    public function createArticle(
-        Request $request, 
-        EntityManagerInterface $em,
-        ): Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductFormType::class, $product);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) 
-        {
-            $em->persist($product);
-            $em->flush(); 
-            return $this->redirectToRoute('app_product');
-        } 
-       
-        return $this->render('product/create.html.twig',[
-            'title' => 'Création d\'un nouveau produit',
-            'form' => $form,
-        ]);
-    }
 }

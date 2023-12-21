@@ -65,17 +65,5 @@ Class CategoryController extends AbstractController
     }
 
 
-    #[Route ('/product/{id}', name:'app_product_details')]
-    public function productDetails(int $id, ProductRepository $productRepository): Response
-    {
-    $product = $productRepository->find($id);
-
-    if (!$product) {
-        throw $this->createNotFoundException('Product not found');
-    }
-
-    return $this->render('pages/productDetails.html.twig', [
-        'product' => $product,
-    ]);
-    }
+    
 }
