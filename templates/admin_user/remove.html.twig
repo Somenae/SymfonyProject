@@ -1,0 +1,32 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+		<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		>
+		<a href="{{ path('app_removeUser', {id : user.id}) }}">Remove {{ user.lastname }}
+			{{ user.firstname }} ?</a> 
+	</h2>
+	<br>
+
+	<div>
+	Are you sure you want to remove this customer ?
+	<br>
+	<br>
+	<div class="d-flex">
+		<form action="{{ path('app_removeUser', {'id': user.id}) }}" method="post">
+			<button type="submit" class="btn btn-danger">Remove</button>
+		</form>
+		&nbsp;
+		<a href="{{ path('app_listUsers') }}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+	</div>
+	</div>
+
+{% endblock %}

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path:'admin/')]
 class AdminsController extends AbstractController
 {
-    #[Route('new', name: 'app_admin_new_user')]
+    #[Route('new', name: 'app_admin_new_admin')]
     public function new(
         Request $request,
         EntityManagerInterface $em,

@@ -1,0 +1,45 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+		<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		>
+		<a href="{{ path ('app_editUser', {id : user.id}) }}">Edit customer</a>
+	</h2>
+	<br>
+
+	<p>Please enter the fields to update :</p>
+	<form action="{{ path('app_editUser', {'id': user.id}) }}" method="POST">
+
+		<label for="lastname"><strong>Lastname :</strong>
+		</label><input class="form-control" type="text" name="lastname" id="lastname" placeholder="Lastname" value="{{ user.lastname }}">
+		<br>
+		<label for="Firstname"><strong>Firstname :</strong>
+		</label><input class="form-control" type="text" name="firstname" id="firstname" placeholder="Firstname" value="{{ user.firstname }}">
+		<br>
+		<label for="Email"><strong>Email :</strong>
+		</label><input class="form-control" type="text" name="email" id="email" placeholder="Email" value="{{ user.email }}">
+		<br>
+		<label for=""><strong>Address :</strong>
+		</label><input class="form-control" type="text" name="address" id="address" placeholder="Address" value="{{ user.address is not null ? user.address.address : '' }}"">
+
+		<br>
+		<button type="submit" name="submit" class="btn btn-primary">Apply change</button>
+		&nbsp;
+		<a href="{{ path('app_listUsers') }}">
+			<button type="button" class="btn btn-secondary">Customers list
+			</button>
+		</a>
+
+	</form>
+
+
+{% endblock %}

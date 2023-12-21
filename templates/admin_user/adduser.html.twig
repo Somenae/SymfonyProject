@@ -1,0 +1,20 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project{% endblock %}
+
+{% block main %}
+
+
+    <br>
+    <h2>
+    <a href="{{ path ('app_admin_dashboard')}}">Dashboard</a> > 
+    <a href="{{ path ('app_listUsers')}}">Customers list</a> >
+    <a href="{{ path ('app_admin_new_user')}}">Add new customer</a> 
+    </h2>
+    <br>
+
+{{ form(form, {'method': 'POST'}) }}
+
+{{ message }}
+
+{% endblock %}
