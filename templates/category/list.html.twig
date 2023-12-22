@@ -21,8 +21,15 @@
 			<th>Categories</th>
 			<th colspan="2">Actions</th>
 		</thead>
-	</th>
-</thead></thead><tbody>
+	
+{% if (categories == null) %}
+			<tr>
+				<td colspan="6">There is no one here...</td>
+			</tr>
+		{% else %}
+
+	
+	<tbody>
 {% for category in categories %}
 	<tr>
 
@@ -39,4 +46,6 @@
 		</td>
 
 	</tr>
-{% endfor %}</tbody></table><br>{% endblock %}
+{% endfor %}</tbody>
+{% endif %}
+</table><br>{% endblock %}

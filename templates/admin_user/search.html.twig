@@ -1,0 +1,46 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+				<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		>
+
+		<a href="{{ path ('app_admin_user_search', {'search': app.request.query.get('search')}) }}">Results for :
+			{{ app.request.query.get('search') }}</a>
+	</h2>
+	<br>
+
+	<table class="table table-light table-striped">
+		<thead>
+			<th>Firstname :</th>
+			<th>Lastname :</th>
+			<th>Email :</th>
+		</thead>
+		<tbody>
+
+			{% for user in result %}
+				<tr>
+					<td>{{ user.firstname }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>{{ user.email }}</td>
+				{% else %}
+					<p>Aucun utilisateur trouvé</p>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+
+	<br>
+	<a href="{{ path('app_listUsers') }}">
+		<button type="button" class="btn btn-secondary">Customers list</button>
+	</a>
+
+{% endblock %}

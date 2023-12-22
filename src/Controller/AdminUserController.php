@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Address;
 use App\Entity\Users;
 use App\Form\AdminUserFormType;
+use App\Form\AdminUserSearchFormType;
 use App\Repository\AddressRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -139,4 +140,23 @@ class AdminUserController extends AbstractController
             'message' => $message,
         ]);
     }
+
+    // rechercher utilisateur
+    #[Route('/search', name: 'app_admin_user_search')]
+    public function search(Request $request, UsersRepository $usersrepository)
+{
+
+    $request = $request->query->get('search');
+    $result = [];
+
+    if ($request) {
+        $result = $usersrepository->search($request);
+    }
+
+    return $this->render('admin_user/search.html.twig', [
+        'result' => $result,
+    ]);
+  
+}
+    
 }

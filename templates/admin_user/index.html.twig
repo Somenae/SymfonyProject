@@ -12,9 +12,23 @@
 		<a href="{{ path ('app_listUsers')}}">Customers list</a>
 	</h2>
 	<br>
-	<a href="{{ path('app_admin_new_user') }}">
-		<button type="button" class="btn btn-primary">Create new customer</button>
-	</a>
+
+	<div class="d-flex justify-content-between">
+		<div>
+			<a href="{{ path('app_admin_new_user') }}">
+				<button type="button" class="btn btn-primary">Create new customer</button>
+			</a>
+		</div>
+
+		<div>
+			<form action="{{ path('app_admin_user_search') }}" method="GET" name="searchUser">
+				<input type="search" name="search"/>
+				<input type="submit" name="submit" value="Search"/>
+			</form>
+		</div>
+
+	</div>
+
 	<br><br>
 
 

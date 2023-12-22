@@ -35,6 +35,19 @@ class UsersRepository extends ServiceEntityRepository
         return $users;
     }
 
+
+    public function search($request)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.firstname LIKE :query')
+            ->orWhere('u.lastname LIKE :query')
+            ->orWhere('u.email LIKE :query')
+            ->setParameter('query', '%' . $request . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Users[] Returns an array of Users objects
 //     */
