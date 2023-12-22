@@ -15,52 +15,37 @@
         {% block stylesheets %}
             {{ ux_controller_link_tags() }}
         {% endblock %}
-
-
         {# {% block javascripts %}
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %} #}
-        
-        {% block javascripts %}
-            <script>
-             function displayMenu() {
-            var hamburger = document.querySelector(".icon-hamburger");
-            var menu = document.querySelector(".nav-mobile");
-            hamburger.classList.toggle("open");
-            menu.classList.toggle("open-menu");
-      }
-            </script>
-        {% endblock %}
-        
     </head>
     <body>
         {% block header %}
             <header>
                 <div class="top-nav">
-                    <div class="account-actions">
-                        <a href=""> Connexion<img src="{{ asset('asset/img/account.png') }}" alt="connexion / inscription"></a>
-                    </div>
                     <div class="home-actions">
-                        <a href="">Accueil<img src="{{ asset('asset/img/home.png') }}" alt="accueil"></a>
+                        <a href="{{ path('app_index') }}">Accueil<img src="{{ asset('asset/img/home.png') }}" alt="accueil"></a>
+                    </div>
+                    <div class="account-actions">
+                    {# use this to protect links user shouldn't access unless fully connected #}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}  
+                            <a href="{{ path('app_user_account') }}">Mon compte<img src="{{ asset('asset/img/account.png') }}"></a>
+                            <span></span>
+                            <a href="{{ path('app_user_history') }}">Historique<img src="{{ asset('asset/img/history.png') }}"></a>
+                            <span></span>
+                            <a href="{{ path('app_logout') }}">Se déconnecter<img src="{{ asset('asset/img/account2.png') }}"></a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">Se connecter<img src="{{ asset('asset/img/account1.png') }}" alt="connexion"></a>
+                            <span></span>
+                            <a id="signup" href="{{ path('app_new_user') }}">S'inscrire<img src="{{ asset('asset/img/account.png') }}" alt="inscription"></a>
+                        {% endif %}
                     </div>
                     <div class="cart-actions">
-                        <a href="">Panier<img src="{{ asset('asset/img/cart.png') }}" alt="Shopping Cart"></a>
+                        <a href="">Panier</a>
+                           {{ render(controller(
+                         'App\\Controller\\PagesController::cartCount'
+                             )) }}
                     </div>
-                    
-                    <ul>
-                <li><a href="{{ path('app_index') }}">Accueil</a></li>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# use this to protect links user shouldn't access unless fully connected #}
-                    <li><a href="{{ path('app_user_account') }}">Mon compte</a></li>
-                    <li><a href="{{ path('app_user_history') }}">Historique</a></li>
-                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                {% else %}
-                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
-                    <li><a href="{{ path('app_new_user') }}">Créer un compte</a></li>
-                {% endif %}
-            </ul>
-            {{ render(controller(
-                'App\\Controller\\PagesController::cartCount'
-            )) }}
                 </div>
                 <div class="mid-nav">
                     <div class="logo">
@@ -72,26 +57,62 @@
                         </button>
                     </div>
                 </div>
+                {# <div class="hamburger-menu" role="barre de navigation pour mobile">
+                    <ul>
+                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 1</a></li>
+                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 2</a></li>
+                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 3</a></li>
+                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="">Catégorie 4</a></li>
+                    </ul>
+                </div> #}
             </header>
         {% endblock %}
-        {% block body %}{% endblock %}
-        
+        {% block main %}{% endblock %}
             {% block footer %}
                 <footer>
                     <div class="top-footer">
-                    
+                      <div class="about-sitemap">
+                            <div>  
+                                <h2>A PROPOS</h2>
+                                <ul>
+                                    <li><a href="{{ path('app_index') }}">FAQ</a></li>
+                                    <li><a href="{{ path('app_index') }}">Notre histoire</a></li>
+                                    <li><a href="{{ path('app_index') }}">Notre entreprise</a></li>
+                                </ul>
+                            </div>
+                            <div>  
+                                <h2>SITEMAP</h2>
+                                <ul>
+                                    <li><a href="{{ path('app_index') }}">Accueil</a></li>
+                                    <li><a href="{{ path('app_index') }}">Mon compte</a></li>
+                                    <li><a href="{{ path('app_index') }}">Mes commandes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="contact">
+                            <div class="contact-us">
+                                <h2>CONTACTEZ-NOUS</h2>
+                                <div>
+                                    <a href="{{ path('app_index') }}"><img src="{{ asset('asset/img/email.png') }}" alt="email">vintyle@gmail.com</a>
+                                    <a href="{{ path('app_index') }}"><img src="{{ asset('asset/img/phone.png') }}" alt="phone">06 03 59 38 92</a>
+                                </div>
+                            </div>
+                             <div class="newsletter">
+                                <h2>REJOIGNEZ NOTRE NEWSLETTER</h2>
+                                <form action="/votre-route-de-traitement" method="post">
+                                    <label for="email">Adresse e-mail:</label>
+                                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                                    <button type="submit">S'abonner</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="bottom-footer">
-                         <a href="">Mentions légales</a>
+                         <a href="{{ path('app_index') }}">Mentions légales</a>
+                         <a href="{{ path('app_index') }}">Données personnelles</a>
+                         <a href="{{ path('app_index') }}">Copyright © Vintyle 2023 . Tous droits reservés.</a>
                     </div>
-
                 </footer>
             {% endblock %}
-
     </body>
-    
 </html>
-
-   {% block header %}
-            
-            {% endblock %}
