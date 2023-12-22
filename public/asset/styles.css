@@ -1,0 +1,79 @@
+
+/* Style du main */
+main {
+    background-color: #FFEDD8;
+    padding: 2em;
+}
+/* Style barre de recherche */
+form {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
+}
+form input type{
+    border: 1em;
+    border-radius: 0.3em;
+    background-color: #e7bc91;
+}
+
+/* Style du container */
+.container {
+    background-color: #e7bc91;
+    border-radius: 1em;
+    margin-top: 2em;
+   
+}
+
+/* style display de la card */
+.row{
+    gap: 2em !important;
+    flex-wrap: wrap;
+    background-color: #E7BC91;
+    width: 90%;
+    margin: 0.5em;
+    border: 0.2em solid #603808;
+    border-radius: 5px;
+}
+
+/* Style de la card */
+.card {
+    margin: 2em;
+    Padding: 1em !important;
+    border: 0.2em solid !important;
+    background-color: #e7bc91 !important;
+    ;
+}
+
+
+
+/* <div class="container"
+    style="
+       background-color: #E7BC91;
+       width: 100%;
+       border-radius: 5px;"
+   ">
+   <h1>PROMOTION</h1>
+   
+   <div class="container"
+    style="
+       background-color: #E7BC91;
+       width: 100%;
+       border-radius: 5px;"
+   ">
+ <div class="row" 
+       style="
+           background-color: #E7BC91;
+           width: 90%;
+           margin: 0.5em;
+           border: 0.2em solid #603808;
+           border-radius: 5px;"
+   >
+   <div class="col-sm">
+     <img src="{{ asset('/upload/productimage/'~product.image) }}" alt="Logo Image">
+   </div>
+   <div class="col-sm">
+     <img src="{{ asset('/asset/img/logo.svg') }}" alt="Logo Image">
+   </div>
+</div> #}
+*/

@@ -29,7 +29,6 @@ class AdminPagesController extends AbstractController
             if (!$security->isGranted('ROLE_ADMIN')) {
                 return $this->redirectToRoute('app_admin_login');
             }
-            return $this->redirectToRoute('app_admin_dashboard');
         }
 
         return $this->render('admin_pages/dashboard.html.twig', [
