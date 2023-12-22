@@ -5,20 +5,20 @@
 {% block main %}
 <h1>Commande</h1>
 
-<table class="table table-hover">
-  <thead class="thead-dark" >
+<table>
+  <thead>
     <tr>
-      <th scope="col">Nom Produit</th>
-      <th scope="col">Quantité</th>
-      <th scope="col">Prix par unité</th>
-      <th scope="col">Reduction appliquée</th>
-      <th scope="col">description</th>
+      <th>Nom Produit</th>
+      <th>Quantité</th>
+      <th>Prix par unité</th>
+      <th>Reduction appliquée</th>
+      <th>description</th>
     </tr>
   </thead>
   <tbody>
   {% for line in cartline %}
     <tr>
-      <th scope="row">{{ line.product.name }}</th>
+      <th>{{ line.product.name }}</th>
       <td>{{ line.quantity }}</td>
       <td>{{ line.product.price }}€</td>
 

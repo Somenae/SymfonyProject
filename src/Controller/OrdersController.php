@@ -2,19 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
 use App\Repository\CartRepository;
+use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: 'order/')]
 class OrdersController extends AbstractController
 {
-    #[Route('order', name: 'app_user_orders')]
+    #[Route('summary', name: 'app_user_summary')]
     public function index(
         Security $security,
         CartRepository $cartrepo,
+        Request $request,
     ): Response
     { {
             if (!$security->isGranted('ROLE_USER')) {
@@ -24,11 +28,13 @@ class OrdersController extends AbstractController
             $cart = NULL;
             $price = 0;
             if ($security->isGranted('ROLE_USER')) {
-                $cart = $cartrepo->findLastCartByIdUser($security->getUser()->getId());
+                $user = $security->getUser();
+                $cart = $cartrepo->findLastCartByIdUser($user->getId());
+
                 if ($cart === NULL) {
                     return $this->redirectToRoute('app_index'); //change this later if necessary
                 }
-                
+
                 $cartline =  $cart->getCartLine();
 
                 foreach ($cartline as $line) {
@@ -39,17 +45,41 @@ class OrdersController extends AbstractController
                     }
                     if ($line->getProduct()->getProductSales() !== NULL) {
                         $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
-                        echo ($line->getProduct()->getProductSales()->getAmountPercentage() % 100);
-                        echo " Poucentage de reduc    ";
                     }
-                    $price = $price +  $pricel;
+                    $price = $price + $pricel * $line->getQuantity();
                 }
             }
-            return $this->render('pages/cartDisplay.html.twig', [
+            
+            $price = round($price, 2);
+            return $this->render('orders/index.html.twig', [
                 'cartline' =>  $cartline,
                 'price' => $price,
                 'title' => 'Passer votre commande',
             ]);
         }
+    }
+
+    #[Route(path:'order' , name:'app_user_order')]
+    public function order(
+        Request $request,
+        Security $security,
+        CartRepository $cartrepo,
+    ): Response
+    {
+        if ($user = $security->getUser() === NULL) {
+            return $this->redirectToRoute('app_index');
+        }
+        if ($request->request->has('buy')) {
+            $orders = new Orders();
+            $orders->setUsers($user);
+            $orders->setCart($cart);
+            $orders->setClientName($user->getFirstName().' '.$user->getLastName());
+
+        }
+
+        return $this->render('orders/order.html.twig', [
+            'orders' => $orders,
+            'title' => 'Commande en cours',
+        ]);
     }
 }
