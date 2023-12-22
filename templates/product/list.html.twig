@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Creer un produit{% endblock %}
+{% block title %}Les produits{% endblock %}
 
 {% block main %}
-     <h1>{{ title }}</h1>
-     <div>
+    
+  <h1>{{ title }}</h1>
+
+    <div>
         <a href="{{ ('app_admin_product') }}">produit/</a>
-        <a href="{{ ('app_admin_create_product') }}">Creer un produit</a>
+        <a href="{{ ('list_admin_product') }}">Liste des produits</a>
     </div>
     <div>
     {{ form_start(form) }}
@@ -15,5 +17,6 @@
     <button> <a href="{{ path('app_admin_product') }}">RETOUR</a></button>
     {{ form_end(form) }}
     </div>
-{% endblock %}
+ 
 
+{% endblock %}

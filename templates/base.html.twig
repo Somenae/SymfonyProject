@@ -57,14 +57,20 @@
                         </button>
                     </div>
                 </div>
-                {# <div class="hamburger-menu" role="barre de navigation pour mobile">
+                <div class="hamburger-menu" role="barre de navigation pour mobile">
                     <ul>
                         <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 1</a></li>
                         <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 2</a></li>
                         <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 3</a></li>
                         <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="">Catégorie 4</a></li>
                     </ul>
-                </div> #}
+                    <div>
+                        <a href="{{ path('app_index_categories') }}">Categories</a>
+                {{ render(controller(
+                'App\\Controller\\CategoryController::categoryLink'
+            )) }}
+                    </div>
+                </div>
             </header>
         {% endblock %}
         {% block main %}{% endblock %}
