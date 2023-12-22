@@ -47,10 +47,10 @@ class CartController extends AbstractController
             $cartline =  $cart->getCartLine();
 
             foreach($cartline as $line){
-                $pricel= + ($line->getQuantity())*($line->getProduct()->getPrice());
+                $pricel= ($line->getProduct()->getPrice());
                
                 if ($line->getProduct()->getProductTaxes() !== NULL){
-                    $pricel = $pricel *(1-(($line->getProduct()->getProductTaxes()->getAmount())/100));
+                    $pricel = $pricel *(1+(($line->getProduct()->getProductTaxes()->getAmount())/100));
 
                 }
                 if ($line->getProduct()->getProductSales() !== NULL){

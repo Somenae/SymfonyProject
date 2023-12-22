@@ -1,1 +1,48 @@
 {% extends 'adminBase.html.twig' %}
+
+{% block title %}Affichage des commandes{% endblock %}
+
+{% block main %}
+<h1>Toute les commandes</h1>
+
+<form method='GET'>
+    <label for="selectionType">Choisir l'entité de la recherche:</label>
+    <select name="selectionType" id="selectionType" required>
+        <option value="id">ID</option>
+        <option value="order_date">Date</option>
+        <option value="client_name">Nom du client</option>
+        <option value="total_price">Prix total</option>
+    </select>
+        <input type='text' name='SelectionName' placeholder='Rechercher une commande' value={{ SelectionName}}>
+        <input type='submit' name='submit' value='rechercher'>
+</form>
+
+<table class="table table-hover">
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">ID order</th>
+      <th scope="col">Date de la commande</th>
+      <th scope="col">Nom du client</th>
+      <th scope="col">Prix total</th>
+      <th scope="col">Etat de la commande</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in orders %}
+    <tr>
+      <th scope="row"><a href="{{ path('app_admin_show_order') }}">{{ order.id }}</a></th>
+      <td>{{ order.OrderDate.format('Y-m-d') }}</td>
+      <td>{{ order.ClientName }}</td>
+        <td>{{ order.TotalPrice }}</td>
+      <td>{{ order.OrderState.Label }}</td>
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+<ul class="pagination">
+{% for i in 1.. ordercount %}
+    <li><a href="{{ path('app_admin_list_order', { 'selectionType': selectionType }, { 'SelectionName': SelectionName }, { 'page': i+1 }) }}">{{ i+1 }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

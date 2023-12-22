@@ -20,6 +20,31 @@ class OrdersRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Orders::class);
     }
+      /**
+     * @return Orders[] Returns an array of Orders objects
+     */
+    public function findByAttributeOffset($val, $field, $offset=0): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.'.$field.' = :val')
+            ->setParameter('val', '%'.$val.'%')
+            ->orderBy('o.id', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByAttributeCount($val, $field)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.'.$field.' like :val')
+            ->setParameter('val', '%'.$val.'%')
+            ->orderBy('o.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    /**
 //     * @return Orders[] Returns an array of Orders objects
