@@ -47,6 +47,29 @@ class UsersRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countSearchResults($request)
+{
+    $queryBuilder = $this->createQueryBuilder('u');
+    $queryBuilder->select('count(u.id)')
+        ->where('u.firstname LIKE :query')
+        ->orWhere('u.lastname LIKE :query')
+        ->orWhere('u.email LIKE :query')
+        ->setParameter('query', '%'.$request.'%');
+
+    $query = $queryBuilder->getQuery();
+
+    return $query->getSingleScalarResult();
+}
+
+public function countUsers()
+{
+    $queryBuilder = $this->createQueryBuilder('u');
+    $queryBuilder->select('count(u.id)');
+
+    $query = $queryBuilder->getQuery();
+
+    return $query->getSingleScalarResult();
+}
 
 //    /**
 //     * @return Users[] Returns an array of Users objects

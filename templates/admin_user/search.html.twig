@@ -12,7 +12,7 @@
 				<a href="{{ path ('app_listUsers')}}">Customers list</a>
 		>
 
-		<a href="{{ path ('app_admin_user_search', {'search': app.request.query.get('search')}) }}">Results for :
+		<a href="{{ path ('app_admin_user_search', {'search': app.request.query.get('search')}) }}">{{ count }} Result(s) for :
 			{{ app.request.query.get('search') }}</a>
 	</h2>
 	<br>

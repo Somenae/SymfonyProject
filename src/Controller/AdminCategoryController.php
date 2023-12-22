@@ -61,7 +61,7 @@ class AdminCategoryController extends AbstractController
         if ($category === null) {
             throw $this->createNotFoundException('Categorie non trouvée');
         }
-        $form = $this->createForm(categoryFormType::class, $category);
+        $form = $this->createForm(CategoryFormType::class, $category);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

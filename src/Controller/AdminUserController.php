@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 #[Route('/admin')]
 class AdminUserController extends AbstractController
@@ -22,11 +24,20 @@ class AdminUserController extends AbstractController
 
     // Afficher la liste des utilisateurs
     #[Route('/listUsers', name: 'app_listUsers')]
-    public function listUsers(Request $request, UsersRepository $usersrepository): Response
+    public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator): Response
     {
-        $users = $usersrepository->findAll();
+        $query = $usersrepository->findAll(); // chercher tous les users
+        $users = $paginator->paginate(  
+            $query,
+            $request->query->getInt('page', 1), // numéro de page
+            5 // limite par page
+        );
+    
+        $count = $usersrepository->countUsers();
+
         return $this->render('admin_user/index.html.twig', [
             'users' => $users,
+            'count' => $count,
         ]);
     }
 
@@ -145,16 +156,19 @@ class AdminUserController extends AbstractController
     #[Route('/search', name: 'app_admin_user_search')]
     public function search(Request $request, UsersRepository $usersrepository)
 {
-
     $request = $request->query->get('search');
     $result = [];
+    $count = 0;
 
     if ($request) {
         $result = $usersrepository->search($request);
+        $count = $usersrepository->countSearchResults($request);
     }
+
 
     return $this->render('admin_user/search.html.twig', [
         'result' => $result,
+        'count' => $count,
     ]);
   
 }

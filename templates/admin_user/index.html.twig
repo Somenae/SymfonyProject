@@ -9,7 +9,7 @@
 	<h2>
 		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
 		>
-		<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		<a href="{{ path ('app_listUsers')}}">Customers list ({{ count }} customers)</a> 
 	</h2>
 	<br>
 
@@ -79,6 +79,11 @@
 			</tbody>
 		{% endif %}
 	</table>
+
+	<!-- Display pagination links -->
+<div class="navigation">
+    {{ knp_pagination_render(users) }}
+</div>
 
 
 {% endblock %}
