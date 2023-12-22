@@ -86,7 +86,7 @@ class AdminCategoryController extends AbstractController
             throw $this->createNotFoundException('Categorie non trouvée');
         }
         $token = $request->request->get('token');
-
+        dd($token);
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $token)) {
         $em->remove($category);
         $em->flush();

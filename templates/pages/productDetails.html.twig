@@ -10,15 +10,12 @@
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ description }}</p>
         <p class="card-text">Prix: {{ price }}</p>
-        <form method="post" action="{{ path('app_index', {'id': product.id}) }}">
+        <form method="post" action="{{ path('app_index', {'id': product.id}) }}"> {# app_index path must be changed to 'app_cart_add'#}
             <label for="quantity">Quantité:</label>
             <input type="number" id="quantity" name="quantity" min="1" max="100">
             <input type="submit" value="Ajouter au panier">
         </form>
-        
     </div>
 </div>
 
-
 {% endblock %}
-
