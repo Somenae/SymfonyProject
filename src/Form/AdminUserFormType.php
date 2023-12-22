@@ -25,28 +25,9 @@ class AdminUserFormType extends AbstractType
             ->add('lastname', null, ['label' => 'Lastname'])
             ->add('firstname', null, ['label' => 'Firstname'])
             ->add('email', EmailType::class, ['label' => 'E-mail', 'required' => true,])
-
-/*             ->add('address', null, ['label' => 'Address'])
- */
-
-                ->add('address', TextType::class, [
+            ->add('address', TextType::class, [
                 'mapped' => false,
-             ])
-
-
- /*                ->add('address', EntityType::class, [
-                'class' => Address::class,
-                'choice_label' => function (Address $address) {
-                    return $address->getAddress();
-                },
-            ])   */
-
-/*             ->add('address', EntityType::class, [
-                'class' => Address::class,
-                'choice_label' => 'address',
-              ])
- */              
-            
+             ])            
 
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,

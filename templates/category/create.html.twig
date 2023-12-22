@@ -5,9 +5,18 @@
 {% block body %}
 {% block main %}
    
-   {{ form(form, {'method': 'POST'}) }}
+   <br>
+	<h2>
+		<a href="{{ path ('app_admin_list_categories')}}">Categories</a> >
+		<a href="{{ path ('app_admin_create_category')}}">New category</a>
+	</h2>
+	<br>
 
-    <a href="{{ path('app_admin_list_categories') }}" class="btn btn-primary">Retourner à Categories</a>
+
+   {{ form(form, {'method': 'POST'}) }}
+   
+
+    <a href="{{ path('app_admin_list_categories') }}" class="btn btn-secondary">Categories list</a>
 
 {% endblock %}
 

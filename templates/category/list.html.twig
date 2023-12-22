@@ -1,23 +1,42 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
-
+{% block title %}Hello CategoryController!
+{% endblock %}
 
 
 {% block main %}
 
-<h2>Categories:</h2>
 
+	<br>
+	<h2>
+		<a href="{{ path ('app_index_categories')}}">Categories</a>
+	</h2>
+	<br>
+
+	<a href="{{ path('app_admin_create_category') }}" class="btn btn-primary">Create a new category</a>
+	<br><br>
+
+	<table class="table table-light table-striped">
+		<thead>		
+			<th>Categories</th>
+			<th colspan="2">Actions</th>
+		</thead>
+	</th>
+</thead></thead><tbody>
 {% for category in categories %}
-   <ul>
-       <li><a href="{{ path('app_admin_show_category', {'id': category.id}) }}">{{ category.name }}</a></li>
-   </ul>
-{% endfor %}
+	<tr>
 
-<a href="{{ path('app_admin_create_category') }}" class="btn btn-primary">Créer nouvelle categorie</a>
+		<td>
+			<a href="{{ path('app_admin_show_category', {'id': category.id}) }}">{{ category.name }} </a>
+		</td>
 
+		<td>
+			<a href="{{ path('app_admin_show_category', {'id': category.id}) }}"><button class="btn btn-primary">Show</button></a>
+		</td>
 
+		<td>
+			<a href="{{ path('app_admin_update_category', {'id': category.id}) }}"><button class="btn btn-primary">Edit</button></a>
+		</td>
 
-
-
-{% endblock %}
+	</tr>
+{% endfor %}</tbody></table><br>{% endblock %}

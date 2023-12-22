@@ -16,17 +16,21 @@ class CategoryFormType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('submit', SubmitType::class, [
+            /*             ->add('submit', SubmitType::class, [
                 'label' => $options['label_name']
                 ])
-        ;
+        ; */
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Submit'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
-            'label_name' => "Modifier la categorie"
+            'label_name' => "Update category"
         ]);
     }
 }

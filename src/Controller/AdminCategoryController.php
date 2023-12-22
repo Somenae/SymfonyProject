@@ -18,7 +18,7 @@ class AdminCategoryController extends AbstractController
     public function createCategory(EntityManagerInterface $em, Request $request): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryFormType::class, $category,[
+        $form = $this->createForm(CategoryFormType::class, $category, [
             'label_name' => "Créer nouvelle categorie"
         ]);
 
@@ -26,15 +26,14 @@ class AdminCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($category);
             $em->flush();
-            return $this->redirectToRoute('app_admin_show_category', ['id' => $category->getId()]);    
-            }
-           
-                
+            return $this->redirectToRoute('app_admin_list_categories', ['id' => $category->getId()]);
+        }
+
+
         return $this->render('category/create.html.twig', [
             'form' => $form,
-                    
-                ]);
-            
+
+        ]);
     }
 
     #[Route('/showCategory/{id}', name: 'app_admin_show_category')]
@@ -68,15 +67,14 @@ class AdminCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($category);
             $em->flush();
-            return $this->redirectToRoute('app_admin_show_category', ['id' => $category->getId()]);    
-            }
-           
-                
+            return $this->redirectToRoute('app_admin_list_categories', ['id' => $category->getId()]);
+        }
+
+
         return $this->render('category/update.html.twig', [
             'form' => $form,
-                    
-                ]);
-            
+
+        ]);
     }
 
     #[Route('/deleteCategory/{id}', name: 'app_admin_delete_category')]
@@ -87,12 +85,21 @@ class AdminCategoryController extends AbstractController
         }
         $token = $request->request->get('token');
 
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $token)) {
-        $em->remove($category);
-        $em->flush();
+        $token = $request->query->get('token');
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $token)) {
+            $em->remove($category);
+            $em->flush();
         }
-        return $this->redirectToRoute('app_admin_create_category');
-    }
 
+        return $this->redirectToRoute('app_admin_list_categories');
+    }
 }
 
+/* if ($request->isMethod('POST')) {
+    $usersrepository->remove($users);
+    return $this->redirectToRoute('app_listUsers');
+}
+
+return $this->render('admin_user/remove.html.twig', [
+    'user' => $users,
+]); */
