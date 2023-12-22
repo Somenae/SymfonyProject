@@ -2,8 +2,15 @@
 
 {% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('asset/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    
+{% endblock %}
+
+
 {% block main %}
-{# <h1>Bienvenue sur notre site de vinyle!</h1>
+<h1>Bienvenue sur notre site de vinyle!</h1>
 
 <form>
         <input type='text' name='product' placeholder='recherchez un produit' value='{{ product }}'>
@@ -17,9 +24,8 @@
 {% for item in products %}
 <div class="col-4">
  
-    
-        <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
+ <div class="card" style="width: 18rem; ">
+  <img class="card-img-top" src="{{ asset('uploads/productimage/'~item.image) }}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{ item.name }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}</h6>
@@ -34,5 +40,3 @@
 {% endblock %}
 
 
-
-   #}
