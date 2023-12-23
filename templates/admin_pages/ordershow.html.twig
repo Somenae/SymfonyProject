@@ -1,0 +1,82 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Affichage des commandes{% endblock %}
+
+{% block main %}
+<h1>Commandes n° {{ order.id }}</h1>
+
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td>{{ order.id }}</td>
+    </tr>
+     <tr>
+      <td>Date de commande</td>
+      <td>{{ order.OrderDate.format('Y-m-d') }}</td>
+    </tr>
+     <tr>
+      <td>Nom du client</td>
+      <td>{{ order.ClientName }}</td>
+    </tr>
+     <tr>
+      <td>Prix total</td>
+      <td>{{ order.TotalPrice }}</td>
+    </tr>
+     <tr>
+      <td>Adresse d'envoi</td>
+      <td>{{ order.AddressShipped.address }}</td>
+    </tr>
+    <tr>
+      <td>Adresse de facturation</td>
+      <td>{{ order.BillingAddress.address }}</td>
+    </tr>
+    <tr>
+      <td>Etat de la commande</td>
+      <td>{{ order.OrderState.Label }}</td>
+    </tr>
+    <tr>
+      <td>Moyen de paiement </td>
+      <td>{{ order.Payment.type }}</td>
+    </tr>
+    <tr>
+      <td>Moyen de livraison </td>
+      <td>{{ order.shipping.company }}</td>
+    </tr>
+    </tbody>
+    </table>
+
+
+    <table class="table table-hover">
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">Nom Produit</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix par unité</th>
+      <th scope="col">Reduction appliquée</th>
+      <th scope="col">description</th>
+      <th scope="col">Modifier/supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+  <h3>Produits dans la commandes:<h3>
+  {% for line in orderlines %}
+    <tr>
+      <th scope="row">{{ line.product.name }}</th>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.product.price }}€</td>
+
+       {% if line.product.productsales is same as (NULL) %}
+       <td>Pas de promotion actuellement</td>
+        {% else %}
+        <td>{{ line.product.productsales.amountpercentage }}%</td>
+        {% endif %}
+        <td>{{ line.product.description }}</td>
+      <td><a class="text-danger" href="{{ path('app_cart_remove',{'id' : line.id}) }}">Supprimer</a></td>
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

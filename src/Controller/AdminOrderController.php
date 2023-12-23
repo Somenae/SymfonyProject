@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
 use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -22,15 +23,15 @@ class AdminOrderController extends AbstractController
         if (!$security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_admin_login');
         }
-        $page = ($request->query->get('page','1')-1);
-        $offset = $page*10;
+        $page = ($request->query->get('page','1'));
+        $offset = ($page-1)*10;
         $selectionType = $request->query->get('selectionType','id');
         $SelectionName = $request->query->get('SelectionName', '');
         $ordercount = count($ordersrepo ->findByAttributeCount($SelectionName, $selectionType));
         $ordercount= $ordercount/10;
         $ordercount= ceil($ordercount);
         $orders = $ordersrepo ->findByAttributeOffset($SelectionName, $selectionType, $offset );
-       
+    //    dd($ordercount);
         
         
         return $this->render('admin_pages/orderlist.html.twig', [
@@ -43,19 +44,26 @@ class AdminOrderController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/showorder', name:'app_admin_show_order')]
+    #[Route(path:'/showorder/{id}', name:'app_admin_show_order')]
     public function showOrder(
         Security $security,
-        OrdersRepository $ordersrepo,
+        Request $request,
+        Orders $order,
     ): Response
     {
+
         if (!$security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_admin_login');
         }
-        $orders = $ordersrepo ->findAll();
-        return $this->render('admin_pages/orderlist.html.twig', [
+        if ($order === NULL) {
+            return $this->redirectToRoute('app_admin_list_order');
+        }
+        $orderlines = $order->getOrderLines();
+
+        return $this->render('admin_pages/ordershow.html.twig', [
             'title' => 'Orders list',
-            'orders' => $orders,
+            'order' => $order,
+            'orderlines' => $orderlines,
         ]);
     }
 

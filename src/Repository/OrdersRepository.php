@@ -26,7 +26,7 @@ class OrdersRepository extends ServiceEntityRepository
     public function findByAttributeOffset($val, $field, $offset=0): array
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.'.$field.' = :val')
+            ->andWhere('o.'.$field.' like :val')
             ->setParameter('val', '%'.$val.'%')
             ->orderBy('o.id', 'DESC')
             ->setFirstResult($offset)
