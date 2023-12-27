@@ -37,6 +37,11 @@
 		<thead>
 			<th scope="col">
 				Lastname
+				  	{% if ( trinom == 'desc') %}
+                		<a href="{{ path('app_listUsers') }}?lastname={{ trinom }}&firstname=asc&triprenom={{ triprenom }}"> A </a>
+            		{% else %}
+                		<a href="{{ path('app_listUsers') }}?lastname={{ trinom }}&firstname=desc&triprenom={{ triprenom }}"> D </a>
+            		{% endif %}
 			</th>
 			<th scope="col">
 				Firstname
@@ -82,7 +87,7 @@
 
 	<!-- Display pagination links -->
 <div class="navigation">
-    {{ knp_pagination_render(users) }}
+    {{ knp_pagination_render(users, 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v5_pagination.html.twig') }}
 </div>
 
 

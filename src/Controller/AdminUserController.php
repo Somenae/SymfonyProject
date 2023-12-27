@@ -26,6 +26,10 @@ class AdminUserController extends AbstractController
     #[Route('/listUsers', name: 'app_listUsers')]
     public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator): Response
     {
+        $trinom = $request->query->get('lastname','asc');
+        $triprenom = $request->query->get('firstname','asc');
+        $trimail = $request->query->get('email','asc');
+
         $query = $usersrepository->findAll(); // chercher tous les users
         $users = $paginator->paginate(  
             $query,
@@ -38,6 +42,9 @@ class AdminUserController extends AbstractController
         return $this->render('admin_user/index.html.twig', [
             'users' => $users,
             'count' => $count,
+            'trinom' => $trinom,
+            'triprenom' => $triprenom,
+            'trimail' => $trimail,
         ]);
     }
 
