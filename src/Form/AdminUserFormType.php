@@ -22,20 +22,20 @@ class AdminUserFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastname', null, ['label' => 'Lastname'])
-            ->add('firstname', null, ['label' => 'Firstname'])
-            ->add('email', EmailType::class, ['label' => 'E-mail', 'required' => true,])
+            ->add('lastname', null, ['label' => 'Lastname: *', 'required' => true,])
+            ->add('firstname', null, ['label' => 'Firstname: *', 'required' => true,])
+            ->add('email', EmailType::class, ['label' => 'E-mail: *', 'required' => true,])
             ->add('address', TextType::class, [
-                'mapped' => false,
+                'mapped' => false, 'required' => true, 'label' => 'Address: *',
              ])            
 
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe ne correspondent pas.',
+                'invalid_message' => 'Passwords do not match.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Password: *'],
+                'second_options' => ['label' => 'Repeat Password: *'],
                 ])
 
             ->add('submit', SubmitType::class, [

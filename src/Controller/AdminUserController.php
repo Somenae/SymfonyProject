@@ -26,17 +26,17 @@ class AdminUserController extends AbstractController
     #[Route('/listUsers', name: 'app_listUsers')]
     public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator): Response
     {
-        $trinom = $request->query->get('lastname','asc');
-        $triprenom = $request->query->get('firstname','asc');
-        $trimail = $request->query->get('email','asc');
+        $trinom = $request->query->get('lastname', 'asc');
+        $triprenom = $request->query->get('firstname', 'asc');
+        $trimail = $request->query->get('email', 'asc');
 
         $query = $usersrepository->findAll(); // chercher tous les users
-        $users = $paginator->paginate(  
+        $users = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1), // numéro de page
             5 // limite par page
         );
-    
+
         $count = $usersrepository->countUsers();
 
         return $this->render('admin_user/index.html.twig', [
@@ -94,6 +94,10 @@ class AdminUserController extends AbstractController
             $email = $request->request->get('email');
             $oldaddress = $user->getAddress();
             $newaddress = $request->request->get('address');
+            
+            if ($oldaddress !== null) {
+                $oldaddress->setAddress($newaddress);
+            }
 
             // si les champs sont vides, renvoyer message d'erreur
             if ($lastname === "" || $firstname === "" || $email === "" || $newaddress === "") {
@@ -101,7 +105,7 @@ class AdminUserController extends AbstractController
             } else {
                 // création d'un nouvel utilisateur et utilisation des méthode de l'entité Users
 
-                
+
                 $user->setLastname($lastname);
                 $user->setFirstname($firstname);
                 $user->setEmail($email);
@@ -114,6 +118,7 @@ class AdminUserController extends AbstractController
 
         return $this->render('admin_user/edit.html.twig', [
             'user' => $user,
+            'message' => $message,
         ]);
     }
 
@@ -162,22 +167,20 @@ class AdminUserController extends AbstractController
     // rechercher utilisateur
     #[Route('/search', name: 'app_admin_user_search')]
     public function search(Request $request, UsersRepository $usersrepository)
-{
-    $request = $request->query->get('search');
-    $result = [];
-    $count = 0;
+    {
+        $request = $request->query->get('search');
+        $result = [];
+        $count = 0;
 
-    if ($request) {
-        $result = $usersrepository->search($request);
-        $count = $usersrepository->countSearchResults($request);
+        if ($request) {
+            $result = $usersrepository->search($request);
+            $count = $usersrepository->countSearchResults($request);
+        }
+
+
+        return $this->render('admin_user/search.html.twig', [
+            'result' => $result,
+            'count' => $count,
+        ]);
     }
-
-
-    return $this->render('admin_user/search.html.twig', [
-        'result' => $result,
-        'count' => $count,
-    ]);
-  
-}
-    
 }

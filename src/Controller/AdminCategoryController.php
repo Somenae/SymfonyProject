@@ -18,7 +18,7 @@ class AdminCategoryController extends AbstractController
     public function createCategory(EntityManagerInterface $em, Request $request): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryFormType::class, $category, [
+        $form = $this->createForm(categoryFormType::class, $category, [
             'label_name' => "Créer nouvelle categorie"
         ]);
 
