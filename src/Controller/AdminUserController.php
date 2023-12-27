@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Address;
 use App\Entity\Users;
 use App\Form\AdminUserFormType;
-use App\Form\AdminUserSearchFormType;
 use App\Repository\AddressRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\Security;
 
 
 #[Route('/admin')]
@@ -22,22 +22,33 @@ class AdminUserController extends AbstractController
 {
 
 
-    // Afficher la liste des utilisateurs
+    // Afficher la liste des utilisateurs --------------------------------------------------------------------------------
+    
     #[Route('/listUsers', name: 'app_listUsers')]
-    public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator): Response
+    public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator, Security $security): Response
     {
+
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $trinom = $request->query->get('lastname', 'asc');
         $triprenom = $request->query->get('firstname', 'asc');
         $trimail = $request->query->get('email', 'asc');
 
         $query = $usersrepository->findAll(); // chercher tous les users
-        $users = $paginator->paginate(
+        
+        if (empty($query)) {
+            $users= null;
+        } else {
+            $users = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1), // numéro de page
             5 // limite par page
         );
-
+    }
         $count = $usersrepository->countUsers();
+
 
         return $this->render('admin_user/index.html.twig', [
             'users' => $users,
@@ -50,10 +61,15 @@ class AdminUserController extends AbstractController
 
 
 
-    // Afficher un user
+    // Afficher un user --------------------------------------------------------------------------------
+    
     #[Route('/showUser/{id}', name: 'app_showUser')]
-    public function showUser(Users $users): Response
+    public function showUser(Users $users, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         if ($users === null) {
             return $this->redirectToRoute('app_listUsers');
         }
@@ -63,10 +79,15 @@ class AdminUserController extends AbstractController
     }
 
 
-    // Supprimer un client
+    // Supprimer un user --------------------------------------------------------------------------------
+
     #[Route('/removeUser/{id}', name: 'app_removeUser')]
-    public function removeUser(Users $users, UsersRepository $usersrepository, Request $request): Response
+    public function removeUser(Users $users, UsersRepository $usersrepository, Request $request, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         if ($request->isMethod('POST')) {
             $usersrepository->remove($users);
             return $this->redirectToRoute('app_listUsers');
@@ -79,10 +100,15 @@ class AdminUserController extends AbstractController
 
 
 
-    // Modifier un user 
+    // Modifier un user --------------------------------------------------------------------------------
+
     #[Route('/editUser/{id}', name: 'app_editUser')]
-    public function editUser(Users $user, Request $request, UsersRepository $usersrepository, AddressRepository $addressRepository): Response
+    public function editUser(Security $security, Users $user, Request $request, UsersRepository $usersrepository, AddressRepository $addressRepository): Response
     {
+
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
 
         $message = '';
 
@@ -94,7 +120,7 @@ class AdminUserController extends AbstractController
             $email = $request->request->get('email');
             $oldaddress = $user->getAddress();
             $newaddress = $request->request->get('address');
-            
+
             if ($oldaddress !== null) {
                 $oldaddress->setAddress($newaddress);
             }
@@ -123,12 +149,15 @@ class AdminUserController extends AbstractController
     }
 
 
+    // Ajouter un nouvel utilisateur --------------------------------------------------------------------------------
 
-
-    // Ajouter un nouvel utilisateur
     #[Route('/newuser', name: 'app_admin_new_user')]
-    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
+    public function create(Security $security, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $user = new Users();
         $form = $this->createForm(AdminUserFormType::class, $user);
         $form->handleRequest($request);
@@ -164,10 +193,15 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    // rechercher utilisateur
+    // rechercher utilisateur --------------------------------------------------------------------------------
+    
     #[Route('/search', name: 'app_admin_user_search')]
-    public function search(Request $request, UsersRepository $usersrepository)
+    public function search(Security $security, Request $request, UsersRepository $usersrepository)
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $request = $request->query->get('search');
         $result = [];
         $count = 0;

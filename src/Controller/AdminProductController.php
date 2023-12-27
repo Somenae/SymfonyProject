@@ -45,6 +45,8 @@ class AdminProductController extends AbstractController
         $form = $this->createForm(ProductFormType::class, $product);
         $form->handleRequest($request);
 
+        $imageForm = $this->createForm(ImageFormType::class);
+
         if($form->isSubmitted() && $form->isValid()) 
         {
             $em->persist($product);
@@ -55,6 +57,8 @@ class AdminProductController extends AbstractController
         return $this->render('admin_product/create.html.twig',[
             'title' => 'Création d\'un nouveau produit',
             'form' => $form->createView(),
+            'product' => $product,
+            'imageForm' => $imageForm->createView(),
         ]);
     }
 

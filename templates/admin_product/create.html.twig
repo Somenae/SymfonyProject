@@ -1,52 +1,48 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Creer un produit{% endblock %}
-
-{% block main %}
-     <h1>{{ title }}</h1>
-     <div>
-        <a href="{{ path('app_admin_dashboard') }}">Dashboard/ </a>
-        <a href="{{ path('app_admin_product') }}">Liste des produits/</a>
-        <a href="{{ path('app_admin_create_product') }}">Creer un produit</a>
-    </div>
-
-
-<div class="container mt-5">   
-<div class="col-md-6">
-
-    <div class="card">
-
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Créer un produit
-            </li>
-        </ul>
-        
-        <div class="card-body">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-
-            <div class="text-center">
-                <button type="submit" 
-                        class="btn btn-warning" 
-                        style="background-color: #e7bc91; 
-                            border-color: #603808;"
-                            >CRÉER
-                </button>
-
-                <button class="btn btn-warning" 
-                        style="background-color: #e7bc91; 
-                            border-color: #603808;"> 
-                        <a href="{{ path('app_admin_product') }}">RETOUR</a>
-                </button>
-            </div>
-            
-            {{ form_end(form) }}
-        </div>
-
-     </div>
-
-</div>
-</div>
-<br>
+{% block title %}Creer un produit
 {% endblock %}
 
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+		>
+		<a href="{{ path('app_admin_product') }}">Liste des produits</a>
+		>
+		<a href="{{ path('app_admin_create_product') }}">Creer un produit</a>
+	</h2>
+
+
+	<div class=" mt-5">
+		<div class="col-md-6">
+
+			<div class="card">
+
+{# 				        <ul class="list-group list-group-flush">
+												            <li class="list-group-item">Créer un produit
+												            </li>
+												        </ul> #}
+												 
+							<div class="card-body">
+									{{ form_start(form) }}
+									{{ form_widget(form) }}
+								                    <br>
+									<button type="submit" class="btn btn-primary">Créer</button>
+									{{ form_end(form) }}
+									<a href="{{ path('app_admin_product') }}">
+										<button class="btn btn-secondary mt-2">Retour</button>
+									</a>
+								</div>
+				 
+	
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<br>
+{% endblock %}

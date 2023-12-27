@@ -39,7 +39,7 @@ class AdminsController extends AbstractController
             $admin->setPassword($hashedPassword);
             $em->persist($admin);
             $em->flush();
-            return $this->redirectToRoute('app_admin_new_user');
+            return $this->redirectToRoute('app_admin_dashboard');
         }
         return $this->render('admin/new.html.twig', [
             'title' => 'Enregistrez-vous !',

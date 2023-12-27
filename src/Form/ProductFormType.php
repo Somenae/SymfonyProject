@@ -14,7 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\CallbackTransformer;
+
 use Doctrine\ORM\Mapping as ORM;
+
 
 
 class ProductFormType extends AbstractType
@@ -44,7 +47,7 @@ class ProductFormType extends AbstractType
                 'class' => Sales::class,
                 'choice_label' => 'amount_percentage',
                 'label' => 'Promo (%)',
-            ]);
+        ]);
             
     }
 

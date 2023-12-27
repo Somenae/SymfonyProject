@@ -87,7 +87,9 @@
 
 	<!-- Display pagination links -->
 <div class="navigation">
+{% if users is not null %}
     {{ knp_pagination_render(users, 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v5_pagination.html.twig') }}
+{% endif %}
 </div>
 
 
