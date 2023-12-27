@@ -29,7 +29,7 @@ class AdminProductController extends AbstractController
     public function index(ProductRepository $ProductRepository): Response
     {
         $products = $ProductRepository->findAll();
-        return $this->render('product/index.html.twig', [
+        return $this->render('admin_product/index.html.twig', [
             'products' => $products,  
         ]);
     }
@@ -52,7 +52,7 @@ class AdminProductController extends AbstractController
             return $this->redirectToRoute('app_admin_product');
         } 
        
-        return $this->render('product/create.html.twig',[
+        return $this->render('admin_product/create.html.twig',[
             'title' => 'Création d\'un nouveau produit',
             'form' => $form->createView(),
         ]);
@@ -66,9 +66,10 @@ class AdminProductController extends AbstractController
         EntityManagerInterface $em,
         )
     {
+      
         if ($product === NULL) {
-            return $this->redirectToRoute('app_product');
-        }
+            return $this->redirectToRoute('app_admin_product');
+        }   
 
         $form = $this->createForm(ProductFormType::class, $product);
         $form->handleRequest($request);
@@ -81,7 +82,7 @@ class AdminProductController extends AbstractController
             return $this->redirectToRoute('app_admin_product');
         }
 
-        return $this->render('product/update.html.twig', [
+        return $this->render('admin_product/update.html.twig', [
             'form' => $form,
             'product' => $product,
             
@@ -99,7 +100,7 @@ class AdminProductController extends AbstractController
             return $this->redirectToRoute('app_admin_product');
         }
 
-        return $this->render('product/list.html.twig', [
+        return $this->render('admin_product/list.html.twig', [
             'title' => 'Fiche d\'un produit',
             'product' => $product,
         ]);
@@ -132,7 +133,7 @@ class AdminProductController extends AbstractController
         Product $product
         ): Response
     {   
-        return $this->render('product/show.html.twig', [
+        return $this->render('admin_product/show.html.twig', [
             'title' => 'Détails du Produit',
             'product' => $product,
         ]);
@@ -155,9 +156,7 @@ public function addImage(
     {  
         $image = $form->get('image')->getData();
         $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $newFilename = $product->getName().$product->getId().'.'.$image->guessExtension();
-        //->move('/public/asset/img',$fileName);
+        $newFilename = $product->getName().$product->getId().'.'.$image->guessExtension();
        
         try {
             $image->move(
@@ -166,27 +165,25 @@ public function addImage(
             );
             }
         catch (FileException $e) {
-            // ... handle exception if something happens during file upload
-        
         
     } 
-        // instead of its contents
+    
         $product ->setImage($newFilename);
         $em->persist($product);
         $em->flush();
 
-        return $this->render('product/addimage.html.twig', array(
-            'title' => 'Inserer une image',
+        return $this->render('admin_product/addimage.html.twig', array(
+            'title' => 'Inserer ou modifier l\'image de l\'album',
             'form' => $form,
-            'message' => 'Votre image a bien été inserer'
+            'message' => 'Votre image a bien été inserer ou modifier'
         ));
 }
  
         else {
 
 
-            return $this->render('product/addimage.html.twig', array(
-                'title' => 'Inserer une image',
+            return $this->render('admin_product/addimage.html.twig', array(
+                'title' => 'Inserer ou Modifier l\'image de l\'album',
                 'form' => $form,
                 'message' => ''
             ));

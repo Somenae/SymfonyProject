@@ -1,0 +1,46 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block main %}
+    <h1>{{ title }}</h1>
+
+<!-- liens -->   
+     <a href="{{ path('app_admin_dashboard') }}">Dashboard/ </a>
+     <a href="{{ path('app_admin_product') }}">Liste des produits/ </a>
+
+
+<!-- card image du vinyle -->
+
+  <div class="col-md-6">
+
+    <div class="card">
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Image de l'album : 
+            </li>
+        </ul>
+        
+        <div class="card-body">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> {{ message }}
+                </li>
+            </ul>
+
+        </div>
+        
+        <div class="card-footer">
+          <button type="button" class="btn btn-lg btn-block"><a href="{{ path('app_admin_product') }}">RETOUR</a>
+          </button>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

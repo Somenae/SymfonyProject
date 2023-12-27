@@ -33,6 +33,7 @@
 
                     {% if is_granted('ROLE_ADMIN')%}
                         <a href="{{ path('app_admin_list_categories') }}">Gérer les catégories</a>
+                         <a href="{{ path('app_admin_product') }}">Gérer les produits</a>
                         <a href="{{ path('app_admin_listsales') }}">Gérer les réductions</a>
                         <a href="{{ path('app_admin_logout') }}">Déconnexion</a>
                     {% else %}

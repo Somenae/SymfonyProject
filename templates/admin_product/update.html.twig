@@ -1,0 +1,59 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Modifier un produit{% endblock %}
+
+{% block main %}
+
+<!-- liens --> 
+    <div>
+        <a href="{{ path('app_admin_dashboard') }}">Dashboard/ </a>
+        <a href="{{ path('app_admin_product') }}">Liste des produits/ </a>
+        <a href="{{ path('app_admin_update_product', {'id': product.id}) }}">Modifier {{ product.name }} {{ product.description }}</a>
+    </div>
+
+<div class="container mt-5">   
+<div class="col-md-6">
+
+<!-- card --> 
+    <div class="card">
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Modifier le vinyle de {{ product.name }} / {{ product.description }} 
+            </li>
+        </ul>
+        
+        <div class="card-body">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="text-center"> 
+             <button type="submit" 
+                        class="btn btn-warning" 
+                        style="background-color: #e7bc91; 
+                            border-color: #603808;"
+                        name="submit" 
+                        onclick="return confirm('Voulez-vous vraiment Modifier ?')"
+                        >Modifier
+                </button> 
+            </div> 
+            {{ form_end(form) }}
+
+            
+            </ul>
+            <br>
+            
+            <div class="card-footer text-center">
+               
+                   
+                <button type="button" 
+                        class="btn btn-warning" 
+                        style="background-color: #e7bc91; 
+                            border-color: #603808;">
+                     <a href="{{ path('app_admin_product') }}">RETOUR</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+{% endblock %}

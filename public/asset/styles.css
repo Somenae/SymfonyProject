@@ -1,0 +1,117 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding :0;
+}
+/* Style du main */
+.main-body {
+    background-color: #FFEDD8;
+    padding : 2em;
+   
+}
+
+/* Style du box-promo */
+.box-promo {
+    background-color: #e7bc91;
+    width: 75%;
+    border-radius: 2em;
+    margin : 2em;
+    padding:1em;
+   
+}
+
+/* Style 2e box avec bordure marron */
+.container-custom {
+    background-color: #e7bc91 !important;
+    border: 0.4em solid #603808 !important;
+    border-radius: 1em !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+
+}
+
+
+
+/* titre Promo */
+.text-promo h2{
+    font-family: 'Abril Fatface', serif;
+    font-size: 3em;
+    padding-left : 0.5em;
+    width: 100%;
+}
+
+/* Style des cartes */
+
+
+/* Style de la carte individuelle */
+.card {
+
+    width: 18em !important;
+    margin: 0 1em !important;
+ 
+    padding: 2em !important;
+    border: 0.1em solid #603808 !important;
+    background-color: #e7bc91 !important;    
+}
+/* Style pour l'onglet promo */
+.card-img-top{
+    position : relative;
+}
+.image-promo {
+    width: 30%;
+    height: auto; 
+    position:absolute; 
+    right:2em;
+    z-index: 1; 
+}
+
+/* Style du bouton dans la carte */
+.card-body .btn {
+    background-color: #BC8A5F !important;
+    border: 0.1em solid #603808 !important;
+    color: #603808 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-body .btn:hover {
+    background-color: #BC8A5F !important;
+    border: 0.1em solid #603808 !important;
+    color: #e7bc91 !important;
+    box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
+    display: flex;
+    justify-content: center;
+}
+
+.hr {
+    border: none !important;
+    width: 50% !important;
+    height: 0.2em !important; 
+    border: 0.1em solid #603808 !important; 
+    background-color: #603808 !important;
+    border-radius: 1em !important;
+    margin: 0.3em auto !important;
+}
+
+
+
+
+
+.box-hit {
+    background-color: #e7bc91 !important;
+    width: 75%;
+    border-radius: 2em;
+    margin : 2em;
+    padding: 1em;    
+}
+
+/* titre HIT PRODUITS */
+.text-hit h2{
+    font-family: 'Abril Fatface', serif;
+    font-size: 3em;
+    padding: 0.5em;
+}
+
+
