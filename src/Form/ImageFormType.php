@@ -16,7 +16,7 @@ class ImageFormType extends AbstractType
     {
          
         $builder
-            ->add('image', Filetype::class, array('label' => 'image (png,jpeg'),[
+            ->add('image', Filetype::class, array('label' => 'image'.' '.'(png, jpeg)'),[
             'mapped'=> false,
             'constraints' => [
                 new Product([
@@ -29,7 +29,7 @@ class ImageFormType extends AbstractType
                 ]),
             ],
         ])
-            ->add('save',SubmitType::class, array('label' => 'Submit'));
+            ->add('save',SubmitType::class, array('label' => 'ENVOYER'));
               
            
     }

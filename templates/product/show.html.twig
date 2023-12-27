@@ -4,68 +4,76 @@
 
 {% block main %}
     <h1>{{ title }}</h1>
-    
-    <a href="{{ path('app_admin_product') }}">Produits </a>
-    <a href="{{ path('app_admin_product') }}">Produit {{ product.id }} </a>
 
-<div class="card bg-light mb-3" style="max-width: 18rem;">
+<!-- liens -->   
+     <a href="{{ path('app_admin_dashboard') }}">Dashboard/ </a>
+     <a href="{{ path('app_admin_product') }}">Liste des produits/</a>
+    <a href="{{ path('app_admin_product') }}">Voir le produit {{ product.id }} </a>
 
-<div class="card-group"> 
-<div class="card" style="max-width: 18rem;">
-    <div class="card-header">Produit {{ product.id }}</div>
-    
-    <div class="card-body">
-    <p class="card-text">
-        <dl>
-            <dt>Nom :</dt>
-            <dd>{{ product.name }}</dd>
 
-            <dt>Prix :</dt>
-            <dd>{{ product.price }}</dd>
+<div class="container mt-5">
+    <div class="row">
 
-            <dt>Description :</dt>
-            <dd>{{ product.description }}</dd>
+    <!-- card description du vinyle -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Produit : {{ product.name }} {{ product.description }}</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Nom du Groupe : {{ product.name }} </li>
+                    <li class="list-group-item">Titre de l'album : {{ product.description }}</li>
+                    <li class="list-group-item">Prix: {{ product.price }} €</li>
+                    <li class="list-group-item">TVA: {{ product.ProductTaxes.amount }} %</li>
+                </ul>
+                <div class="card-body">
+                    <div class="alert" style="background-color: #e7bc91; 
+                            border-color: #603808;" role="alert">
+                        Promo : {% if product.ProductSales is same as(NULL) %}
+                        <td>Pas de promotion</td>
+                        {% else %}
+                        <td>{{ product.ProductSales.AmountPercentage }} %</td>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-footer text-center">
+                     <button type="button" class="btn btn-warning" 
+                     style="background-color: #e7bc91; 
+                            border-color: #603808;">
+                        <a href="{{ path('app_admin_update_product', {'id': product.id}) }}">MODIFIER</a>
+                     </button>
+                      <button type="button" class="btn btn-warning" 
+                     style="background-color: #e7bc91; 
+                            border-color: #603808;">
+                     <a href="{{ path('app_admin_product') }}">RETOUR</a>
+                     </button>
+                </div>
+            </div>
+        </div>
 
-            <dt>Taxes :</dt>
-            <dd>{{ product.ProductTaxes.amount }}</dd>
+<!-- card image du vinyle -->
+        <div class="col-md-6">
+             <div class="card-header">Produit : {{ product.name }} {{ product.description }}</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Image de l'album : </li>
 
-            <dt>Promo :</dt>
-            <dd>{% if product.ProductSales is same as(NULL) %}
-                <td>Pas de promotion</td>
-                {% else %}
-                <td>{{product.ProductSales.AmountPercentage}}</td>
-                {% endif %}
-            </dd>
-
+            <div class="card-body">
+                <img src="{{ asset('uploads/productimage/' ~ product.image) }}" class="card-img-top" style="width:50%;" alt="Image du Produit">
             
-        </dl>
-    </p>
-    </div>
+                <div class="card-footer text-center">
+                 <button type="button" class="btn btn-warning" 
+                     style="background-color: #e7bc91; 
+                            border-color: #603808;">
+                     <a href="{{ path('app_admin_add_image', { 'id': product.id }) }}">Inserer ou modifier l'image
+                     </a>
+                </button>
+            </div>
+        </div>
 
-    <div class="card-footer">
-    <button> <a href="{{ path('app_admin_product') }}">RETOUR</a></button>
-    </div>
-</div>
 
-<div class="card" style="max-width: 18rem;">
-    <div class="card-header">Images</div>
-    
-    <div class="card-body">
-    
-        <dl>
-            <dd>{{ product.image }}</dd>           
-        </dl>
-  
-    </div>
-
-    <div class="card-footer">
-    <button> <a href="{{ path('app_admin_add_image', { 'id': product.id }) }}">Inserer une image</a></button>
     </div>
 </div>
+
 </div>
 
-
-
-
-
+<br>
 {% endblock %}
