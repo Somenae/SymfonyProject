@@ -22,6 +22,7 @@
 			<th>Firstname :</th>
 			<th>Lastname :</th>
 			<th>Email :</th>
+			<th colspan="3">Actions :</th>
 		</thead>
 		<tbody>
 
@@ -30,6 +31,21 @@
 					<td>{{ user.firstname }}</td>
 					<td>{{ user.lastname }}</td>
 					<td>{{ user.email }}</td>
+					<td>
+							<a href="{{ path('app_showUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Show</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_editUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Edit</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_removeUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-danger">Delete</button>
+							</a>
+						</td>
 				{% else %}
 					<td colspan="3">No users found.</td>
 				</tr>
