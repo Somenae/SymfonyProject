@@ -66,9 +66,10 @@ class AdminProductController extends AbstractController
         EntityManagerInterface $em,
         )
     {
+      
         if ($product === NULL) {
-            return $this->redirectToRoute('app_product');
-        }
+            return $this->redirectToRoute('app_admin_product');
+        }   
 
         $form = $this->createForm(ProductFormType::class, $product);
         $form->handleRequest($request);
@@ -155,9 +156,7 @@ public function addImage(
     {  
         $image = $form->get('image')->getData();
         $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $newFilename = $product->getName().$product->getId().'.'.$image->guessExtension();
-        //->move('/public/asset/img',$fileName);
+        $newFilename = $product->getName().$product->getId().'.'.$image->guessExtension();
        
         try {
             $image->move(
@@ -166,19 +165,17 @@ public function addImage(
             );
             }
         catch (FileException $e) {
-            // ... handle exception if something happens during file upload
-        
         
     } 
-        // instead of its contents
+    
         $product ->setImage($newFilename);
         $em->persist($product);
         $em->flush();
 
         return $this->render('product/addimage.html.twig', array(
-            'title' => 'Inserer une image',
+            'title' => 'Inserer ou modifier l\'image de l\'album',
             'form' => $form,
-            'message' => 'Votre image a bien été inserer'
+            'message' => 'Votre image a bien été inserer ou modifier'
         ));
 }
  
@@ -186,7 +183,7 @@ public function addImage(
 
 
             return $this->render('product/addimage.html.twig', array(
-                'title' => 'Inserer une image',
+                'title' => 'Inserer ou Modifier l\'image de l\'album',
                 'form' => $form,
                 'message' => ''
             ));

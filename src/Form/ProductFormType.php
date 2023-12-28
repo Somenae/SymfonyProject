@@ -22,27 +22,28 @@ class ProductFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('price')
-            ->add('description')
-          
-            ->add('ProductCategory', EntityType::class, [
+        ->add('name', null, ['label' => 'Groupe'])
+        ->add('description', null, ['label' => 'Album'])
+        ->add('price', null, ['label' => 'Prix'])
+        ->add('ProductCategory', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'id',
                 'multiple' => true,
-                'attr' => ['class' => 'form-control', ],
+                'attr' => ['class' => 'form-control', 'style' => 'width: 50%;', ],
                 'choice_attr' => function($category, $id) {
                     return ['class' => 'option-bootstrap-class'];
                 },
-
+                'label' => 'Catégories', 
             ])
-            ->add('ProductTaxes', EntityType::class, [
+        ->add('ProductTaxes', EntityType::class, [
                 'class' => Taxes::class,
                 'choice_label' => 'id',
+                'label' => 'T.V.A.', 
             ])
-            ->add('ProductSales', EntityType::class, [
+        ->add('ProductSales', EntityType::class, [
                 'class' => Sales::class,
                 'choice_label' => 'id',
+                'label' => 'Promo',
             ]);
             
     }
