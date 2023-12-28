@@ -265,15 +265,17 @@ footer h2 {
     height: 40px;
   }
   .newsletter form input{
-    width: 45%;
+    width: 75%;
     padding-left: 2%;
+    opacity: 0.8;
   }
   .newsletter form button{
-    left: -30%;
-    width: 30%;
+    display: inline;
+    position: absolute;
+    right: 27%;
+    width: 18%;
     background: linear-gradient(90deg, #D4A276 0%, #A47148 29%, #603808 66.5%, #583101 96%);
     color: var(--white);
-    
   }
   .newsletter form label{
     display: none;
@@ -290,4 +292,12 @@ footer h2 {
 .bottom-footer a {
   color: #ffffff;
   font-size: 0.8em;
+}
+
+
+
+/********LOGIN PAGE / SIGN UP PAGE **/
+.section-login{
+  margin:  50px 2% 50px 2%;
+  display: flex;
 }

@@ -107,8 +107,8 @@
                                 <h2>REJOIGNEZ NOTRE NEWSLETTER</h2>
                                 <form action="/votre-route-de-traitement" method="post">
                                     <label for="email">Adresse e-mail:</label>
-                                    <input type="email" id="email" name="email" placeholder="E-mail" required>
-                                    <button type="submit">S'abonner</button>
+                                    <input type="email" id="email" name="email" placeholder="Entrez votre adresse e-mail ici" required>
+                                    <button type="submit">Abonnez-vous !</button>
                                 </form>
                             </div>
                         </div>
@@ -120,5 +120,24 @@
                     </div>
                 </footer>
             {% endblock %}
+            {% block javascripts %}
+                <script>
+                    function displayMenu() {
+                        var hamburger = document.querySelector(".icon-hamburger");
+                        var menu = document.querySelector(".hamburger-menu");
+
+                        var decoRelative = document.querySelectorAll(".deco-relative");
+                        var decoHamburger = document.querySelectorAll(".deco-hamburger");
+                        decoRelative.forEach(function(item) {
+                        item.classList.toggle('open');
+                        });
+                        decoHamburger.forEach(function(item) {
+                        item.classList.toggle('open');
+                        });
+                        hamburger.classList.toggle('open');
+                        menu.classList.toggle('open-menu');
+                    }
+                </script>
+        {% endblock %}
     </body>
 </html>
