@@ -8,6 +8,7 @@ use App\Entity\Sales;
 use App\Entity\Taxes;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -38,15 +39,20 @@ class ProductFormType extends AbstractType
                 },
                 'label' => 'Catégories', 
             ])
+            
         ->add('ProductTaxes', EntityType::class, [
                 'class' => Taxes::class,
                 'choice_label' => 'amount',
                 'label' => 'TVA (%)', 
+                'placeholder' => 'Select an option',
             ])
         ->add('ProductSales', EntityType::class, [
                 'class' => Sales::class,
                 'choice_label' => 'amount_percentage',
                 'label' => 'Promo (%)',
+                'placeholder' => 'Select an option',
+                'required' => false,
+
         ]);
             
     }

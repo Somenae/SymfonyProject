@@ -214,7 +214,7 @@ public function addImage(
         return $this->render('admin_product/addimage.html.twig', array(
             'title' => 'Inserer ou modifier l\'image de l\'album',
             'form' => $form,
-            'message' => 'Votre image a bien été inserer ou modifier'
+            'message' => 'Votre image a bien été ajoutée ou modifiée.'
         ));
 }
  

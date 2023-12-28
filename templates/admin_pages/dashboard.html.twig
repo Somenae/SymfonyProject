@@ -18,9 +18,10 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Create Admin</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">{{countAdmins}}
+						administrator(s).</p><br>
 					<a href="{{ path('app_admin_new_admin') }}">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Add</button>
 					</a>
 
 				</div>
@@ -32,9 +33,10 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Manage customers</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">{{countUsers}}
+						customer(s).</p><br>
 					<a href="{{ path('app_listUsers') }}">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
 					</a>
 				</div>
 			</div>
@@ -43,9 +45,10 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Manage categories</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">{{countCategories}}
+						categories.</p><br>
 					<a href="{{ path('app_admin_list_categories') }}">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
 					</a>
 				</div>
 			</div>
@@ -53,9 +56,10 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Manage products</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">{{countProducts}}
+						product(s).</p><br>
 					<a href="{{ path('app_admin_product') }}">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
 					</a>
 				</div>
 			</div>
@@ -64,9 +68,10 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Manage discounts</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">{{countDiscounts}}
+						discounts.</p><br>
 					<a href="{{ path('app_admin_listsales') }}">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
 					</a>
 				</div>
 			</div>
@@ -74,9 +79,9 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Visit Shop</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">Visit the store (Front-Office).</p><br>
 					<a href="{{ path('app_index') }}" target="_blank">
-						<button class="btn btn-primary btn-lg btn-block">Go</button>
+						<button class="btn btn-primary btn-lg btn-block">Visit</button>
 					</a>
 				</div>
 			</div>
@@ -84,9 +89,9 @@
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Log out</h5>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p class="card-text">Leave administration section.</p><br>
 					<a href="{{ path('app_admin_logout') }}">
-						<button class="btn btn-primary btn-lg btn-block">Log out</button>
+						<button class="btn btn-danger btn-lg btn-block">Log out</button>
 					</a>
 				</div>
 			</div>

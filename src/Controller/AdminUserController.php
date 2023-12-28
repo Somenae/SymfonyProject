@@ -23,7 +23,7 @@ class AdminUserController extends AbstractController
 
 
     // Afficher la liste des utilisateurs --------------------------------------------------------------------------------
-    
+
     #[Route('/listUsers', name: 'app_listUsers')]
     public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator, Security $security): Response
     {
@@ -37,22 +37,22 @@ class AdminUserController extends AbstractController
         $trimail = $request->query->get('email', 'asc');
 
         $query = $usersrepository->findAll(); // chercher tous les users
-        
+
         if (empty($query)) {
-            $users= null;
+            $users = null;
         } else {
             $users = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1), // numéro de page
-            5 // limite par page
-        );
-    }
-        $count = $usersrepository->countUsers();
+                $query,
+                $request->query->getInt('page', 1), // numéro de page
+                5 // limite par page
+            );
+        }
+        $countUsers = $usersrepository->countUsers();
 
 
         return $this->render('admin_user/index.html.twig', [
             'users' => $users,
-            'count' => $count,
+            'countUsers' => $countUsers,
             'trinom' => $trinom,
             'triprenom' => $triprenom,
             'trimail' => $trimail,
@@ -60,9 +60,8 @@ class AdminUserController extends AbstractController
     }
 
 
-
     // Afficher un user --------------------------------------------------------------------------------
-    
+
     #[Route('/showUser/{id}', name: 'app_showUser')]
     public function showUser(Users $users, Security $security): Response
     {
@@ -194,7 +193,7 @@ class AdminUserController extends AbstractController
     }
 
     // rechercher utilisateur --------------------------------------------------------------------------------
-    
+
     #[Route('/search', name: 'app_admin_user_search')]
     public function search(Security $security, Request $request, UsersRepository $usersrepository)
     {

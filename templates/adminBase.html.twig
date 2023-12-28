@@ -14,50 +14,51 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-		{% block javascripts %}{% endblock %}
-	</head>
-	<body>
-		<div class="container-fluid">
-			<header>
-				{% block header %}
-					<nav>
-						{% block nav %}
-							<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
-							-
-							{% if is_granted('ROLE_SUPER_ADMIN') %}
-								<a href="{{ path('app_admin_new_admin') }}">Create Admin</a> -
-							{% endif %}
+		<link rel="stylesheet" href="{{ asset('styles/dashboard.css') }}"> {% block javascripts %}{% endblock %}
+		</head>
+		<body>
+			<div class="container-fluid">
+				<header>
+					{% block header %}
+						<nav>
+							{% block nav %}
+								<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+								|
+								{% if is_granted('ROLE_SUPER_ADMIN') %}
+									<a href="{{ path('app_admin_new_admin') }}">Create Admin</a>
+									|
+								{% endif %}
 
-							{% if is_granted('ROLE_ADMIN')%}
-								<a href="{{ path('app_listUsers') }}">Customers</a>
-								-
-							{% endif %}
+								{% if is_granted('ROLE_ADMIN')%}
+									<a href="{{ path('app_listUsers') }}">Customers</a>
+									|
+								{% endif %}
 
-							{% if is_granted('ROLE_ADMIN')%}
-								<a href="{{ path('app_admin_list_categories') }}">Categories</a>
-								-
-								<a href="{{ path('app_admin_product') }}">Products</a>
-								-
-								<a href="{{ path('app_admin_listsales') }}">Discounts</a>
-								-
-								<a href="{{ path('app_index') }}" target="_blank">Visit Shop</a>
-								-
-								<a href="{{ path('app_admin_logout') }}">Log out</a>
-							{% else %}
-								<a href="{{ path('app_admin_login') }}">Login</a>
-							{% endif %}
-						{% endblock %}
-					</nav>
-				{% endblock %}
-			</header>
-			<main>
-				{% block main %}{% endblock %}
-			</main>
+								{% if is_granted('ROLE_ADMIN')%}
+									<a href="{{ path('app_admin_list_categories') }}">Categories</a>
+									|
+									<a href="{{ path('app_admin_product') }}">Products</a>
+									|
+									<a href="{{ path('app_admin_listsales') }}">Discounts</a>
+									|
+									<a href="{{ path('app_index') }}" target="_blank" class="text-primary">Visit Shop</a>
+									|
+									<a href="{{ path('app_admin_logout') }}" class="text-danger">Log out</a>
+								{% else %}
+									<a href="{{ path('app_admin_login') }}">Login</a>
+								{% endif %}
+							{% endblock %}
+						</nav>
+					{% endblock %}
+				</header>
+				<main>
+					{% block main %}{% endblock %}
+				</main>
 
-		</div>
+			</div>
 
-		<footer>
-			{% block footer %}{% endblock %}
-		</footer>
-	</body>
-</html>
+			<footer>
+				{% block footer %}{% endblock %}
+			</footer>
+		</body>
+	</html>

@@ -9,7 +9,8 @@
 	<h2>
 		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
 		>
-		<a href="{{ path ('app_listUsers')}}">Customers list ({{ count }} customers)</a> 
+		<a href="{{ path ('app_listUsers')}}">Customers list ({{ countUsers }}
+			customers)</a>
 	</h2>
 	<br>
 
@@ -37,11 +38,6 @@
 		<thead>
 			<th scope="col">
 				Lastname
-				  	{% if ( trinom == 'desc') %}
-                		<a href="{{ path('app_listUsers') }}?lastname={{ trinom }}&firstname=asc&triprenom={{ triprenom }}"> A </a>
-            		{% else %}
-                		<a href="{{ path('app_listUsers') }}?lastname={{ trinom }}&firstname=desc&triprenom={{ triprenom }}"> D </a>
-            		{% endif %}
 			</th>
 			<th scope="col">
 				Firstname
@@ -86,11 +82,11 @@
 	</table>
 
 	<!-- Display pagination links -->
-<div class="navigation">
-{% if users is not null %}
-    {{ knp_pagination_render(users, 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v5_pagination.html.twig') }}
-{% endif %}
-</div>
+	<div class="navigation">
+		{% if users is not null %}
+			{{ knp_pagination_render(users, 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v5_pagination.html.twig') }}
+		{% endif %}
+	</div>
 
 
 {% endblock %}
