@@ -4,36 +4,56 @@
 {% endblock %}
 
 {% block main %}
-	<table>
-		<tr>
-			<th>Nom de la promotion</th>
-			<th>Pourcentage de réduction</th>
-		</tr>
-		{% for item in sales %}
-
-
+	<br>
+	<h2>
+		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+		>
+		<a href="{{ path('app_admin_listsales') }}">Promotions</a>
+	</h2>
+	<br>
+	<a href="{{ path('app_admin_createsale') }}">
+		<button class="btn btn-primary">Creer une nouvelle promotion</button>
+	</a>
+	<a href="{{ path('app_admin_erase_productesale') }}">
+		<button class="btn btn-danger">Supprimer l'application de promotions aux produits</button>
+	</a>
+	<br>
+	<br>
+	<table class="table table-light table-striped">
+		<thead>
 			<tr>
-				<td>{{item.name}}</td>
-				<td>{{item.AmountPercentage}}%</td>
-				<td>
-					<a href="{{ path('app_admin_updatesale',{'id' : item.id}) }}">Modifier</a>
-				</td>
-				<td>
-					<a class="text-danger" href="{{ path('app_admin_deletesale',{'id' : item.id}) }}">Supprimer</a>
-				</td>
-                <td>
-					<a class="text-success" href="{{ path('app_admin_productesale',{'id' : item.id}) }}">Appliquer cette promotion</a>
-				</td>
-
+				<th>Nom de la promotion</th>
+				<th>Pourcentage de la remise</th>
+				<th colspan="3">Actions</th>
 			</tr>
-		{% endfor %}
+		</thead>
+		<tbody>
+			{% for item in sales %}
+
+
+				<tr>
+					<td>{{item.name}}</td>
+					<td>{{item.AmountPercentage}}%</td>
+					<td>
+						<a href="{{ path('app_admin_updatesale',{'id' : item.id}) }}">
+							<button class="btn btn-primary">Modifier</button>
+						</a>
+					</td>
+					<td>
+						<a class="text-danger" href="{{ path('app_admin_deletesale',{'id' : item.id}) }}">
+							<button class="btn btn-danger">Supprimer</button>
+						</a>
+					</td>
+					<td>
+						<a class="text-success" href="{{ path('app_admin_productesale',{'id' : item.id}) }}">
+							<button class="btn btn-success">Appliquer cette promotion</button>
+						</a>
+					</td>
+
+				</tr>
+			{% endfor %}
+		</tbody>
 	</table>
-	<li>
-		<a href="{{ path('app_admin_createsale') }}">Creer une nouvelle promotion</a>
-	</li>
-    <li>
-		<a href="{{ path('app_admin_erase_productesale') }}">Supprimer l'application de promotions aux produits</a>
-	</li>
 
 
 {% endblock %}

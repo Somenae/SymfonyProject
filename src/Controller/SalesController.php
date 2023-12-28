@@ -11,27 +11,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class SalesController extends AbstractController
 {
     #[Route('/admin/listsales', name: 'app_admin_listsales')]
-    public function listeSales(SalesRepository $salesrepo): Response
+    public function listeSales(SalesRepository $salesrepo, Security $security): Response
     {
-        $sales=$salesrepo->findAll();
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+        $sales = $salesrepo->findAll();
         return $this->render('sales/list.html.twig', [
             'sales' => $sales,
         ]);
     }
 
     #[Route('/admin/createsale', name: 'app_admin_createsale')]
-    public function createSale(Request $request, EntityManagerInterface $em): Response
+    public function createSale(Request $request, EntityManagerInterface $em, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
 
-        $sales= New Sales;
-        $form = $this->createForm(SalesFormType ::class, $sales);
+        $sales = new Sales;
+        $form = $this->createForm(SalesFormType::class, $sales);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($sales);
             $em->flush();
             return $this->redirectToRoute('app_admin_listsales');
@@ -41,16 +48,19 @@ class SalesController extends AbstractController
         ]);
     }
 
-        #[Route('/admin/updatesale/{id}', name: 'app_admin_updatesale')]
-    public function updateSale(Request $request, EntityManagerInterface $em, ?Sales $sales): Response
+    #[Route('/admin/updatesale/{id}', name: 'app_admin_updatesale')]
+    public function updateSale(Request $request, EntityManagerInterface $em, ?Sales $sales, Security $security): Response
     {
-        if ($sales === NULL){
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+        if ($sales === NULL) {
             return $this->redirectToRoute('app_admin_listsales');
         }
-        $form = $this->createForm(SalesFormType ::class, $sales);
+        $form = $this->createForm(SalesFormType::class, $sales);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($sales);
             $em->flush();
             return $this->redirectToRoute('app_admin_listsales');
@@ -61,87 +71,90 @@ class SalesController extends AbstractController
     }
 
     #[Route('/admin/deletesale/{id}', name: 'app_admin_deletesale')]
-    public function deleteSale(Request $request, EntityManagerInterface $em, ?Sales $sales): Response
+    public function deleteSale(Request $request, EntityManagerInterface $em, ?Sales $sales, Security $security): Response
     {
-        if ($sales === NULL){
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+        if ($sales === NULL) {
             return $this->redirectToRoute('app_admin_listsales');
         }
         $products = $sales->getProducts();
 
-        foreach($products as $product){
+        foreach ($products as $product) {
             $sales->removeProduct($product);
         }
 
 
-        if(isset($_POST["submit"])) {
+        if (isset($_POST["submit"])) {
             $em->remove($sales);
             $em->flush();
             return $this->redirectToRoute('app_admin_listsales');
         }
         return $this->render('sales/delete.html.twig', [
+            'sales' => $sales,
         ]);
     }
 
     #[Route('/admin/productsale/{id}', name: 'app_admin_productesale')]
-    public function ProductSale(Request $request, EntityManagerInterface $em, ?Sales $sale, ProductRepository $productrepo): Response
+    public function ProductSale(Request $request, EntityManagerInterface $em, ?Sales $sale, ProductRepository $productrepo, Security $security): Response
     {
-        if ($sale === NULL){
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+        if ($sale === NULL) {
             return $this->redirectToRoute('app_admin_listsales');
         }
         $products = $productrepo->findAll();
 
-        if(isset($_POST["submit"]))
-        {
-            foreach ($_POST as $P){
-                if ($P !== "")
-                {
+        if (isset($_POST["submit"])) {
+            foreach ($_POST as $P) {
+                if ($P !== "") {
 
-                   $produit= $productrepo->find($P);
-                   $produit->setProductSales($sale);
-                   $em->persist($produit);
-                   $em->flush();
+                    $produit = $productrepo->find($P);
+                    $produit->setProductSales($sale);
+                    $em->persist($produit);
+                    $em->flush();
                 };
-
             }
-             return $this->redirectToRoute('app_admin_listsales');
 
+            return $this->redirectToRoute('app_admin_listsales');
         }
 
 
-         return $this->render('sales/productSales.html.twig', [
-             "products" => $products,
-             "labelname" => "Ajouter la promotion a ce produit"
-         ]);
+        return $this->render('sales/productSales.html.twig', [
+            "products" => $products,
+            "labelname" => "Ajouter la promotion a ce produit"
+        ]);
     }
-    
+
     #[Route('/admin/Eraseproductsale', name: 'app_admin_erase_productesale')]
-    public function EraseProductSale(Request $request, EntityManagerInterface $em, ProductRepository $productrepo): Response
+    public function EraseProductSale(Request $request, EntityManagerInterface $em, ProductRepository $productrepo, Security $security): Response
     {
-        
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $products = $productrepo->searchByIDSale();
 
-        if(isset($_POST["submit"]))
-        {
-            foreach ($_POST as $P){
-                if ($P !== "")
-                {
+        if (isset($_POST["submit"])) {
+            foreach ($_POST as $P) {
+                if ($P !== "") {
 
-                   $produit= $productrepo->find($P);
-                   $sales=$produit->getProductSales();
-                   $sales->removeProduct($produit);
-                   $em->persist($sales);
-                   $em->flush();
+                    $produit = $productrepo->find($P);
+                    $sales = $produit->getProductSales();
+                    $sales->removeProduct($produit);
+                    $em->persist($sales);
+                    $em->flush();
                 };
-
             }
-             return $this->redirectToRoute('app_admin_listsales');
-
+            return $this->redirectToRoute('app_admin_listsales');
         }
 
 
-         return $this->render('sales/productSales.html.twig', [
-             "products" => $products,
-             "labelname" => "Supprimer la promotion a ce produit"
-         ]);
+        return $this->render('sales/productSales.html.twig', [
+            "products" => $products,
+            "labelname" => "Supprimer la promotion a ce produit"
+        ]);
     }
 }

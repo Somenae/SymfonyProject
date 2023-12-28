@@ -9,6 +9,9 @@
 
 	<br>
 	<h2>
+		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+		>
+
 		<a href="{{ path ('app_index_categories')}}">Categories</a>
 	</h2>
 	<br>
@@ -17,35 +20,42 @@
 	<br><br>
 
 	<table class="table table-light table-striped">
-		<thead>		
+		<thead>
 			<th>Categories</th>
 			<th colspan="2">Actions</th>
 		</thead>
-	
-{% if (categories == null) %}
+
+		{% if (categories == null) %}
 			<tr>
 				<td colspan="6">There is no one here...</td>
 			</tr>
 		{% else %}
 
-	
-	<tbody>
-{% for category in categories %}
-	<tr>
 
-		<td>
-			<a href="{{ path('app_admin_show_category', {'id': category.id}) }}">{{ category.name }} </a>
-		</td>
+			<tbody>
+				{% for category in categories %}
+					<tr>
 
-		<td>
-			<a href="{{ path('app_admin_show_category', {'id': category.id}) }}"><button class="btn btn-primary">Show</button></a>
-		</td>
+						<td>
+							<a href="{{ path('app_admin_show_category', {'id': category.id}) }}">{{ category.name }}
+							</a>
+						</td>
 
-		<td>
-			<a href="{{ path('app_admin_update_category', {'id': category.id}) }}"><button class="btn btn-primary">Edit</button></a>
-		</td>
+						<td>
+							<a href="{{ path('app_admin_show_category', {'id': category.id}) }}">
+								<button class="btn btn-primary">Show</button>
+							</a>
+						</td>
 
-	</tr>
-{% endfor %}</tbody>
-{% endif %}
-</table><br>{% endblock %}
+						<td>
+							<a href="{{ path('app_admin_update_category', {'id': category.id}) }}">
+								<button class="btn btn-primary">Edit</button>
+							</a>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		{% endif %}
+	</table><br>
+{% endblock %}

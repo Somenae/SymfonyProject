@@ -1,23 +1,28 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Create a category{% endblock %}
+{% block title %}Create a category
+{% endblock %}
 
 {% block body %}
-{% block main %}
-   
-   <br>
-	<h2>
-		<a href="{{ path ('app_admin_list_categories')}}">Categories</a> >
-		<a href="{{ path ('app_admin_create_category')}}">New category</a>
-	</h2>
-	<br>
+	{% block main %}
+
+		<br>
+		<h2>
+			<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+			>
+
+			<a href="{{ path ('app_admin_list_categories')}}">Categories</a>
+			>
+			<a href="{{ path ('app_admin_create_category')}}">New category</a>
+		</h2>
+		<br>
 
 
-   {{ form(form, {'method': 'POST'}) }}
-   
+		{{ form(form, {'method': 'POST'}) }}
 
-    <a href="{{ path('app_admin_list_categories') }}" class="btn btn-secondary">Categories list</a>
 
-{% endblock %}
+			<a href="{{ path('app_admin_list_categories') }}" class="btn btn-secondary">Categories list</a>
 
-{% endblock %}
+		{% endblock %}
+
+	{% endblock %}
