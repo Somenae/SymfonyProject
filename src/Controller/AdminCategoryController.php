@@ -10,13 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/admin')]
 class AdminCategoryController extends AbstractController
 {
     #[Route('/createCategory', name: 'app_admin_create_category')]
-    public function createCategory(EntityManagerInterface $em, Request $request): Response
+    public function createCategory(EntityManagerInterface $em, Request $request, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $category = new Category();
         $form = $this->createForm(categoryFormType::class, $category, [
             'label_name' => "Créer nouvelle categorie"
@@ -37,16 +42,24 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route('/showCategory/{id}', name: 'app_admin_show_category')]
-    public function showCategory(Category $category): Response
+    public function showCategory(Category $category, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         return $this->render('category/show.html.twig', [
             'category' => $category,
         ]);
     }
 
     #[Route('/listCategories', name: 'app_admin_list_categories')]
-    public function listCategories(CategoryRepository $categoryRepository): Response
+    public function listCategories(CategoryRepository $categoryRepository, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $categories = $categoryRepository->findAll();
 
         return $this->render('category/list.html.twig', [
@@ -56,8 +69,12 @@ class AdminCategoryController extends AbstractController
 
 
     #[Route('/updateCategory/{id}', name: 'app_admin_update_category')]
-    public function updateCategory(EntityManagerInterface $em, Request $request, ?Category $category): Response
+    public function updateCategory(EntityManagerInterface $em, Request $request, ?Category $category, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         if ($category === null) {
             throw $this->createNotFoundException('Categorie non trouvée');
         }
@@ -78,8 +95,12 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route('/deleteCategory/{id}', name: 'app_admin_delete_category')]
-    public function deleteCategory(EntityManagerInterface $em, Request $request, ?Category $category): Response
+    public function deleteCategory(EntityManagerInterface $em, Request $request, ?Category $category, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         if ($category === null) {
             throw $this->createNotFoundException('Categorie non trouvée');
         }

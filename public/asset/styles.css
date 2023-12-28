@@ -13,10 +13,13 @@
 /* Style du box-promo */
 .box-promo {
     background-color: #e7bc91;
-    width: 75%;
+    width: 100%;
     border-radius: 2em;
     margin : 2em;
     padding:1em;
+    outline: 6px solid #603808;
+    outline-offset: -20px;
+
    
 }
 
@@ -46,8 +49,8 @@
 /* Style de la carte individuelle */
 .card {
 
-    width: 18em !important;
-    margin: 0 1em !important;
+    width: 100% !important;
+    margin: 0  !important;
  
     padding: 2em !important;
     border: 0.1em solid #603808 !important;
@@ -101,10 +104,13 @@
 
 .box-hit {
     background-color: #e7bc91 !important;
-    width: 75%;
+    width: 100%;
     border-radius: 2em;
     margin : 2em;
-    padding: 1em;    
+    padding: 1em;
+    outline: 6px solid #603808;
+    outline-offset: -20px;
+    
 }
 
 /* titre HIT PRODUITS */

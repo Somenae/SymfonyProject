@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\Image as ConstraintsImage;
 use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
+use Symfony\Component\Security\Core\Security;
+
 
 
 #[Route('admin/')]
@@ -26,8 +28,12 @@ class AdminProductController extends AbstractController
 
 /* index */
     #[Route('product', name: 'app_admin_product')]
-    public function index(ProductRepository $ProductRepository): Response
+    public function index(ProductRepository $ProductRepository, Security $security): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         $products = $ProductRepository->findAll();
         return $this->render('admin_product/index.html.twig', [
             'products' => $products,  
@@ -38,9 +44,14 @@ class AdminProductController extends AbstractController
     #[Route('createproduct', name:'app_admin_create_product')]
     public function createArticle(
         Request $request, 
-        EntityManagerInterface $em,
+        EntityManagerInterface $em, Security $security
         ): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
+
         $product = new Product();
         $form = $this->createForm(ProductFormType::class, $product);
         $form->handleRequest($request);
@@ -67,10 +78,14 @@ class AdminProductController extends AbstractController
     public function update(
         Request $request, 
         ?Product $product,
-        EntityManagerInterface $em,
+        EntityManagerInterface $em, Security $security
         )
     {
-      
+     
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
         if ($product === NULL) {
             return $this->redirectToRoute('app_admin_product');
         }   
@@ -97,9 +112,14 @@ class AdminProductController extends AbstractController
     #[Route('list', name: 'app_list_product')]
     public function list(
         ProductRepository $ProductRepository,
-        ?Product $product
+        ?Product $product, Security $security
         ): Response
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
+
         if ($product === null) {
             return $this->redirectToRoute('app_admin_product');
         }
@@ -115,10 +135,15 @@ class AdminProductController extends AbstractController
     public function deleteProduct(
         ?Product $product,
         EntityManagerInterface $em,
-        Request $request,
+        Request $request, Security $security
       
     ): Response 
     {
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
+
         if ($product === null) {
             throw $this->createNotFoundException('Produit non trouvée');
         }
@@ -134,9 +159,14 @@ class AdminProductController extends AbstractController
 /* Voir un produit */
     #[Route('showproduct/{id}', name: 'app_admin_show_product')]
     public function showProduct(
-        Product $product
+        Product $product, Security $security
         ): Response
     {   
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+
+
         return $this->render('admin_product/show.html.twig', [
             'title' => 'Détails du Produit',
             'product' => $product,
@@ -149,9 +179,14 @@ public function addImage(
     Product $product,
     Request $request,
     EntityManagerInterface $em,
-    SluggerInterface $slugger
+    SluggerInterface $slugger, Security $security
 ): Response 
 {
+    if (!$security->isGranted('ROLE_ADMIN')) {
+        return $this->redirectToRoute('app_admin_login');
+    }
+
+
     $message ='';
     $form = $this->createForm(ImageFormType::class);
     $form->handleRequest($request);
