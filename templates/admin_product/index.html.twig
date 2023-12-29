@@ -12,29 +12,38 @@
 		<a href="{{ path('app_admin_product') }}">Liste des produits</a>
 	</h2>
 
-		<br>
-		<a href="{{ path('app_admin_create_product') }}">
-			<button type="button" class="btn btn-primary">Créer un produit</button>
-		</a>
+	<br>
+	<a href="{{ path('app_admin_create_product') }}">
+		<button type="button" class="btn btn-primary">Créer un produit</button>
+	</a>
 
-		<br>
-		<br>
-		<table class="table table-light table-striped">
-			<thead class="thead-dark">
+	<br>
+	<br>
+	<table class="table table-light table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Album</th>
+				<th scope="col">Image</th>
+				<th scope="col">Prix</th>
+				<th scope="col">TVA</th>
+				<th scope="col">Promo</th>
+				<th scope="col">Actions</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+
+			{% if (products == null) %}
 				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nom</th>
-					<th scope="col">Album</th>
-					<th scope="col">Image</th>
-					<th scope="col">Prix</th>
-					<th scope="col">TVA</th>
-					<th scope="col">Promo</th>
-					<th scope="col">Actions</th>
-
-
+					<td colspan="6">Product list is empty... 
+						<a href="{{ path('app_admin_create_product') }}">Add a new product</a>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
+			{% else %}
+
 				{% for product in products %}
 					<tr>
 						<th scope="row">{{ loop.index }}</th>
@@ -69,8 +78,9 @@
 					</tr>
 				{% endfor %}
 			</tbody>
-		</table>
+		{% endif %}
 
+	</table>
 
 
 {% endblock %}

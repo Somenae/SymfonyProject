@@ -27,7 +27,7 @@
 
 		{% if (categories == null) %}
 			<tr>
-				<td colspan="6">There is no one here...</td>
+				<td colspan="6">There is no one here... <a href="{{ path('app_admin_create_category') }}">Create a new category</a></td>
 			</tr>
 		{% else %}
 

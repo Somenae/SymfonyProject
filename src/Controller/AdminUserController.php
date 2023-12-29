@@ -102,7 +102,7 @@ class AdminUserController extends AbstractController
     // Modifier un user --------------------------------------------------------------------------------
 
     #[Route('/editUser/{id}', name: 'app_editUser')]
-    public function editUser(Security $security, Users $user, Request $request, UsersRepository $usersrepository, AddressRepository $addressRepository): Response
+    public function editUser(Security $security, Users $user, Request $request, UsersRepository $usersrepository, AddressRepository $addressRepository, EntityManagerInterface $em): Response
     {
 
         if (!$security->isGranted('ROLE_ADMIN')) {
@@ -123,18 +123,27 @@ class AdminUserController extends AbstractController
             if ($oldaddress !== null) {
                 $oldaddress->setAddress($newaddress);
             }
+            else {
+                // Create a new Address object and set it to the user
+                $newAddressObject = new Address();
+                $newAddressObject->setAddress($newaddress);
+                $user->setAddress($newAddressObject);
+                $em->persist($newAddressObject); // persist Address entity
+            }
 
             // si les champs sont vides, renvoyer message d'erreur
             if ($lastname === "" || $firstname === "" || $email === "" || $newaddress === "") {
                 $message = "Fields must not be empty";
-            } else {
+            } 
+            
+            else {
                 // création d'un nouvel utilisateur et utilisation des méthode de l'entité Users
 
 
                 $user->setLastname($lastname);
                 $user->setFirstname($firstname);
                 $user->setEmail($email);
-                $oldaddress->setAddress($newaddress);
+                /* $oldaddress->setAddress($newaddress); */
                 $usersrepository->save($user);
                 $message = "User has been modified.";
                 return $this->redirectToRoute('app_listUsers');

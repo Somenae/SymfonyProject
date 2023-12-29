@@ -22,19 +22,21 @@ use Symfony\Component\Security\Core\Security;
 
 
 
+
 #[Route('admin/')]
 class AdminProductController extends AbstractController
 {
 
 /* index */
     #[Route('product', name: 'app_admin_product')]
-    public function index(ProductRepository $ProductRepository, Security $security): Response
+    public function index(ProductRepository $ProductRepository, Security $security, Request $request): Response
     {
         if (!$security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_admin_login');
         }
 
         $products = $ProductRepository->findAll();
+
         return $this->render('admin_product/index.html.twig', [
             'products' => $products,  
         ]);

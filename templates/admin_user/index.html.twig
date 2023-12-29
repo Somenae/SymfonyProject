@@ -33,7 +33,7 @@
 	<br>
 
 
-	<table class="table table-light table-striped">
+	<table class="table table-light table-striped table-hover ">
 
 		<thead>
 			<th scope="col">
@@ -50,7 +50,7 @@
 
 		{% if (users == null) %}
 			<tr>
-				<td colspan="6">There is no one here...</td>
+				<td colspan="6">There is no one here... <a href="{{ path('app_admin_new_user') }}">Add a new customer</a></td>
 			</tr>
 		{% else %}
 
