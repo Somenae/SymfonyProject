@@ -63,6 +63,32 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    public function search($request)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.name LIKE :query')
+            ->orWhere('u.price LIKE :query')
+            ->orWhere('u.description LIKE :query')
+            ->orWhere('u.image LIKE :query')
+            ->setParameter('query', '%' . $request . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countSearchResults($request)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->select('count(u.id)')
+            ->where('u.name LIKE :query')
+            ->orWhere('u.price LIKE :query')
+            ->orWhere('u.description LIKE :query')
+            ->orWhere('u.image LIKE :query')
+            ->setParameter('query', '%' . $request . '%');
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

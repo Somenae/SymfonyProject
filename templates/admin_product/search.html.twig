@@ -1,39 +1,22 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Liste des produits
+{% block title %}Symfony ecommerce project
 {% endblock %}
 
 {% block main %}
 
 	<br>
 	<h2>
-		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
 		>
-		<a href="{{ path('app_admin_product') }}">Liste des produits</a>
+        <a href="{{ path('app_list_product') }}">Liste des produits</a>
+		>
+		<a href="{{ path ('app_admin_product_search', {'search': app.request.query.get('search')}) }}">{{ count }} Result(s) for :
+			{{ app.request.query.get('search') }}</a>
 	</h2>
-
 	<br>
 
-
-	<div class="d-flex justify-content-between">
-		<div>
-			<a href="{{ path('app_admin_create_product') }}">
-				<button type="button" class="btn btn-primary">Créer un produit</button>
-			</a>
-		</div>
-
-		<div>
-			<form action="{{ path('app_admin_product_search') }}" method="GET" name="searchProduct">
-				<input type="search" name="search"/>
-				<input type="submit" name="submit" value="Search"/>
-			</form>
-		</div>
-
-	</div>
-
-
-	<br>
-	<table class="table table-light table-striped">
+		<table class="table table-light table-striped">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">#</th>
@@ -50,15 +33,7 @@
 		</thead>
 		<tbody>
 
-			{% if (products == null) %}
-				<tr>
-					<td colspan="6">Product list is empty...
-						<a href="{{ path('app_admin_create_product') }}">Add a new product</a>
-					</td>
-				</tr>
-			{% else %}
-
-				{% for product in products %}
+				{% for product in result %}
 					<tr>
 						<th scope="row">{{ loop.index }}</th>
 						<td>{{ product.name }}</td>
@@ -90,11 +65,18 @@
 							</a>
 						</td>
 					</tr>
+					{% else %}
+					<td colspan="8">No results found.</td>
+				</tr>
 				{% endfor %}
 			</tbody>
-		{% endif %}
 
 	</table>
 
+
+	<br>
+	<a href="{{ path('app_list_product') }}">
+		<button type="button" class="btn btn-secondary">Product list</button>
+	</a>
 
 {% endblock %}

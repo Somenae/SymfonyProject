@@ -23,7 +23,7 @@ class AdminCategoryController extends AbstractController
         }
 
         $category = new Category();
-        $form = $this->createForm(categoryFormType::class, $category, [
+        $form = $this->createForm(CategoryFormType::class, $category, [
             'label_name' => "Créer nouvelle categorie"
         ]);
 
