@@ -41,6 +41,7 @@
     font-size: 3em;
     padding-left : 0.5em;
     width: 100%;
+    color: var(--darkbrown);
 }
 
 /* Style des cartes */
@@ -54,7 +55,17 @@
  
     padding: 2em !important;
     border: 0.1em solid #603808 !important;
-    background-color: #e7bc91 !important;    
+/*     background-color: #e7bc91 !important; */    
+
+background: rgba( 231, 188, 145, 0.25 ) !important;
+box-shadow: 0 4px 30px 0 #bc8a5f !important;
+backdrop-filter: blur( 9px ) !important;
+-webkit-backdrop-filter: blur( 9px ) !important;
+border-radius: 10px !important;
+border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+
+
+
 }
 /* Style pour l'onglet promo */
 .card-img-top{
@@ -118,6 +129,7 @@
     font-family: 'Abril Fatface', serif;
     font-size: 3em;
     padding: 0.5em;
+    color: var(--darkbrown);
 }
 
 
