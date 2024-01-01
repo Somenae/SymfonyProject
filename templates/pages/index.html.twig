@@ -61,6 +61,7 @@
 				<div class="container mt-3">
 					<div class="row">
 						{% for item in products|slice(0, 6) %}
+
 							<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
 								<div class="card mx-auto">
 									<img src="{{ asset('uploads/productimage/' ~ item.image) }}" class="card-img-top" alt="Card Image">
@@ -72,6 +73,7 @@
 									</div>
 								</div>
 							</div>
+
 						{% endfor %}
 					</div>
 

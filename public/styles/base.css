@@ -409,3 +409,9 @@ footer h2 {
   transition: 0.4s;
 }
 
+/* accordion */
+
+.accordion-item, .accordion-button, .accordion-header
+{
+  background-color: transparent !important;
+}

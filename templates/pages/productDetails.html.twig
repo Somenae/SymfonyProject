@@ -59,7 +59,7 @@
 						<div class="row d-flex align-item-botton mt-2">
 							<div class="col">
 								<div class="form-group">
-									<input type="number" name="quantity" id="quantity" class="form-control" min="1">
+									<input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Saisissez une valeur">
 								</div>
 							</div>
 							<div class="col">
@@ -69,7 +69,8 @@
 
                         <hr class="my-4">
 
-            			<a href="/categories"><button class="btn btn-secondary mt-4">Retourner aux catégories</button></a>
+            			<a href="{{ path('app_index_categories') }}"><button class="btn btn-secondary mt-4">Retourner aux catégories</button></a>
+            			<a href="{{ path('app_index') }}"><button class="btn btn-secondary mt-4">Retourner à l'accueil</button></a>
 
 					</div>
 				</div>

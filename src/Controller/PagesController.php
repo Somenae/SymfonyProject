@@ -23,7 +23,7 @@ class PagesController extends AbstractController
             $productsNoPromo = $productrepo->searchByName($request->query->get('product', ''));
             $productsPromo = $productrepo->searchByName($request->query->get('product', ''));
         } else {
-            $productsNoPromo = $productrepo->getRandomProduct();
+            $productsNoPromo = $productrepo->getRandomProductNoPromo();
             $productsPromo = $productrepo->getRandomProductPromo();
         }
 
