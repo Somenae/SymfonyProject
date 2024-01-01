@@ -206,6 +206,8 @@ class AdminProductController extends AbstractController
             'product' => $product,
         ]);
     }
+ 
+
 
     /* Inserer une image */
     #[Route('addimage/{id}', name: 'app_admin_add_image')]

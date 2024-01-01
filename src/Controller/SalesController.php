@@ -96,6 +96,8 @@ class SalesController extends AbstractController
         ]);
     }
 
+    
+
     #[Route('/admin/productsale/{id}', name: 'app_admin_productesale')]
     public function ProductSale(Request $request, EntityManagerInterface $em, ?Sales $sale, ProductRepository $productrepo, Security $security): Response
     {
@@ -127,6 +129,7 @@ class SalesController extends AbstractController
             "labelname" => "Ajouter la promotion a ce produit"
         ]);
     }
+
 
     #[Route('/admin/Eraseproductsale', name: 'app_admin_erase_productesale')]
     public function EraseProductSale(Request $request, EntityManagerInterface $em, ProductRepository $productrepo, Security $security): Response

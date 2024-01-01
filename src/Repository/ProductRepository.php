@@ -37,6 +37,21 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getRandomProductPromo()
+{
+    $sql = "SELECT * FROM `product` WHERE `product_sales_id` IS NOT NULL ORDER BY RAND() LIMIT 6";
+    $query = $this->getEntityManager()->getConnection()
+        ->executeQuery($sql);
+    $result = $query->fetchAllAssociative();
+
+    $productsPromo = [];
+    foreach ($result as $preproductPromo) {
+        $productPromo = $this->find($preproductPromo['id']);
+        $productsPromo[] = $productPromo;
+    }
+    return $productsPromo;
+}
+
     public function getRandomProduct()
     {
         $sql = "SELECT * FROM `product` ORDER BY RAND() LIMIT 6";
@@ -51,6 +66,22 @@ class ProductRepository extends ServiceEntityRepository
         }
         // var_dump($products);
         return $products;
+    }
+
+    public function getRandomProductNoPromo()
+    {
+        $sql = "SELECT * FROM `product` WHERE `product_sales_id` IS NULL ORDER BY RAND() LIMIT 6";
+        $query = $this->getEntityManager()->getConnection()
+            ->executeQuery($sql);
+        $result = $query->fetchAllAssociative();
+
+        $productsNoPromo = [];
+        foreach ($result as $preproduct) {
+            $productNoPromo = $this->find($preproduct['id']);
+            $productsNoPromo[] = $productNoPromo;
+        }
+        // var_dump($products);
+        return $productsNoPromo;
     }
 
     public function countProducts()

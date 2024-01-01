@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ title }} {% endblock %}
+{% block title %}
+	{{ title }}
+{% endblock %}
 
 {% block main %}
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+	<section class="main-body d-flex justify-content-center">
+		<div class="box-promo">
+			<div class="text-promo">
+				<h2 class="text-center my-4">Compte</h2>
+			</div>
 
-    {% if app.request.attributes.get('_route') is same as('app_user_account') %}
-        <a href="{{ path('app_user_update_address') }}">Modifier votre adresse</a>
-    {% endif %}
-{% endblock %}
+            <div class="px-5 pb-3">
+			{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
+
+			{% if app.request.attributes.get('_route') is same as('app_user_account') %}
+				<a href="{{ path('app_user_update_address') }}" class=" d-flex justify-content-center"><button class="btn btn-primary mb-4">Modifier votre adresse</button></a>
+			{% endif %}
+            </div>
+		</div>
+    </section>
+	{% endblock %}

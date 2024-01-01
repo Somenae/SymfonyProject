@@ -13,24 +13,22 @@
   --black: #333333;
   --lightgrey: #888888;
   --darkgrey: #666666;
-  --dark:#111111 !important;
+  --dark: #111111 !important;
 }
+
 * {
   margin: 0;
   padding: 0;
   text-decoration: none;
   list-style: none;
   font-family: "Lato", sans-serif;
- 
-   
-   
 }
+
 body {
   width: 100vw;
   overflow-x: hidden;
   background-color: var(--background);
 }
-
 
 /**************************HEADER***********************/
 
@@ -39,33 +37,29 @@ header {
 }
 /*****top-navbar***/
 
-.navbar
-{
+.navbar {
   background-color: var(--darkbrown);
   color: var(--darkcream);
   font-size: 1.1em;
 }
 
-
-.navbar a  {
+.navbar a {
   color: var(--darkcream);
-  font-size: 1.20em;
+  font-size: 1.2em;
 }
 .navbar a:hover {
   color: var(--lightcream);
-  font-size: 1.20em;
+  font-size: 1.2em;
   text-decoration: none;
 }
 
-.navbar-toggler-icon a {
-  color:white;
-  background-color: #bc8a5f;
-}
-.navbar-toggler button {
-  color:white !important;
-  background-color: #bc8a5f !important;
+.navbar-toggler-icon {  
+  border-radius: 5px !important;
 }
 
+.navbar-toggler button {  
+  border:0px;
+}
 
 .top-nav {
   width: 100%;
@@ -81,22 +75,15 @@ header {
   padding-left: 2%;
 }
 
+.logo {
+  -webkit-filter: drop-shadow(2px 2px 0 #8b5e34) drop-shadow(-2px 2px 0 #8b5e34)
+    drop-shadow(2px -2px 0 #8b5e34) drop-shadow(-2px -2px 0 #8b5e34);
 
-.logo
-{
-  -webkit-filter: drop-shadow(2px 2px 0 #8b5e34)
-  drop-shadow(-2px 2px 0 #8b5e34)
-  drop-shadow(2px -2px 0 #8b5e34)
-  drop-shadow(-2px -2px 0 #8b5e34);
-
-filter: drop-shadow(2px 2px 0 #8b5e34)
-drop-shadow(-2px 2px 0 #8b5e34)
-drop-shadow(2px -2px 0 #8b5e34)
-drop-shadow(-2px -2px 0 #8b5e34);
+  filter: drop-shadow(2px 2px 0 #8b5e34) drop-shadow(-2px 2px 0 #8b5e34)
+    drop-shadow(2px -2px 0 #8b5e34) drop-shadow(-2px -2px 0 #8b5e34);
 }
 
-.cart-icon
-{
+.cart-icon {
   height: 30px;
 }
 
@@ -170,7 +157,7 @@ drop-shadow(-2px -2px 0 #8b5e34);
 }
 
 /******BURGER*******/
-.icon-hamburger {
+/* .icon-hamburger {
   position: relative;
   width: 35px;
   height: 32px;
@@ -189,10 +176,10 @@ drop-shadow(-2px -2px 0 #8b5e34);
   transform: rotate(0deg);
   transition: 0.25s ease-in-out;
   background-color: var(--brown);
-}
+} */
 /*****hamburger fermé***/
 
-.icon-hamburger span:nth-child(1) {
+/* .icon-hamburger span:nth-child(1) {
   top: 0%;
   background-color: var(--brown);
 }
@@ -202,10 +189,10 @@ drop-shadow(-2px -2px 0 #8b5e34);
 }
 .icon-hamburger span:nth-child(3) {
   top: 66%;
-  background-color: var(--brown);
-}
+  background-color: var(--brown); */
+/* } */
 /*****hamburger ouvert*****/
-.icon-hamburger.open span:nth-child(1) {
+/* .icon-hamburger.open span:nth-child(1) {
   top: 34%;
   transform: rotate(135deg);
   background-color: var(--green2);
@@ -225,12 +212,12 @@ drop-shadow(-2px -2px 0 #8b5e34);
   margin: 0;
   padding: 0;
   background: none;
-}
+} */
 
 /**************************FOOTER***********************/
 
-footer, footer p
-{
+footer,
+footer p {
   background-color: var(--darkbrown);
   color: var(--darkchestnut);
   font-size: 1.1em;
@@ -239,13 +226,15 @@ footer, footer p
 footer a {
   color: var(--darkchestnut);
   font-size: 1em;
+  text-decoration: none;
 }
 footer a:hover {
   color: var(--lightchestnut);
   font-size: 1em;
   text-decoration: none;
 }
-.copyright a, .container p {
+.copyright a,
+.container p {
   color: var(--darkchestnut);
   font-size: 0.9em;
 }
@@ -259,21 +248,164 @@ footer h2 {
   font-size: 1.25em;
 }
 
-.ulfooter
-{padding:0;}
-
-
-.card
-{
-  background: rgba( 231, 188, 145, 0.25 ) !important;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) !important;
-  backdrop-filter: blur( 9px ) !important;
-  -webkit-backdrop-filter: blur( 9px ) !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+.ulfooter {
+  padding: 0;
 }
 
-.card-body
-{
+.card {
+  background: rgba(231, 188, 145, 0.20) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25) !important;
+  backdrop-filter: blur(9px) !important;
+  -webkit-backdrop-filter: blur(9px) !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.card-body {
   background: transparent;
 }
+
+
+/************************** EX STYLE CSS ***********************/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Style du main */
+.main-body {
+  background-color: #ffedd8;
+  padding: 2em;
+}
+
+/* Style du box-promo */
+.box-promo {
+  background-color: #e7bc91;
+  width: 100%;
+  border-radius: 2em;
+  margin: 2em;
+  padding: 2em;
+  outline: 6px solid #603808;
+  outline-offset: -20px;
+  background-image: url('../uploads/planches.jpg');
+  background-size: cover;
+}
+
+
+/* Style 2e box avec bordure marron */
+.container-custom {
+  background-color: #e7bc91 !important;
+  border: 0.4em solid #603808 !important;
+  border-radius: 1em !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* titre Promo */
+.text-promo h2 {
+  font-family: "Abril Fatface", serif;
+  font-size: 3em;
+  padding-left: 0.5em;
+  width: 100%;
+  color: var(--darkbrown);
+}
+
+/* Style des cartes */
+
+/* Style de la carte individuelle */
+.card {
+  width: 100% !important;
+  margin: 0 !important;
+
+  padding: 2em !important;
+  border: 0.1em solid #603808 !important;
+  /*     background-color: #e7bc91 !important; */
+
+  background: rgba(231, 188, 145, 0.25) !important;
+  box-shadow: 0 4px 30px 0 #bc8a5f !important;
+  backdrop-filter: blur(9px) !important;
+  -webkit-backdrop-filter: blur(9px) !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+/* Style pour l'onglet promo */
+.card-img-top {
+  position: relative;
+  object-fit: cover;
+  min-height: 250px;
+  max-height: 450px;
+}
+/* .image-promo {
+  width: 30%;
+  height: auto;
+  position: absolute;
+  right: 2em;
+  z-index: 1;
+}
+ */
+/* Style du bouton dans la carte */
+.card-body .bouton {
+  background-color: #bc8a5f !important;
+  border: 0.1em solid #603808 !important;
+  color: #603808 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  display: flex;
+  justify-content: center;
+}
+
+.card-body .bouton:hover {
+  background-color: #bc8a5f !important;
+  border: 0.1em solid #603808 !important;
+  color: #e7bc91 !important;
+  box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
+  display: flex;
+  justify-content: center;
+}
+
+.hr {
+  border: none !important;
+  width: 50% !important;
+  height: 0.2em !important;
+  border: 0.1em solid #603808 !important;
+  background-color: #603808 !important;
+  border-radius: 1em !important;
+  margin: 0.3em auto !important;
+}
+
+.box-hit {
+  background-color: #e7bc91 !important;
+  width: 100%;
+  border-radius: 2em;
+  margin: 2em;
+  padding: 2em;
+  outline: 6px solid #603808;
+  outline-offset: -20px;
+  background-image: url('../uploads/planches.jpg');
+  background-size: cover;
+}
+
+.oldprice
+{
+  text-decoration:line-through;
+}
+
+/* titre HIT PRODUITS */
+.text-hit h2 {
+  font-family: "Abril Fatface", serif;
+  font-size: 3em;
+  padding: 0.5em;
+  color: var(--darkbrown);
+}
+
+
+/* Nouveau burger menu */
+
+.bar1, .bar2, .bar3 {
+  width: 20px;
+  height: 2px;
+  background-color:#bc8a5f;
+  margin: 5px 4px;
+  transition: 0.4s;
+}
+

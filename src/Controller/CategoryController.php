@@ -31,7 +31,7 @@ Class CategoryController extends AbstractController
     $searchTerm = $request->query->get('search');
 
     $categories = [];
-    if ($searchTerm) {
+    if ($searchTerm !== null) {
         $categories = $categoryRepository->search($searchTerm);
     }
 

@@ -1,18 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
+{% block title %}! VINTYLE Liste des Categories !
+{% endblock %}
+
 
 {% block main %}
-<h1>Categories:</h1>
 
-<form method="get" action="{{ path('app_search_categories') }}">
-    <input type="text" name="search" placeholder="Rechercher categorie">
-    <button type="submit">Rechercher</button>
-</form>
+	<section class="main-body d-flex justify-content-center">
+		<div class="box-promo px-5">
+			<div class="text-promo">
+				<h2 class="text-center my-4">Liste des catégories</h2>
+			</div>
 
-{% for category in categories %}
-    <h3><a href="{{ path('app_category_products', {'id': category.id}) }}">{{ category.name }}</a></h3>
-{% endfor %}
+			<div class="d-flex justify-content-center mb-4 row col-lg-12 col-sm-12 col-md-12 mx-auto">
+				<div class="col-8 col-xs-2">
+					<form method="get" action="{{ path('app_search_categories') }}">
+						<input type="text" name="search" class="form-control d-inline-flex" placeholder="Rechercher categorie">
+					</div>
+					<div class="col-4 d-flex justify-content-start">
+						<button type="submit" class="btn btn-primary w-100">Rechercher</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="categorie row">
+
+				{% for category in categories %}
+
+					<!-- Image de la catégorie -->
+
+					<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+						<div class="card mx-auto">
+							<div class="card-body px-0 pb-0 text-center">
+								<img class="img-fluid w-75" src="{{ asset('/uploads/music-note.webp') }}" alt="{{ category.name }}">
+								<h3 class="card-title text-center mb-3">{{ category.name }}</h3>
+								<a href="{{ path('app_category_products', {'id': category.id}) }}" class="btn bouton">Voir les produits</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
 
 
-{% endblock %}
+	{% endblock %}

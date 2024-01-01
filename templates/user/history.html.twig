@@ -1,30 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<table class="table table-light table-striped">
-        <thead>
-        <tr>
-            <th>Nom client</th>
-            <th>Date de commande</th>
-            <th>Adresse de livraison</th>
-            <th>Adresse de facturation</th>
-            <th>Prix Total</th>
-            <th>Etat de la commande</th>
-            <th>Type de paiement</th>
-        </tr>
-        </thead>
-        <tbody>
-    {% for item in orders %}
-        <tr>
-            <td>{{ item.clientname }}</td>
-            <td>{{ item.orderdate|date('d-m-Y', 'Europe/Paris') }}</td>            
-            <td>{{ item.addressshipped.address }}</td>
-            <td>{{ item.billingaddress.address }}</td>
-            <td>{{ item.totalprice }}</td>
-            <td>{{ item.orderstate.label }}</td>
-            <td>{{ item.payment.type }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+
+	<section class="main-body d-flex justify-content-center">
+		<div class="box-promo px-5">
+			<div class="text-promo">
+				<h2 class="text-center my-4">Historique de mes commandes</h2>
+			</div>
+
+
+			<table class="table table-light table-striped">
+				<thead>
+					<tr>
+						<th>Nom client</th>
+						<th>Date de commande</th>
+						<th>Adresse de livraison</th>
+						<th>Adresse de facturation</th>
+						<th>Prix Total</th>
+						<th>Etat de la commande</th>
+						<th>Type de paiement</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in orders %}
+						<tr>
+							<td>{{ item.clientname }}</td>
+							<td>{{ item.orderdate|date('d-m-Y', 'Europe/Paris') }}</td>
+							<td>{{ item.addressshipped.address }}</td>
+							<td>{{ item.billingaddress.address }}</td>
+							<td>{{ item.totalprice }}</td>
+							<td>{{ item.orderstate.label }}</td>
+							<td>{{ item.payment.type }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</section>
+	{% endblock %}

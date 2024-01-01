@@ -1,8 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.name }}{% endblock %}
+
+{% block title %}
+	{{ product.name }}/{{ product.description }}
+{% endblock %}
 
 {% block main %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-{% endblock %}
+
+
+	<section class="main-body d-flex justify-content-center pb-0">
+		<div class="box-promo pb-5">
+
+			<div class="text-promo text-center mb-5">
+				<h2 class="text-center mt-4">{{ product.name }}
+					/
+					{{ product.description }}</h2>
+			</div>
+
+			
+			
+			{# style fiche Produit #}
+			<div class="container box">
+				<div
+					class="row">
+					<!-- Colonne pour l'image -->
+					<div class="col-md-6">
+						<div class="card">
+							<img src="{{ asset('uploads/productimage/'~product.image) }}" alt="Card image cap">
+							{% if product.ProductSales is not null %}
+								<div class="bg-success text-center text-white w-100">Promo :
+									{{ product.ProductSales.getAmountPercentage }}%</div>
+							{% endif %}
+						</div>
+					</div>
+
+					<!-- Colonne pour le texte à droite -->
+					<div class="col-md-6 mt-4">
+
+						<h4 class="mb-3">
+							<b>Titre :</b>
+							{{ product.name }}</h4>
+						<h4 class="mb-3">
+							<b>Album :</b>
+							{{ product.description }}</h4>
+						<h4 class="mb-3">
+							<b>Prix :</b>
+							<div class="d-inline card-subtitle mb-1 {% if product.ProductSales is not null %} oldprice {% endif %}">
+								{{ product.price }}€
+							</div>
+                            {% if product.ProductSales is not null %}
+							<div class="d-inline ml-4">&nbsp;{{ product.price * (1 - (product.ProductSales.getAmountPercentage / 100)) | number_format(2, '.', ',') }}€</div>
+                            {% endif %}
+						</h4>
+
+                        <hr class="my-4">
+
+						Quantité :
+						<div class="row d-flex align-item-botton mt-2">
+							<div class="col">
+								<div class="form-group">
+									<input type="number" name="quantity" id="quantity" class="form-control" min="1">
+								</div>
+							</div>
+							<div class="col">
+								<input type="submit" class="btn btn-primary" value="Ajouter au panier">
+							</div>
+						</div>
+
+                        <hr class="my-4">
+
+            			<a href="/categories"><button class="btn btn-secondary mt-4">Retour</button></a>
+
+					</div>
+				</div>
+
+
+				<!-- Bouton Panier en bas -->
+			</section>
+		</div>
+	{% endblock %}
