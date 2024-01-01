@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Orders;
+use App\Form\OrdersFormType;
 use App\Repository\CartRepository;
 use App\Repository\OrdersRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,15 +40,17 @@ class OrdersController extends AbstractController
                 $cartline =  $cart->getCartLine();
 
                 foreach ($cartline as $line) {
-                    $pricel = + ($line->getQuantity()) * ($line->getProduct()->getPrice());
+                    $pricel = ($line->getQuantity()) * ($line->getProduct()->getPrice());
 
                     if ($line->getProduct()->getProductTaxes() !== NULL) {
-                        $pricel = $pricel * (1 - (($line->getProduct()->getProductTaxes()->getAmount()) / 100));
+                        $pricel = $pricel * (1 + (($line->getProduct()->getProductTaxes()->getAmount()) / 100));
                     }
+
                     if ($line->getProduct()->getProductSales() !== NULL) {
                         $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
                     }
-                    $price = $price + $pricel * $line->getQuantity();
+                    
+                    $price = $price + $pricel;
                 }
             }
             
@@ -64,21 +68,30 @@ class OrdersController extends AbstractController
         Request $request,
         Security $security,
         CartRepository $cartrepo,
+        EntityManagerInterface $em,
     ): Response
     {
         if ($user = $security->getUser() === NULL) {
             return $this->redirectToRoute('app_index');
         }
-        if ($request->request->has('buy')) {
-            $orders = new Orders();
+        
+        $orders = new Orders();
+        
+        $form = $this->createForm(OrdersFormType::class, $orders);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cart = $cartrepo->findLastCartByIdUser($user->getId());
             $orders->setUsers($user);
             $orders->setCart($cart);
             $orders->setClientName($user->getFirstName().' '.$user->getLastName());
-
+            $em->persist($orders);
+            $em->flush();
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('orders/order.html.twig', [
             'orders' => $orders,
+            'form' => $form,
             'title' => 'Commande en cours',
         ]);
     }
