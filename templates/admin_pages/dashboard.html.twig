@@ -78,10 +78,11 @@
 
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
-					<h5 class="card-title">Manage Taxes</h5>
-					<p class="card-text">Not available yet.</p><br>
-					<a href="#">
-						<button class="btn btn-secondary btn-lg btn-block">Not available</button>
+					<h5 class="card-title">Manage order</h5>
+					<p class="card-text">{{countOrder}}
+						orders.</p><br>
+					<a href="{{ path('app_admin_list_order') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
 					</a>
 				</div>
 			</div>
