@@ -17,15 +17,16 @@
   padding: 0;
   text-decoration: none;
   list-style: none;
-  font-family: "Lato", sans-serif;
- 
-   
-   
+  font-family: "Lato", sans-serif;  
 }
 body {
   width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 /**************************HEADER***********************/
 header {
@@ -122,7 +123,6 @@ header {
 .mid-nav img {
   height: 145px;
 }
-
 /******BURGER*******/
 .icon-hamburger {
   position: relative;
@@ -131,7 +131,6 @@ header {
   transition: 0.5s ease-in-out;
   cursor: pointer;
 }
-
 .icon-hamburger span {
   display: block;
   position: absolute;
@@ -162,7 +161,7 @@ header {
 .icon-hamburger.open span:nth-child(1) {
   top: 34%;
   transform: rotate(135deg);
-  background-color: var(--green2);
+  background-color: var(--brown);
 }
 .icon-hamburger.open span:nth-child(2) {
   opacity: 0;
@@ -170,7 +169,7 @@ header {
 }
 .icon-hamburger.open span:nth-child(3) {
   transform: rotate(-135deg);
-  background-color: var(--blackl);
+  background-color: var(--brown);
   top: 34%;
 }
 .script-hamburger {
@@ -180,6 +179,93 @@ header {
   padding: 0;
   background: none;
 }
+/***container navmobile***/
+.container-nav-mobile{
+  width: 100%;
+  height: 175px;
+}
+.container-nav-mobile.open-container{
+  background-color: var(--white);
+}
+/****navmobile****/
+.nav-mobile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0 10% 0 10% ;
+  height: 150px;
+  display: none;
+  background-color: var(--brown);
+  border-radius: 15px;
+}
+/***DISPLAY DU MENU**/
+.nav-mobile.open-menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+/**MOBILE LINKS**/
+.nav-mobile-links{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width:85% ;
+  border-radius: 15px;
+  background-color: var(--darkbrown);
+}
+.nav-mobile-links li {
+  width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+ 
+}
+.nav-mobile-links li a{
+  font-size: 2em;
+  color: #ffffff;
+}
+.nav-mobile-links li img{
+  height: 30px;
+  transform: rotate(-180deg);
+  padding-left: 2%;
+}
+
+/***nav mobile search bar ***/
+.nav-mobile-search{
+  width: 85%;
+  height: 50px;
+  border: 3px solid var(--darkchestnut);
+  border-radius: 15px;
+  background-color: white;
+}
+.nav-mobile-search form{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+}
+.nav-mobile-search form input{
+  width:40%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  color: var(--black);
+  font-size: 1.5em;
+  padding-left: 1%;
+}
+.nav-mobile-search form button{
+  width: 33%;
+  height: 100%;
+  border: 5px solid var(--darkchestnut);
+  border-radius: 15Px;
+  background-color: var(--darkchestnut);
+  color: white;
+  font-size: 1.5em;
+}
+
 
 /**************************FOOTER***********************/
 footer {
@@ -263,7 +349,7 @@ footer h2 {
     margin: 0;
     padding: 0;
     border: 2px solid var(--black);
-    border-radius: 15Px;
+    border-radius: 10Px;
     outline: 0;
     height: 40px;
   }
@@ -297,10 +383,128 @@ footer h2 {
   font-size: 0.8em;
 }
 
-
-
-/********LOGIN PAGE / SIGN UP PAGE **/
-.section-login{
-  margin:  50px 2% 50px 2%;
+/***********************BODY**************************/
+section{
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10% 0 10% 0;
+}
+/********LOGIN PAGE / SIGN UP PAGE **/
+/*LOGIN PAGE*/
+.section-login{
+  width: 85%;
+  height: 625px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:  url(../asset/img/wood.png) ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+.section-login div{
+  width: 90%;
+  height: 90%;
+  background-color: var(--cream);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.section-login div form{ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  background-color: var(--cream);
+  border-radius: 20px;
+}
+.section-login div form input {
+  width: 85%;
+  height: 50px;
+  border-radius: 15px;
+  border: 3px solid var(--black);
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  margin-bottom: 20px;
+  padding-left: 2%;
+  font-size: 1.5em;
+  color: #333632;
+}
+.section-login div form button{
+  width: 50%;
+  height: 50px;
+  border-radius: 15px;
+  border: 3px solid var(--black);
+  background: linear-gradient(90deg, #D4A276 0%, #A47148 29%, #603808 66.5%, #583101 96%);
+  color: var(--white);
+}
+.section-login div form label{
+  display: none;
+}
+.section-login div form h1{
+  margin-bottom: 100px;
+  text-align: center;
+}
+/*SIGN IN PAGE*/
+.section-signin{
+  width: 85%;
+  height: 875px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:  url(../asset/img/wood.png) ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+#container-signin{
+  width: 90%;
+  height: 90%;
+  background-color: var(--cream);
+  border: 3px solid var(--darkbrown);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#container-signin form{ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  background-color: var(--cream);
+  border-radius: 20px;
+}
+#container-signin form input{
+  width: 85%;
+  height: 50px;
+  border-radius: 15px;
+  border: 3px solid var(--black);
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  margin-bottom: 20px;
+  padding-left: 2%;
+  font-size: 1.5em;
+  color: #333632;
+}
+#container-signin form button{
+  width: 50%;
+  height: 50px;
+  border-radius: 15px;
+  border: 3px solid var(--black);
+  background: linear-gradient(90deg, #D4A276 0%, #A47148 29%, #603808 66.5%, #583101 96%);
+  color: var(--white);
 }
