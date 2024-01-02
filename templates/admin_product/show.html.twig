@@ -44,9 +44,13 @@
 							{{ product.price }}
 							€</li>
 						<li class="list-group-item">
+						{% if product.ProductTaxes is same as(NULL) %}
+							<b>Pas de taxes</b>
+						{% else %}
 							<b>TVA :</b>
 							{{ product.ProductTaxes.amount }}
 							%</li>
+							{% endif %}
 					</ul>
 					<div class="card-body">
 						<div class="btn btn-success" role="alert">

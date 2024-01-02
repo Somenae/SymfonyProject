@@ -38,7 +38,7 @@ class CartController extends AbstractController
 
         $price=0 ;
         $cart = $cartrepo->findLastCartByIdUser($security->getUser()->getId());
-        if($cart === NULL || $cart->getCartLine()=== NULL){
+        if($cart === NULL || $cart->getCartLine()[0]=== NULL){
             return $this->render('pages/cartDisplay.html.twig', [
                 'cartline' =>  NULL ,
             ]);}

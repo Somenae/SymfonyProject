@@ -6,6 +6,7 @@ use App\Repository\ShippingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ShippingRepository::class)]
 class Shipping
@@ -16,9 +17,11 @@ class Shipping
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $company = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $transport_type = null;
 
     #[ORM\Column]
