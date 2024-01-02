@@ -21,6 +21,11 @@ class OrderStateRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderState::class);
     }
 
+    public function findByLabel(string $name)
+    {
+        return $this->findBy(["label" => $name]);
+    }
+
 //    /**
 //     * @return OrderState[] Returns an array of OrderState objects
 //     */
