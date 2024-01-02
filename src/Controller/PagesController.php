@@ -67,8 +67,6 @@ class PagesController extends AbstractController
                 }
                 if ($line->getProduct()->getProductSales() !== NULL) {
                     $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
-                    echo ($line->getProduct()->getProductSales()->getAmountPercentage() % 100);
-                    echo " Poucentage de reduc    ";
                 }
                 $price = $price +  $pricel;
             }
