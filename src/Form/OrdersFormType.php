@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Address;
 use App\Entity\Orders;
 use App\Entity\Payment;
+use App\Entity\Shipping;
 use App\Entity\Users;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -34,6 +35,10 @@ class OrdersFormType extends AbstractType
                 'choice_label' => 'type',
                 'multiple' => false,
                 'expanded' => true,
+            ])
+            ->add('shipping', EntityType::class, [
+                'class'=> Shipping::class,
+                'choice_label' => 'company',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Payer',
