@@ -75,7 +75,6 @@ class OrdersController extends AbstractController
         Security $security,
         CartRepository $cartrepo,
         OrderStateRepository $stateRepository,
-        ShippingRepository $shippingRepository,
         EntityManagerInterface $em,
     ): Response
     {
@@ -97,7 +96,7 @@ class OrdersController extends AbstractController
 
             $cart = $cartrepo->findLastCartByIdUser($user->getId());
             $orderState = $stateRepository->findByLabel('Shipped');
-            $shipping = $shippingRepository->findByCompanyName('El Bato');
+            /* $shipping = $shippingRepository->findByCompanyName('El Bato'); */
 
             $orders->setUsers($user);
             $orders->setCart($cart);
@@ -124,7 +123,7 @@ class OrdersController extends AbstractController
 
             $orders->setTotalPrice($price);
             $orders->setOrderState($orderState[0]);
-            $orders->setShipping($shipping[0]);
+            /* $orders->setShipping($shipping[0]); */
             $em->persist($orders);
 
             foreach ($cartline as $line) {
