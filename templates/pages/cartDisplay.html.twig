@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recapitulatif panier!{% endblock %}
+{% block title %}Recapitulatif panier!
+{% endblock %}
 
 {% block main %}
-<h1>Mon Panier</h1>
+	<section class="main-body d-flex justify-content-center">
+		<div class="box-promo px-5">
+			<div class="text-promo">
+				<h2 class="text-center my-4">Panier</h2>
+			</div>
 
 {% if cartline is same as (NULL) %}
 RIEN DANS LE PANIER
@@ -30,21 +35,25 @@ RIEN DANS LE PANIER
        <td>{{ line.product.price * (1 + ((line.getProduct.getProductTaxes.getAmount) / 100)) }}€</td>
         {% endif %}
 
-       {% if line.product.productsales is same as (NULL) %}
-       <td>Pas de promotion actuellement</td>
-        {% else %}
-        <td>{{ line.product.productsales.amountpercentage }}%</td>
-        {% endif %}
+								{% if line.product.productsales is same as (NULL) %}
+									<td>Pas de promotion actuellement</td>
+								{% else %}
+									<td>{{ line.product.productsales.amountpercentage }}%</td>
+								{% endif %}
 
 
-      <td>{{ line.product.description }}</td>
-      <td><a class="text-danger" href="{{ path('app_cart_remove',{'id' : line.id}) }}">Supprimer</a></td>
-    </tr>
- {% endfor %}
-  </tbody>
-</table>
-<h2>Prix du panier: {{ price }}€</h2>
-<button class="btn btn-success">Commander</button>
-   {% endif %}
-
-{% endblock %}
+								<td>{{ line.product.description }}</td>
+								<td>
+									<a class="text-danger" href="{{ path('app_cart_remove',{'id' : line.id}) }}">Supprimer</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<h2>Prix du panier:
+					{{ price }}€</h2>
+				<button class="btn btn-success">Commander</button>
+        </div>
+			{% endif %}
+		</section>
+	{% endblock %}

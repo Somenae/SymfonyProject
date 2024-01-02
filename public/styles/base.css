@@ -311,6 +311,14 @@ footer h2 {
   color: var(--darkbrown);
 }
 
+.text-promo h1 {
+  font-family: "Abril Fatface", serif;
+  font-size: 3em;
+  padding-left: 0.5em;
+  width: 100%;
+  color: var(--darkbrown);
+}
+
 /* Style des cartes */
 
 /* Style de la carte individuelle */
