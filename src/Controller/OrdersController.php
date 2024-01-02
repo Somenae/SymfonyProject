@@ -85,6 +85,9 @@ class OrdersController extends AbstractController
         
         $orders = new Orders();
         $user = $security->getUser();
+        if ($user->getAddress() === NULL) {
+            return $this->redirectToRoute('app_user_account');
+        }
         $form = $this->createForm(OrdersFormType::class, $orders, [
             'address' => [$user->getAddress()],
         ]);
