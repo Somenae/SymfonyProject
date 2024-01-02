@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
@@ -22,15 +24,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private array $role = [];
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
+    #[Assert\Email([
+        'message' => 'Veuillez saisir une adresse mail valide',]
+    )]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
+    // #[Assert\PasswordStrength([
+    //     'minScore' => PasswordStrength::STRENGTH_WEAK,
+    //     'message' => 'Le mot de passe est trop faible',]
+    // )]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Cart::class)]

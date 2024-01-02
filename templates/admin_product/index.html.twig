@@ -67,9 +67,13 @@
 						<td>{{ product.price }}
 							€
 						</td>
-						<td>{{ product.ProductTaxes.amount }}
-							%
-						</td>
+						{% if product.ProductTaxes is same as(NULL) %}
+							<td>Pas de taxes</td>
+						{% else %}
+							<td>-{{product.ProductTaxes.amount}}
+								%
+							</td>
+						{% endif %}
 						{% if product.ProductSales is same as(NULL) %}
 							<td>Pas de promotion</td>
 						{% else %}

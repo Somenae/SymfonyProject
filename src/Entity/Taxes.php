@@ -6,6 +6,7 @@ use App\Repository\TaxesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaxesRepository::class)]
 class Taxes
@@ -16,9 +17,11 @@ class Taxes
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?float $amount = null;
 
     #[ORM\OneToMany(mappedBy: 'ProductTaxes', targetEntity: Product::class)]

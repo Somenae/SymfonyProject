@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -16,9 +17,14 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(null,'Ce champ doit être rempli')]
+    #[Assert\PositiveOrZero([
+        'message' => 'Il Faut mettre un prix égal ou superieur à 0',]
+    )]
     private ?float $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]

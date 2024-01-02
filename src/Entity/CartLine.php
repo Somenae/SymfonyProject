@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CartLineRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CartLineRepository::class)]
 class CartLine

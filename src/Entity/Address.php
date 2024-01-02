@@ -16,6 +16,7 @@ class Address
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    
     private ?string $address = null;
 
     #[ORM\OneToMany(mappedBy: 'address', targetEntity: Users::class)]
