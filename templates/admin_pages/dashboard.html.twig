@@ -1,1 +1,126 @@
 {% extends 'adminBase.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+	</h2>
+
+	<br>
+	<div class="d-flex gap-4 flex-wrap">
+
+
+		{% if is_granted('ROLE_SUPER_ADMIN') %}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Create Admin</h5>
+					<p class="card-text">{{countAdmins}}
+						administrator(s).</p><br>
+					<a href="{{ path('app_admin_new_admin') }}">
+						<button class="btn btn-primary btn-lg btn-block">Add</button>
+					</a>
+
+				</div>
+			</div>
+		{% endif %}
+
+
+		{% if is_granted('ROLE_ADMIN')%}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Manage customers</h5>
+					<p class="card-text">{{countUsers}}
+						customer(s).</p><br>
+					<a href="{{ path('app_listUsers') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Manage categories</h5>
+					<p class="card-text">{{countCategories}}
+						categories.</p><br>
+					<a href="{{ path('app_admin_list_categories') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Manage products</h5>
+					<p class="card-text">{{countProducts}}
+						product(s).</p><br>
+					<a href="{{ path('app_admin_product') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Manage discounts</h5>
+					<p class="card-text">{{countDiscounts}}
+						discounts.</p><br>
+					<a href="{{ path('app_admin_listsales') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Manage order</h5>
+					<p class="card-text">{{countOrder}}
+						orders.</p><br>
+					<a href="{{ path('app_admin_list_order') }}">
+						<button class="btn btn-primary btn-lg btn-block">Manage</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Visit Shop</h5>
+					<p class="card-text">Visit the store (Front-Office).</p><br>
+					<a href="{{ path('app_index') }}" target="_blank">
+						<button class="btn btn-primary btn-lg btn-block">Visit</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Log out</h5>
+					<p class="card-text">Leave administration section.</p><br>
+					<a href="{{ path('app_admin_logout') }}">
+						<button class="btn btn-danger btn-lg btn-block">Log out</button>
+					</a>
+				</div>
+			</div>
+
+		{% else %}
+
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<a href="{{ path('app_admin_login') }}">
+						<button class="btn btn-primary btn-lg btn-block">Login</button>
+					</a>
+				</div>
+			</div>
+
+		{% endif %}
+
+
+	</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Modifier l'etat de la commande{% endblock %}
+
+{% block main %}
+
+{{ form(form, {'method': 'POST'}) }}
+<a href="{{ path('app_admin_show_order', {'id' : order.id }) }}">Retourner à la commande</a>
+
+{% endblock %}

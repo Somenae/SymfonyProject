@@ -1,0 +1,82 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+        <a href="{{ path('app_list_product') }}">Liste des produits</a>
+		>
+		<a href="{{ path ('app_admin_product_search', {'search': app.request.query.get('search')}) }}">{{ count }} Result(s) for :
+			{{ app.request.query.get('search') }}</a>
+	</h2>
+	<br>
+
+		<table class="table table-light table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Album</th>
+				<th scope="col">Image</th>
+				<th scope="col">Prix</th>
+				<th scope="col">TVA</th>
+				<th scope="col">Promo</th>
+				<th scope="col">Actions</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+
+				{% for product in result %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+						<td>{{ product.name }}</td>
+						<td>{{ product.description }}</td>
+						<td><img src={{ asset('uploads/productimage/' ~ product.image) }} class="prodlist"/></td>
+						<td>{{ product.price }}
+							€
+						</td>
+						<td>{{ product.ProductTaxes.amount }}
+							%
+						</td>
+						{% if product.ProductSales is same as(NULL) %}
+							<td>Pas de promotion</td>
+						{% else %}
+							<td>-{{product.ProductSales.AmountPercentage}}
+								%
+							</td>
+						{% endif %}
+
+						<td>
+							<a href="{{ path('app_admin_show_product', {'id': product.id}) }}">
+								<button type="button" class="btn btn-primary">Voir</button>
+							</a>
+							<a href="{{ path('app_admin_update_product', {'id': product.id}) }}">
+								<button type="button" class="btn btn-primary">Modifier</button>
+							</a>
+							<a href="{{ path('app_admin_delete_product', {'id': product.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ?')">
+								<button type="button" class="btn btn-danger">Supprimer</button>
+							</a>
+						</td>
+					</tr>
+					{% else %}
+					<td colspan="8">No results found.</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+
+	</table>
+
+
+	<br>
+	<a href="{{ path('app_list_product') }}">
+		<button type="button" class="btn btn-secondary">Product list</button>
+	</a>
+
+{% endblock %}

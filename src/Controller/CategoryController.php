@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-Class CategoryController extends AbstractController
+class CategoryController extends AbstractController
 {
 
     #[Route('/categories', name: 'app_index_categories')]
@@ -27,18 +27,18 @@ Class CategoryController extends AbstractController
 
     #[Route('/searchCategories', name: 'app_search_categories')]
     public function search(Request $request, CategoryRepository $categoryRepository): Response
-{
-    $searchTerm = $request->query->get('search');
+    {
+        $searchTerm = $request->query->get('search');
 
-    $categories = [];
-    if ($searchTerm) {
-        $categories = $categoryRepository->search($searchTerm);
+        $categories = [];
+        if ($searchTerm !== null) {
+            $categories = $categoryRepository->search($searchTerm);
+        }
+
+        return $this->render('pages/categoryList.html.twig', [
+            'categories' => $categories,
+        ]);
     }
-
-    return $this->render('pages/categoryList.html.twig', [
-        'categories' => $categories,
-    ]);
-}
 
     #[Route('category/{id}/products', name: 'app_category_products')]
     public function categoryProducts(int $id, CategoryRepository $categoryRepository): Response
@@ -65,17 +65,17 @@ Class CategoryController extends AbstractController
     }
 
 
-    #[Route ('/product/{id}', name:'app_product_details')]
+    #[Route('/product/{id}', name: 'app_product_details')]
     public function productDetails(int $id, ProductRepository $productRepository): Response
     {
-    $product = $productRepository->find($id);
+        $product = $productRepository->find($id);
 
-    if (!$product) {
-        throw $this->createNotFoundException('Product not found');
-    }
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
 
-    return $this->render('pages/productDetails.html.twig', [
-        'product' => $product,
-    ]);
+        return $this->render('pages/productDetails.html.twig', [
+            'product' => $product,
+        ]);
     }
 }

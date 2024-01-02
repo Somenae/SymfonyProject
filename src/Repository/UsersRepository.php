@@ -21,6 +21,56 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
+    public function remove(Users $users): Users
+    {
+        $this->getEntityManager()->remove($users);
+        $this->getEntityManager()->flush();
+        return $users;
+    }
+
+    public function save(Users $users): Users
+    {
+        $this->getEntityManager()->persist($users);
+        $this->getEntityManager()->flush();
+        return $users;
+    }
+
+
+    public function search($request)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.firstname LIKE :query')
+            ->orWhere('u.lastname LIKE :query')
+            ->orWhere('u.email LIKE :query')
+            ->setParameter('query', '%' . $request . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countSearchResults($request)
+{
+    $queryBuilder = $this->createQueryBuilder('u');
+    $queryBuilder->select('count(u.id)')
+        ->where('u.firstname LIKE :query')
+        ->orWhere('u.lastname LIKE :query')
+        ->orWhere('u.email LIKE :query')
+        ->setParameter('query', '%'.$request.'%');
+
+    $query = $queryBuilder->getQuery();
+
+    return $query->getSingleScalarResult();
+}
+
+public function countUsers()
+{
+    $queryBuilder = $this->createQueryBuilder('u');
+    $queryBuilder->select('count(u.id)');
+
+    $query = $queryBuilder->getQuery();
+
+    return $query->getSingleScalarResult();
+}
+
 //    /**
 //     * @return Users[] Returns an array of Users objects
 //     */

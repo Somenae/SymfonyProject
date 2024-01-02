@@ -29,7 +29,7 @@ class Orders
     private ?Cart $cart = null;
 
     #[ORM\ManyToOne(inversedBy: 'Orders')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Users $users = null;
 
     #[ORM\ManyToOne(inversedBy: 'OrdersShipped')]

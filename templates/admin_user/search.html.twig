@@ -1,0 +1,62 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+				<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		>
+
+		<a href="{{ path ('app_admin_user_search', {'search': app.request.query.get('search')}) }}">{{ count }} Result(s) for :
+			{{ app.request.query.get('search') }}</a>
+	</h2>
+	<br>
+
+	<table class="table table-light table-striped">
+		<thead>
+			<th>Firstname :</th>
+			<th>Lastname :</th>
+			<th>Email :</th>
+			<th colspan="3">Actions :</th>
+		</thead>
+		<tbody>
+
+			{% for user in result %}
+				<tr>
+					<td>{{ user.firstname }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>{{ user.email }}</td>
+					<td>
+							<a href="{{ path('app_showUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Show</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_editUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Edit</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_removeUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-danger">Delete</button>
+							</a>
+						</td>
+				{% else %}
+					<td colspan="4">No users found.</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+
+	<br>
+	<a href="{{ path('app_listUsers') }}">
+		<button type="button" class="btn btn-secondary">Customers list</button>
+	</a>
+
+{% endblock %}

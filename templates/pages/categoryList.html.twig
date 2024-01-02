@@ -1,38 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}! VINTYLE Liste des Categories !{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('asset/styles.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
-{% endblock %}
+{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
 
 {% block main %}
+<h1>Categories:</h1>
 
-<form method="get" action="{{ path('app_search_categories') }}">
-    <input type="text" name="search" placeholder="Rechercher categorie">
-    <button type="submit">Rechercher</button>
-</form>
+			<div class="d-flex justify-content-center mb-4 row col-lg-12 col-sm-12 col-md-12 mx-auto">
+				<div class="col-8 col-xs-2">
+					<form method="get" action="{{ path('app_search_categories') }}">
+						<input type="text" name="search" class="form-control d-inline-flex" placeholder="Rechercher categorie">
+					</div>
+					<div class="col-4 d-flex justify-content-start">
+						<button type="submit" class="btn btn-primary w-100">Rechercher</button>
+					</div>
+				</form>
+			</div>
 
+			<div class="categorie row">
 
-<section>
-    <div class="categorie row">
-        {% for category in categories %}
-            <!-- Image de la catégorie -->
-            <div class="position-relative d-flex justify-content-center ">
-                <a href="{{ path('app_category_products', {'id': category.id}) }}" class="category-link">
-                    <span class="badge badge-default position-absolute">{{ category.name }}</span>
-                     <img class="img-fluid" src="{{ asset('/asset/img/Vinylepresentation.png') }}" alt="{{ category.name }}">
-                </a>
-            </div>
-        {% endfor %}
-    </div>
-</section>
+				{% if categories is empty %}
+				<p class="text-center">Il n'y a aucune catégorie correspondant à votre recherche.</a>
+				{% endif %}
 
-
+				{% for category in categories %}
 
 
-{% endblock %}
+					<!-- Image de la catégorie -->
+
+					<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+						<div class="card mx-auto">
+							<div class="card-body px-0 pb-0 text-center">
+								<img class="img-fluid w-75" src="{{ asset('/uploads/music-note.webp') }}" alt="{{ category.name }}">
+								<h3 class="card-title text-center mb-3">{{ category.name }}</h3>
+								<a href="{{ path('app_category_products', {'id': category.id}) }}" class="btn bouton">Voir les produits</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+
+
+	{% endblock %}

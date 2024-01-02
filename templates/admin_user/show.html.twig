@@ -1,0 +1,62 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+		<a href="{{ path ('app_listUsers')}}">Customers list</a>
+		>
+		<a href="{{ path('app_showUser', {id : user.id}) }}">{{ user.lastname }}
+			{{ user.firstname }}</a>
+	</h2>
+	<br>
+
+
+	<table class="table table-light table-striped">
+
+
+		<table width="100%" class="table table-light table-striped">
+			<tr>
+				<th>Lastname:</th>
+			</tr>
+			<tr>
+				<td>{{ user.lastname }}</td>
+			</tr>
+			<tr>
+				<th>Firstname:</th>
+			</tr>
+			<tr>
+				<td>{{ user.firstname }}</td>
+			</tr>
+			<tr>
+				<th>Email:</th>
+			</tr>
+			<tr>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>Address:</th>
+			</tr>
+			<tr>
+				<td>{{ user.address is not null ? user.address.address : '' }}</td>
+			</tr>
+		</table>
+
+		<br>
+		<a href="{{ path('app_listUsers') }}">
+			<button type="button" class="btn btn-secondary">Customers list</button>
+		</a>
+		<a href="{{ path('app_editUser', {id : user.id}) }}">
+			<button type="button" class="btn btn-primary">Edit this customer</button>
+		</a>
+		<a href="{{ path('app_removeUser', {id : user.id}) }}">
+			<button type="button" class="btn btn-danger">Remove this customer</button>
+		</a>
+
+
+	{% endblock %}

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path:'admin/')]
 class AdminsController extends AbstractController
 {
-    #[Route('new', name: 'app_admin_new_user')]
+    #[Route('new', name: 'app_admin_new_admin')]
     public function new(
         Request $request,
         EntityManagerInterface $em,
@@ -39,7 +39,7 @@ class AdminsController extends AbstractController
             $admin->setPassword($hashedPassword);
             $em->persist($admin);
             $em->flush();
-            return $this->redirectToRoute('app_admin_new_user');
+            return $this->redirectToRoute('app_admin_dashboard');
         }
         return $this->render('admin/new.html.twig', [
             'title' => 'Enregistrez-vous !',

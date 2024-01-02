@@ -1,0 +1,123 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block main %}
+
+	<br>
+
+	<!-- liens -->
+	<h2>
+		<a href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+		>
+		<a href="{{ path('app_admin_product') }}">Liste des produits</a>
+		>
+		<a href="{{ path('app_admin_product') }}">Détail du produit
+			{{ product.name }}
+		</a>
+	</h2>
+
+	<div class="mt-5">
+		<div
+			class="row">
+
+			<!-- card description du vinyle -->
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<b>Produit :
+							{{ product.name }}
+							{{ product.description }}</b>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<b>Nom du Groupe :</b>
+							{{ product.name }}
+						</li>
+						<li class="list-group-item">
+							<b>Titre de l'album :</b>
+							{{ product.description }}</li>
+						<li class="list-group-item">
+							<b>Prix :</b>
+							{{ product.price }}
+							€</li>
+						<li class="list-group-item">
+							<b>TVA :</b>
+							{{ product.ProductTaxes.amount }}
+							%</li>
+					</ul>
+					<div class="card-body">
+						<div class="btn btn-success" role="alert">
+							Promotion :
+							{% if product.ProductSales is same as(NULL) %}
+								<td>Pas de promotion</td>
+							{% else %}
+								<td>{{ product.ProductSales.AmountPercentage }}
+									%</td>
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="card-footer">
+
+						<a href="{{ path('app_admin_update_product', {'id': product.id}) }}">
+							<button type="button" class="btn btn-primary">MODIFIER</button>
+						</a>
+						<a href="{{ path('app_admin_product') }}">
+							<button type="button" class="btn btn-secondary">RETOUR</button>
+						</a>
+
+					</div>
+				</div>
+			</div>
+
+			<!-- card image du vinyle -->
+			<div
+				class="col-md-6">
+				{#              <div class="card-header">Produit : {{ product.name }} {{ product.description }}</div>
+																                <ul class="list-group list-group-flush">
+																                    <li class="list-group-item">Image de l'album : </li>
+																 #}
+				<div class="card-body text-center">
+					<a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+						{% if product.image is null %}
+							<p class="badge bg-secondary">No album cover available.</p>
+						{% else %}
+							<img class="img-thumbnail vignette" src="{{ asset('uploads/productimage/' ~ product.image) }}"  alt="Image du Produit">
+						{% endif %}
+						</a>
+
+						<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-lg">
+								<div class="modal-content">
+									<div class="modal-body">
+										{% if product.image is null %}
+											No album cover available.
+										{% else %}
+											<img src="{{ asset('uploads/productimage/' ~ product.image) }}" data-bs-toggle="tooltip" title="{{ asset('uploads/productimage/' ~ product.name) }}" class="img-fluid" alt="Image du Produit">
+										{% endif %}
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<br>
+							<a href="{{ path('app_admin_add_image', { 'id': product.id }) }}">
+								<button type="button" class="btn btn-primary">Inserer ou modifier l'image</button>
+							</a>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+		<br>
+	{% endblock %}

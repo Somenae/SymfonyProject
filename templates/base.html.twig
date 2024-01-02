@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Bienvenue sur Vintyle !{% endblock %}</title>
@@ -123,3 +124,180 @@
             {% endblock %}
     </body>
 </html>
+=======
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Bienvenue chez Vintyle !
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('styles/base.css') }}">
+
+		{% block stylesheets %}
+			{{ ux_controller_link_tags() }}
+		{% endblock %}
+
+	</head>
+	<body>
+		{% block header %}
+			<header>
+
+				<nav class="navbar navbar-expand-md">
+
+					<div class="container">
+						<a class="navbar-brand" href="{{ path('app_index') }}"><img src="{{ asset('asset/img/logo.png') }}" height="50px" alt="Logo" class="logo"></a>
+
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon">
+								<div class="bar1"></div>
+								<div class="bar2"></div>
+								<div class="bar3"></div>
+							</span>
+						</button>
+
+						<div class="collapse navbar-collapse my-2 align-item-center" id="navbarNavAltMarkup">
+
+
+							<ul class="navbar-nav d-flex align-items-center justify-content-around w-100">
+
+								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+									<li class="nav-item">
+										<a href="{{ path('app_index') }}" class="nav-link">Accueil</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="{{ path('app_index_categories') }}" class="nav-link">Catégories</a>
+									</li>
+									
+									<li class="nav-item">
+										<a href="{{ path('app_user_account') }}" class="nav-link">Mon compte</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="{{ path('app_user_history') }}" class="nav-link">Historique</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a>
+									</li>
+
+								{% else %}
+
+									<li class="nav-item">
+										<a href="{{ path('app_index') }}" class="nav-link">Accueil</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="{{ path('app_index_categories') }}" class="nav-link">Catégories</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="{{ path('app_login') }}" class="nav-link">Se connecter</a>
+									</li>
+
+									<li class="nav-item">
+										<a id="signup" href="{{ path('app_new_user') }}" class="nav-link">S'inscrire</a>
+									</li>
+								{% endif %}
+								<li class="nav-item">
+									{{ render(controller('App\\Controller\\CartController::cartCount')) }}
+								</li>
+
+							</ul>
+
+						</div>
+
+					</div>
+
+				</nav>
+
+
+			</header>
+		{% endblock %}
+
+
+		{% block main %}{% endblock %}
+
+
+		{% block footer %}
+			<footer class="py-5">
+				<div class="container">
+					<div class="row mx-auto">
+						<div class="col-xs-12 col-sm-6 col-md-3 text-xs-center text-sm-left text-md-left mb-3">
+							<h2>A PROPOS</h2>
+							<ul class="ulfooter">
+								<li>
+									<a href="{{path('app_faq')}}">FAQ</a>
+								</li>
+								<li>
+									<a href="{{path('app_histoire')}}">Notre histoire</a>
+								</li>
+								<li>
+									<a href="{{path('app_entreprise')}}">Notre entreprise</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 text-xs-center text-sm-left text-md-left mb-3">
+							<h2>SITEMAP</h2>
+							<ul class="ulfooter">
+								<li>
+									<a href="{{path('app_index')}}">Accueil</a>
+								</li>
+								<li>
+									<a href="{{ path('app_user_account') }}">Mon compte</a>
+								</li>
+								<li>
+									<a href="{{ path('app_user_history') }}">Mes commandes</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 text-xs-center text-sm-left text-md-left mb-3">
+							<h2>CONTACT</h2>
+							<div>
+								<ul class="ulfooter">
+									<li>Street, PBOX, Town</li>
+									<li>
+										<a href="mailto:vintyle@gmail.com">vintyle@gmail.com</a>
+									</li>
+									<li>
+										<a href="Tel:0603593892">06 03 59 38 92</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 text-xs-center text-sm-left text-md-left mb-3">
+							<h2>NEWSLETTER</h2>
+							<form action="" method="post">
+								<label for="email">E-mail:</label>
+								<input type="email" id="email" name="email" placeholder="E-mail" class="form-control" required>
+								<button type="submit" class="btn btn-dark">S'abonner</button>
+							</form>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="row text-center copyright my-4">
+						<div class="col">
+							<a href="{{ path('app_mentions') }}" class="mx-3">Mentions légales</a>
+							<a href="{{ path('app_datas') }}" class="mx-3">Données personnelles</a>
+							<p class="mx-3">Copyright © Vintyle 2023</p>
+						</div>
+					</div>
+				</div>
+			</footer>
+		{% endblock %}
+
+
+	</body>
+</html></body></html>
+>>>>>>> NewMain

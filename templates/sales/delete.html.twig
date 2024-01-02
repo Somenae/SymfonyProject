@@ -4,10 +4,16 @@
 {% endblock %}
 
 {% block main %}
-	<h2>Voulez vous vraiement supprimer cette promotion?</h2>
+<br>
+<h2>
+<a href="{{ path('app_admin_dashboard') }}">Dashboard</a> >
+<a href="{{ path('app_admin_listsales') }}">Promotions</a> >
+<a href="{{ path('app_admin_deletesale',{'id' : sales.id}) }}">Supprimer {{sales.name}}</a>
+</h2>
+<br>
+	<p>Voulez vous vraiement supprimer cette promotion?</p>
 	<form method="POST">
-		<button class="btn btn-lg btn-danger" type="submit" name="submit">
-			Supprimer
-		</button>
+		<button class="btn btn-danger" type="submit" name="submit">Supprimer</button>
 	</form>
+		<a href="{{ path('app_admin_listsales') }}"><button class="btn btn-secondary mt-2">Retour</button></a>
 {% endblock %}

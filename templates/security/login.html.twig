@@ -17,16 +17,25 @@
 			</div>
 		{% endif %}
 
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-		<label for="inputEmail">Email</label>
-		<input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		<label for="inputPassword">Password</label>
-		<input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+		<section class="main-body d-flex justify-content-center">
+			<div class="box-promo">
+				<div class="text-promo">
+					<h2 class="text-center my-4">Connexion</h2>
+				</div>
+				<div class="px-5 pb-4 card">
+				<label for="inputEmail">Email</label>
+				<input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+				<label for="inputPassword">Password</label>
+				<input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<br>
+				<button class="btn btn-primary" type="submit">
+					Sign in
+				</button>
+				</div>
 
-		<button class="btn btn-lg btn-primary" type="submit">
-			Sign in
-		</button>
-	</form>
-{% endblock %}
+			</div>
+		</form>
+		</section>
+	{% endblock %}

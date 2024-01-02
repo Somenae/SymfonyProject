@@ -1,0 +1,72 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Affichage des commandes{% endblock %}
+
+{% block main %}
+<h1>Toute les commandes</h1>
+
+<form method='GET'>
+    <label for="selectionType">Choisir l'entité de la recherche:</label>
+    <select name="selectionType" id="selectionType" required>
+        <option value="id">ID</option>
+        <option value="order_date">Date</option>
+        <option value="client_name">Nom du client</option>
+        <option value="total_price">Prix total</option>
+    </select>
+        <input type='text' name='SelectionName' placeholder='Rechercher une commande' value={{ SelectionName}}>
+        <input type='submit' name='submit' value='rechercher'>
+</form>
+
+<table class="table table-hover">
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">ID order</th>
+      <th scope="col">Date de la commande</th>
+      <th scope="col">Nom du client</th>
+      <th scope="col">Prix total</th>
+      <th scope="col">Etat de la commande</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in orders %}
+    <tr>
+      <th scope="row"><a href="{{ path('app_admin_show_order', {'id' : order.id }) }}">{{ order.id }}</a></th>
+      <td>{{ order.OrderDate.format('Y-m-d') }}</td>
+      <td>{{ order.ClientName }}</td>
+        <td>{{ order.TotalPrice }}</td>
+      <td>{{ order.OrderState.Label }}</td>
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+
+{# If there is 0 or less than 10 order #}
+{% if ordercount < 2  %}
+<li class="page-item"><a class="page-link" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': 1 }) }}">1</a></li>
+
+{% else %}
+
+
+{% if page is same as "1" %}
+<li class="page-item disabled"><a class="page-link" tabindex="-1" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': page-1 }) }}">Precédent</a></li>
+{% else %}
+<li class="page-item"><a class="page-link" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': page-1 }) }}">Precédent</a></li>
+{% endif %}
+
+
+{% for i in 1.. ordercount %}
+    <li class="page-item"><a class="page-link" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': i }) }}">{{ i }}</a></li>
+{% endfor %}
+{% if page == ordercount %}
+<li class="page-item disabled"><a class="page-link" tabindex="-1" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': page-1 }) }}">Suivant</a></li>
+{% else %}
+<li class="page-item"><a class="page-link" href="{{ path('app_admin_list_order', { 'selectionType': selectionType , 'SelectionName': SelectionName, 'page': page+1 }) }}">Suivant</a></li>
+{% endif %}
+{% endif %}
+
+</ul>
+</nav>
+
+{% endblock %}

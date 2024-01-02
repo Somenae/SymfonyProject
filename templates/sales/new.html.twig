@@ -3,5 +3,13 @@
 {% block title %}Sales!{% endblock %}
 
 {% block main %} 
+<br>
+<h2>
+<a href="{{ path('app_admin_dashboard') }}">Dashboard</a> >
+<a href="{{ path('app_admin_listsales') }}">Promotions</a> >
+<a href="{{ path('app_admin_createsale') }}">Créer/modifier une promo</a>
+</h2>
+<br>
+
 {{ form(form, {'method': 'POST'}) }}
 {% endblock %}

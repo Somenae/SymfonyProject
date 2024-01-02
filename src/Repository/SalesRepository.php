@@ -21,6 +21,16 @@ class SalesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sales::class);
     }
 
+    public function countDiscounts()
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->select('count(u.id)');
+    
+        $query = $queryBuilder->getQuery();
+    
+        return $query->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Sales[] Returns an array of Sales objects
 //     */

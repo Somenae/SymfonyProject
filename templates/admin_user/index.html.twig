@@ -1,0 +1,85 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Symfony ecommerce project
+{% endblock %}
+
+{% block main %}
+
+	<br>
+	<h2>
+		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
+		>
+		<a href="{{ path ('app_listUsers')}}">Customers list</a>
+	</h2>
+	<br>
+
+	<div class="d-flex justify-content-between">
+		<div>
+			<a href="{{ path('app_admin_new_user') }}">
+				<button type="button" class="btn btn-primary">Create new customer</button>
+			</a>
+		</div>
+
+		<div>
+			<form action="{{ path('app_admin_user_search') }}" method="GET" name="searchUser">
+				<input type="search" name="search"/>
+				<input type="submit" name="submit" value="Search"/>
+			</form>
+		</div>
+
+	</div>
+
+	<br>
+
+
+	<table class="table table-light table-striped table-hover ">
+
+		<thead>
+			<th scope="col">
+				Lastname
+			</th>
+			<th scope="col">
+				Firstname
+			</th>
+			<th scope="col">
+				Email
+			</th>
+			<th scope="col" colspan="3" class="thaction">Actions</th>
+		</thead>
+
+		{% if (users == null) %}
+			<tr>
+				<td colspan="6">There is no one here... <a href="{{ path('app_admin_new_user') }}">Add a new customer</a></td>
+			</tr>
+		{% else %}
+
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.lastname }}</td>
+						<td>{{ user.firstname }}</td>
+						<td>{{ user.email }}</td>
+						<td>
+							<a href="{{ path('app_showUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Show</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_editUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-primary">Edit</button>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_removeUser', {id : user.id}) }}">
+								<button type="button" class="btn btn-danger">Delete</button>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		{% endif %}
+	</table>
+
+
+
+{% endblock %}

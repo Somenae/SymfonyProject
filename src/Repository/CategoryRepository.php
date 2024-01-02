@@ -42,6 +42,17 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countCategories()
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->select('count(u.id)');
+    
+        $query = $queryBuilder->getQuery();
+    
+        return $query->getSingleScalarResult();
+    }
+
+    
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */
