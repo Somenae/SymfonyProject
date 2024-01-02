@@ -83,6 +83,45 @@ class PagesController extends AbstractController
     }
 
 
+    #[Route('/cartDisplay', name: 'app_cart_display')]
+    public function cartDisplay(CartRepository $cartrepo, Security $security ): Response
+    { if( !($security->isGranted('ROLE_USER'))){
+       return $this->redirectToRoute('app_login');
+    }
+
+       $price=0 ;
+       $cart = $cartrepo->findLastCartByIdUser($security->getUser()->getId());
+       if($cart === NULL || $cart->getCartLine()[0]=== NULL){
+           return $this->render('pages/cartDisplay.html.twig', [
+               'cartline' =>  NULL ,
+           ]);}
+
+          
+           $cartline =  $cart->getCartLine();
+
+               foreach ($cartline as $line) {
+                   $pricel = ($line->getQuantity()) * ($line->getProduct()->getPrice());
+
+                   if ($line->getProduct()->getProductTaxes() !== NULL) {
+                       $pricel = $pricel * (1 + (($line->getProduct()->getProductTaxes()->getAmount()) / 100));
+                   }
+
+                   if ($line->getProduct()->getProductSales() !== NULL) {
+                       $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
+                   }
+                  echo ($pricel);
+                   $price = $price + $pricel;
+               }
+           
+          
+           $price = round($price, 2);
+           return $this->render('pages/cartDisplay.html.twig', [
+               'cartline' =>  $cartline,
+               'price' => $price
+           ]);
+       }
+      
+
 
 
 
