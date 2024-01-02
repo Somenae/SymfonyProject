@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
+use App\Entity\OrderLine;
 use App\Entity\Orders;
+use App\Entity\OrderState;
 use App\Form\OrdersFormType;
 use App\Repository\CartRepository;
 use App\Repository\OrdersRepository;
+use App\Repository\OrderStateRepository;
+use App\Repository\ShippingRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -20,7 +26,6 @@ class OrdersController extends AbstractController
     public function index(
         Security $security,
         CartRepository $cartrepo,
-        Request $request,
     ): Response
     { {
             if (!$security->isGranted('ROLE_USER')) {
@@ -55,6 +60,7 @@ class OrdersController extends AbstractController
             }
             
             $price = round($price, 2);
+
             return $this->render('orders/index.html.twig', [
                 'cartline' =>  $cartline,
                 'price' => $price,
@@ -68,23 +74,82 @@ class OrdersController extends AbstractController
         Request $request,
         Security $security,
         CartRepository $cartrepo,
+        OrderStateRepository $stateRepository,
+        ShippingRepository $shippingRepository,
         EntityManagerInterface $em,
     ): Response
     {
-        if ($user = $security->getUser() === NULL) {
+        if ($security->getUser() === NULL) {
             return $this->redirectToRoute('app_index');
         }
         
         $orders = new Orders();
-        
-        $form = $this->createForm(OrdersFormType::class, $orders);
+        $user = $security->getUser();
+        $form = $this->createForm(OrdersFormType::class, $orders, [
+            'address' => [$user->getAddress()],
+        ]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $cart = $cartrepo->findLastCartByIdUser($user->getId());
+            $orderState = $stateRepository->findByLabel('Shipped');
+            $shipping = $shippingRepository->findByCompanyName('El Bato');
+
             $orders->setUsers($user);
             $orders->setCart($cart);
             $orders->setClientName($user->getFirstName().' '.$user->getLastName());
+            $orders->setOrderDate(date_create_immutable());
+
+            $cartline =  $cart->getCartLine();
+
+            $price = 0;
+
+            foreach ($cartline as $line) {
+                $pricel = ($line->getQuantity()) * ($line->getProduct()->getPrice());
+
+                if ($line->getProduct()->getProductTaxes() !== NULL) {
+                    $pricel = $pricel * (1 + (($line->getProduct()->getProductTaxes()->getAmount()) / 100));
+                }
+
+                if ($line->getProduct()->getProductSales() !== NULL) {
+                    $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
+                }
+                
+                $price = $price + $pricel;
+            }
+
+            $orders->setTotalPrice($price);
+            $orders->setOrderState($orderState[0]);
+            $orders->setShipping($shipping[0]);
             $em->persist($orders);
+
+            foreach ($cartline as $line) {
+                $orderLine = new OrderLine();
+                $productPrice = $line->getProduct()->getPrice();
+                $productSales = 0;
+                if ($line->getProduct()->getProductSales() !== NULL) {
+                    $productSales = $line->getProduct()->getProductSales()->getAmountPercentage();
+                }
+                $productTaxes = 0;
+                if ($line->getProduct()->getProductTaxes() !== NULL) {
+                    $productTaxes = $line->getProduct()->getProductTaxes()->getAmount();
+                }
+                $orderLine->setProductsName($line->getProduct()->getName());
+                $orderLine->setProductUnitPrice($productPrice);
+                $orderLine->setTotalPrice($productPrice * (1 - ($productSales / 100)) * (1 + ($productTaxes / 100)));
+                $orderLine->setQuantity($line->getQuantity());
+                $orderLine->setSales($productSales);
+                $orderLine->setTaxe($productTaxes);
+                $orderLine->setOrders($orders);
+                $em->persist($orderLine);
+            }
+
+            $cart = new Cart;
+            $cart->setCreationDate(new DateTime());
+            $cart->setUser($security->getUser());
+            $em->persist($cart);
+
             $em->flush();
             return $this->redirectToRoute('app_index');
         }
