@@ -9,8 +9,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 Use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: AdminsRepository::class)]
+#[UniqueEntity('email')]
 class Admins implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

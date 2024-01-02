@@ -157,6 +157,7 @@ class OrdersController extends AbstractController
             $em->persist($cart);
 
             $em->flush();
+            $this->addFlash("success","Votre commande a bien été prise en compte");
             return $this->redirectToRoute('app_index');
         }
 
