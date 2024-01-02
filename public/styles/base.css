@@ -18,7 +18,7 @@
   text-decoration: none;
   list-style: none;
   font-family: "Lato", sans-serif;
- 
+
    
    
 }
@@ -180,6 +180,128 @@ header {
   padding: 0;
   background: none;
 }
+/**************************MAIN*************************/
+
+section{
+  background-color:#ffedd8;
+}
+
+
+.box{
+  background-color: #e7bc91 !important;
+  width: 100%;
+  border-radius: 2em;
+  padding: 1em 3em 0.5em 1em;
+  outline: 6px solid #603808;
+  outline-offset: -20px;
+}
+
+h2{
+  font-family: 'Abril Fatface', serif;
+  font-size: 3em;
+  padding: 0.5em;
+}
+
+/**** PAGE HOME ****/
+
+
+
+/**** PAGE FICHE PRODUIT ****/
+
+/* onglet produit + bouton Retour */
+
+
+
+.bouton-retour .btn{
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5em;
+  background-color: #BC8A5F !important;
+  border: 0.1em solid #603808 !important;
+  color: #603808 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+}
+.bouton-retour .btn:hover {
+  font-family: 'Abril Fatface', serif;
+  background-color: #BC8A5F !important;
+  border: 0.1em solid #603808 !important;
+  color: #e7bc91 !important;
+  box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
+  display: flex;
+  justify-content: center;
+  cursor: url('/asset/img/vinylecursor.png'), pointer !important;
+}
+
+/* style fiche Produit */
+    /* marge image */
+.card-img-top{
+  margin: 1em;
+}
+    /* texte à droite */
+.box .col-md-6:last-child {
+  margin-top: 1em;
+}
+
+h3 {
+  background-color: #ffedd8;
+  border: 0.1em solid #603808 !important;
+  border-radius: 0.5em;
+  font-family: 'Abril Fatface', serif;
+  font-size: 2em;
+  display: inline-block;
+  padding: 0.5em;
+}
+
+    /* bouton PANIER */
+.panier-container{
+  background-color: #ffedd8;
+  border: 0.2em solid #603808 !important;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 1em;
+}
+
+.btn-count{
+  font-size: 1em;
+  margin: 0.2em;
+  background-color: #603808;
+  color: #ffedd8;
+  padding: 0.5em;
+}
+
+.btn{
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5em;
+  background-color: #BC8A5F !important;
+  border: 0.1em solid #603808 !important;
+  color: #603808 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+.btn:hover {
+  font-family: 'Abril Fatface', serif;
+  background-color: #BC8A5F !important;
+  border: 0.1em solid #603808 !important;
+  color: #e7bc91 !important;
+  box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
+  cursor: url('/asset/img/vinylecursor.png'), pointer !important;
+}
+
+.panier-container .img {
+  width: 2em; /* Ajustez la taille de l'image selon vos besoins */
+  margin-left: 0.5em;
+ 
+}
+
+
+
+
+
+
+
+
+
 
 /**************************FOOTER***********************/
 footer {
@@ -294,3 +416,5 @@ footer h2 {
   color: #ffffff;
   font-size: 0.8em;
 }
+
+

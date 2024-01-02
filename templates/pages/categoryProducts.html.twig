@@ -1,16 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
+{% block title %}! VINTYLE Produits par Categorie !{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('asset/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
+{% endblock %}
 
 {% block main %}
-<h1>Categories:</h1>
 
-<h1>{{ category.name }}</h1>
-<ul>
-   {% for product in products %}
-  <h3><a href="{{ path('app_product_details', {'id': product.id}) }}">{{ product.name }}</a></h3>
-{% endfor %}
-</ul>
+
+<section>
+    <div class="categorie row d-flex justify-content-between align-items-center">
+        <h2>CATEGORIE : {{ category.name }}</h2>
+        <div class="bouton-retour">
+        <a href="/categories" class="btn">Retour</a>
+        </div>
+    </div>
+
+   <div class="categorie row d-flex justify-content-center">
+    {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="position-relative">
+            <div class="box-categorie-card">
+                <div class="categorie-card">
+                    <a href="{{ path('app_category_products', {'id': category.id}) }}" class="category-link">
+                        <img class="card-img-top" src="{{ asset('uploads/productimage/'~product.image) }}" alt="Card image cap">
+                    </a>
+
+                    <div class="card-body">
+                        <h4 class="card-title">Groupe : {{ product.name }}</h4>
+                        <h5 class="card-text">Album : {{ product.description }}</h5>
+                        <h3><a class="btn" href="{{ path('app_product_details', {'id': product.id}) }}">Accéder à ce produit</a></h3>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+</section>
 
 
 {% endblock %}

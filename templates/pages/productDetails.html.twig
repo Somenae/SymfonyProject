@@ -1,8 +1,98 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block stylesheets %}
+ 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{% endblock %}
+
+{% block title %}{{ product.name }}/{{ product.description }}{% endblock %}
 
 {% block main %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
+<section>
+    <div class="container-fluid">
+        {# onglet produit + bouton Retour #}
+        <div class="box d-flex justify-content-between align-items-center">
+            
+            <h2>{{ product.name }} / {{ product.description }}</h2>
+            
+            <div class="bouton-retour">
+                <a href="/categories" class="btn">Retour</a>
+            </div>
+        </div>
+
+        {# style fiche Produit #}
+        <div class="container box">
+            <div class="row">
+                    <!-- Colonne pour l'image -->
+                    <div class="col-md-6">
+                        <img class="card-img-top" src="{{ asset('uploads/productimage/'~product.image) }}" alt="Card image cap">
+                    </div>
+
+                    <!-- Colonne pour le texte à droite -->
+                    <div class="col-md-6">
+                        <h4>{{ product.name }}</h4>
+                        <h4>{{ product.description }}</h4>
+                        <h3>Prix : {{ product.price }} €</h3>
+                    
+            {#            <div class="promotion-info">
+                            <h6 class="price-section card-subtitle mb-2">Prix : {{ item.price }} €</h6>
+                            <h5 class="promo-description">{{ item.ProductSales.AmountPercentage }}% de réduction</h5>
+                            {% set discountedPrice = (item.price - (item.price * (item.ProductSales.AmountPercentage / 100)))|round(2) %}
+                            <h5 class="promo-price">Prix avec réduction : {{ discountedPrice }} €</h5>
+                        </div>   
+            #}      
+                    </div>
+                </div>
+        
+
+                    <!-- Bouton Panier en bas -->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-6 ">
+                            <div class="panier-container">
+                                <button class="btn-count" id="decrement"> - </button>
+                                <span id="counter"> 0 </span>
+                                <button class="btn-count" id="increment"> + </button>
+                               
+                                <a class="btn" href=" ">Panier
+                                <img class="img" src="{{ asset('/asset/img/basketBlack.png') }}" alt="panier">
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# java pour le compteur #}          
+                    <script>
+                        $(document).ready(function() {
+                            let counter = 0;
+
+                            // Fonction pour incrémenter le compteur
+                            $("#increment").click(function() {
+                                counter++;
+                                $("#counter").text(counter);
+                            });
+
+                            // Fonction pour décrémenter le compteur
+                            $("#decrement").click(function() {
+                                if (counter > 0) {
+                                    counter--;
+                                    $("#counter").text(counter);
+                                }
+                            });
+                        });
+                    </script>
+
+        </div>
+        <div class="container">
+        DESCRIPTION :
+
+        </div>
+    </div>
+</section>
 {% endblock %}
+

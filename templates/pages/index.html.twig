@@ -1,105 +1,110 @@
 {% extends 'base.html.twig' %}
-
+ 
 {% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
-
+ 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('asset/styles.css') }}">
+   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
 {% endblock %}
-
-
+ 
+ 
 {% block main %}
-<section class="main-body d-flex justify-content-center">
-    <div class="box-promo">
-    <div class=" container container-custom">
-   
-        <div class="text-promo">
-            <h2> Promotions</h2> 
-        </div>
-
+<section>
+    <div class="container-fluid">
+        <div class="box d-flex">
+            
+            <h2>Promotion</h2>
         <div class="container mt-3">
             <div class="row">
-                        {% for item in products|slice(0, 2) %}
-                       <div class="col-md-6 mb-4">
-                        <div class="card mx-2">
+                {% for item in products|slice(0,2) %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card mx-auto">
                             <!-- image vinyle -->
-                        <img class="card-img-top" src="{{ asset('uploads/productimage/'~item.image) }}" alt="Card image cap">
-                            <!-- Onglet 20% -->
-                        <img class="image-promo" src="{{ asset('uploads/productimage/onglet_promo.png') }}" alt="onglet Promo">
+                            <div>
+                                <img class="card-img-top" src="{{ asset('uploads/productimage/'~item.image) }}" alt="Card image cap">
+                                <!-- Onglet 20% -->
+                                <span class="label label-default position-absolute" >{{ item.ProductSales.AmountPercentage }}%</span>
+                            </div>
+
                             <div class="card-body">
-                                <h5 class="card-title">{{ item.name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}€</h6>
-                                <p class="card-text">{{ item.description }}</p>
-                                <a href="{{ path('product_detail', { 'id': item.id }) }}" " class="btn">Acceder à ce produit</a>
+                                <h4 class="card-title">Groupe : {{ item.name }}</h4>
+                                <h5 class="card-text">Album : {{ item.description }}</h5>
+                                    <div class="promotion-info">
+                                        <h6 class="price-section card-subtitle mb-2">Prix : {{ item.price }} €</h6>
+                                        <h5 class="promo-description">{{ item.ProductSales.AmountPercentage }}% de réduction</h5>
+                                        {% set discountedPrice = (item.price - (item.price * (item.ProductSales.AmountPercentage / 100)))|round(2) %}
+                                        <h5 class="promo-price">Prix avec réduction : {{ discountedPrice }} €</h5>
+                                    </div>
+                                <a href="#" class="btn">Acceder à ce produit</a>
                             </div>
                         </div>
-                    
-                        </div>
-                        {% endfor %}
-                </div>
-             
-        
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-
 </section>
+
 <section class="main-body d-flex justify-content-center">
     <hr class="hr">
 </section>
-
+ 
 <section class="main-body d-flex justify-content-center">
     <div class="box-hit">
-    <div class=" container container-custom">
    
         <div class="text-hit">
-            <h2> Hit Vinyles</h2> 
+            <h2> Hit Vinyles</h2>
         </div>
-
+ 
         <div class="container mt-3">
             <div class="row">
                 {% for item in products|slice(0, 2) %}
                 <div class="col-md-6 mb-4">
-                    <div class="card mx-md-2">
+                    <div class="card mx-auto">
                         <img src="{{ asset('uploads/productimage/' ~ item.image) }}" class="card-img-top" alt="Card Image">
                         <div class="card-body">
-                            <h5 class="card-title">{{ item.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}€</h6>
-                            <p class="card-text">{{ item.description }}</p>
+                            <h4 class="card-title">Groupe : {{ item.name }}</h4>
+                            <h5 class="card-text">Album : {{ item.description }}</h5>
+                              <div class="box-price">
+                            <h6 class="card-subtitle mb-2">{{ item.price }} €</h6>
+                            </div>
                             <a href="#" class="btn">Accéder à ce produit</a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-
+ 
         <div class="row">
             {% for item in products|slice(2, 4) %}
             <div class="col-md-6 mb-4">
-                <div class="card mx-2">
-                    <img src="{{ asset('uploads/productimage/' ~ item.image) }}" class="card-img-top" alt="Card Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ item.price }}€</h6>
-                        <p class="card-text">{{ item.description }}</p>
-                        <a href="#" class="btn">Accéder à ce produit</a>
+                    <div class="card mx-auto">
+                        <img src="{{ asset('uploads/productimage/' ~ item.image) }}" class="card-img-top" alt="Card Image">
+                        <div class="card-body">
+                            <h4 class="card-title">Groupe : {{ item.name }}</h4>
+                            <h5 class="card-text">Album : {{ item.description }}</h5>
+                              <div class="box-price">
+                            <h6 class="card-subtitle mb-2">{{ item.price }} €</h6>
+                            </div>
+                            <a href="#" class="btn">Accéder à ce produit</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
-    </div>
 </div>
 </div>
 </section>
-
+ 
 <section class="main-body d-flex justify-content-center">
     <hr class="hr">
 </section>
-
-
-
+ 
+ 
+ 
 {% endblock %}

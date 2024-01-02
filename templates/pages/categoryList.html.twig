@@ -1,18 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue sur notre site de vinyle!{% endblock %}
+{% block title %}! VINTYLE Liste des Categories !{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('asset/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
+{% endblock %}
 
 {% block main %}
-<h1>Categories:</h1>
 
 <form method="get" action="{{ path('app_search_categories') }}">
     <input type="text" name="search" placeholder="Rechercher categorie">
     <button type="submit">Rechercher</button>
 </form>
 
-{% for category in categories %}
-    <h3><a href="{{ path('app_category_products', {'id': category.id}) }}">{{ category.name }}</a></h3>
-{% endfor %}
+
+<section>
+    <div class="categorie row">
+        {% for category in categories %}
+            <!-- Image de la catégorie -->
+            <div class="position-relative d-flex justify-content-center ">
+                <a href="{{ path('app_category_products', {'id': category.id}) }}" class="category-link">
+                    <span class="badge badge-default position-absolute">{{ category.name }}</span>
+                     <img class="img-fluid" src="{{ asset('/asset/img/Vinylepresentation.png') }}" alt="{{ category.name }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
 
 
 {% endblock %}

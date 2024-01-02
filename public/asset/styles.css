@@ -3,35 +3,25 @@
     margin: 0;
     padding :0;
 }
+
+/********* PAGE HOME ***********/
 /* Style du main */
 .main-body {
     background-color: #FFEDD8;
     padding : 2em;
-   
 }
-
+ 
 /* Style du box-promo */
 .box-promo {
     background-color: #e7bc91;
-    width: 75%;
+    width: 100%;
     border-radius: 2em;
     margin : 2em;
     padding:1em;
-   
+    outline: 6px solid #603808;
+    outline-offset: -20px;
 }
-
-/* Style 2e box avec bordure marron */
-.container-custom {
-    background-color: #e7bc91 !important;
-    border: 0.4em solid #603808 !important;
-    border-radius: 1em !important;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-
-}
-
-
-
+ 
 /* titre Promo */
 .text-promo h2{
     font-family: 'Abril Fatface', serif;
@@ -39,34 +29,21 @@
     padding-left : 0.5em;
     width: 100%;
 }
-
+ 
 /* Style des cartes */
-
-
 /* Style de la carte individuelle */
 .card {
-
-    width: 18em !important;
-    margin: 0 1em !important;
- 
+    width: 100% !important;
+    margin: 0  !important;
     padding: 2em !important;
     border: 0.1em solid #603808 !important;
     background-color: #e7bc91 !important;    
 }
-/* Style pour l'onglet promo */
-.card-img-top{
-    position : relative;
-}
-.image-promo {
-    width: 30%;
-    height: auto; 
-    position:absolute; 
-    right:2em;
-    z-index: 1; 
-}
 
+ 
 /* Style du bouton dans la carte */
 .card-body .btn {
+  
     background-color: #BC8A5F !important;
     border: 0.1em solid #603808 !important;
     color: #603808 !important;
@@ -74,8 +51,6 @@
     display: flex;
     justify-content: center;
 }
-
-
 .card-body .btn:hover {
     background-color: #BC8A5F !important;
     border: 0.1em solid #603808 !important;
@@ -83,30 +58,86 @@
     box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
     display: flex;
     justify-content: center;
+    cursor: url('/asset/img/vinylecursor.png'), pointer !important;
 }
 
+/* style onglet 20% */
+.label {
+  
+    top: 50px;
+    right: 50px;
+    font-size: 2em;
+    color: #BC8A5F;
+    background-color: #FFEDD8;
+    border-color: 0.2em solid #603808;
+    border-radius: 0.2em;
+    padding: 0.2em;
+}
+
+/* style box promo */
+.promotion-info {
+    background-color: #FFEDD8;
+    border: 0.1em solid #603808;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 1em;
+}
+.promo-description {
+    color:#603808;
+}
+.promo-price {
+    color: #721c24;
+}
+
+/* style box prix */
+.box-price {
+    background-color: #FFEDD8;
+    border: 0.1em solid #603808;
+    border-radius: 0.5em;
+    padding: 1em 1em 0em 1em;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.card-subtitle{
+    font-weight: bold;
+}
+
+/* style Prix */
+.price-section {
+    font-weight: bold;
+    color: #603808 !important;
+    font-size: 1.2em;
+    text-decoration: line-through  #BC8A5F; 
+}
+.promo-price {
+    font-weight: bold;
+    color: #603808 !important;
+    font-size: 1.2em; 
+}
+
+/* separateur */
 .hr {
     border: none !important;
     width: 50% !important;
-    height: 0.2em !important; 
-    border: 0.1em solid #603808 !important; 
+    height: 0.2em !important;
+    border: 0.1em solid #603808 !important;
     background-color: #603808 !important;
     border-radius: 1em !important;
     margin: 0.3em auto !important;
 }
-
-
-
-
-
+ 
+/* STYLE box-hit */
 .box-hit {
     background-color: #e7bc91 !important;
-    width: 75%;
+    width: 100%;
     border-radius: 2em;
     margin : 2em;
-    padding: 1em;    
+    padding: 1em;
+    outline: 6px solid #603808;
+    outline-offset: -20px;
 }
-
+ 
 /* titre HIT PRODUITS */
 .text-hit h2{
     font-family: 'Abril Fatface', serif;
@@ -115,3 +146,88 @@
 }
 
 
+/********* PAGE CATEGORIES ***********/
+/* Style */
+section {
+    padding-left: 1.8em;
+}
+.categorie {
+    background-color: #e7bc91 !important;
+    width: 100%;
+    border-radius: 2em;
+    margin : 2em;
+    padding: 1em;
+    outline: 6px solid #603808;
+    outline-offset: -20px;
+    justify-content: space-around;
+}
+
+.categorie img {
+    width: 90%;
+    margin: 1em;
+    
+}
+
+.badge{
+    font-family: 'Abril Fatface', serif;
+    serif;
+    font-size: 2.5em !important;
+    color: white;
+    top: 45%;
+    left: 22%;
+}
+
+/********* PAGE CATEGORIES PRODUITS ***********/
+/* Style police titre */
+h2{
+    font-family: 'Abril Fatface', serif;
+    font-size: 3em;
+    padding: 0.5em;
+}
+
+/* Style du bouton retour */
+.bouton-retour .btn{
+    font-family: 'Abril Fatface', serif;
+    font-size: 1.5em;
+    background-color: #BC8A5F !important;
+    border: 0.1em solid #603808 !important;
+    color: #603808 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    margin: 1em;
+    display: flex;
+    justify-content: center;
+}
+.bouton-retour .btn:hover {
+    font-family: 'Abril Fatface', serif;
+    background-color: #BC8A5F !important;
+    border: 0.1em solid #603808 !important;
+    color: #e7bc91 !important;
+    box-shadow: 0 9px 16px rgba(0, 0, 0, 0.1) !important;
+    display: flex;
+    justify-content: center;
+    cursor: url('/asset/img/vinylecursor.png'), pointer !important;
+}
+
+.categorie-card {
+    height: 100%;
+ 
+}
+
+.categorie-card .card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.box-categorie-card{
+    background-color: #e7bc91 !important;
+    width: 100%;
+    border-radius: 2em;
+    margin-top: 1em;
+    padding: 1em 3em 0.5em 1em;
+    outline: 6px solid #603808;
+    outline-offset: -20px;
+}
+
+.card-body{
+   width: 100%;
+}
