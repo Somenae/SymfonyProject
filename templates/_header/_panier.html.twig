@@ -1,5 +1,5 @@
             {% if cart is same as (NULL) %}
-            <a href="{{ path('app_cart_display') }}"><img src="{{ asset('asset/img/icons-cart.svg') }}" alt="cart icon"></img>0</a>
+            <a href="{{ path('app_cart_display') }}">0<img src="{{ asset('asset/img/cart.png') }}" alt="cart icon"></img></a>
             {% else %}
-            <a href="{{ path('app_cart_display') }}"><img src="{{ asset('asset/img/icons-cart.svg') }}" alt="cart icon"></img>{{ cart.CartLine.count }}</a> 
+            <a href="{{ path('app_cart_display') }}">{{ cart.CartLine.count }}<img src="{{ asset('asset/img/cart.png') }}" alt="cart icon"></img></a> 
             {% endif %}
