@@ -4,6 +4,7 @@
 
 {% block main %}
 <h1>Commandes n° {{ order.id }}</h1>
+<a href="{{ path('app_admin_updatestate_order', {'id' : order.id }) }}" class="btn btn-primary">Modifier l'état de la commande</a>
 
 <table class="table table-hover">
   <tbody>

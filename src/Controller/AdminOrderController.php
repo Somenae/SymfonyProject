@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Orders;
+use App\Form\OrderStateFormType;
 use App\Repository\OrdersRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,6 +66,38 @@ class AdminOrderController extends AbstractController
             'title' => 'Orders list',
             'order' => $order,
             'orderlines' => $orderlines,
+        ]);
+    }
+
+    #[Route(path:'/updateorderstate/{id}', name:'app_admin_updatestate_order')]
+    public function updateOrderState(
+        Security $security,
+        Request $request,
+        Orders $order,
+        EntityManagerInterface $em
+    ): Response
+    {
+
+        if (!$security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin_login');
+        }
+        if ($order === NULL) {
+            return $this->redirectToRoute('app_admin_list_order');
+        }
+
+        $form = $this->createForm(OrderStateFormType::class, $order);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($order);
+            $em->flush();
+            return $this->redirectToRoute('app_admin_show_order', ['id' => $order->getId()]);    
+            }
+
+        return $this->render('admin_pages/updateorderstate.html.twig', [
+            'title' => 'Orders state change',
+            'order' => $order,
+            'form' => $form,
         ]);
     }
 
