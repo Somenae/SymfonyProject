@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue sur Vintyle !{% endblock %}</title>
+        <title>{% block title %}Page d'accueil - Vintyle{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -57,20 +57,33 @@
                         </button>
                     </div>
                 </div>
-                {# <div class="hamburger-menu" role="barre de navigation pour mobile">
-                    <ul>
-                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 1</a></li>
-                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 2</a></li>
-                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="" >Catégorie 3</a></li>
-                        <li><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"><a href="{{ path('app_index') }}" aria-label="">Catégorie 4</a></li>
-                    </ul>
-                    <div>
+                <div class="container-nav-mobile">
+                    <div class="nav-mobile">
+                        <ul class="nav-mobile-links">
+                            <li><a href="{{ path('app_index') }}" aria-label="" >Catégorie 1</a><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"></li>
+                            <li><a href="{{ path('app_index') }}" aria-label="" >Catégorie 2</a><img src="{{ asset('asset/img/arrow.png') }}" alt="arrow"></li>
+                        </ul>
+                        <div class="nav-mobile-search">
+                            <form method="post">
+                                <input type="text" placeholder="Rechercher un vinyle">
+                                <span></span>
+                                <select id="categorie" name="categorie" placeholder="Catégorie">
+                                    <option value="categorie1">Catégorie 1</option>
+                                    <option value="categorie2">Catégorie 2</option>
+                                </select>
+                                <button  type="submit">Rechercher</button>
+                            </form>
+                        </div>
+                    </div>
+                 </div>
+                    {# <div>
                         <a href="{{ path('app_index_categories') }}">Categories</a>
                 {{ render(controller(
                 'App\\Controller\\CategoryController::categoryLink'
-            )) }}
-                    </div>
-                </div> #}
+            )) }} 
+                   
+                    #}
+                </div>
             </header>
         {% endblock %}
         {% block main %}{% endblock %}
@@ -122,20 +135,13 @@
             {% endblock %}
             {% block javascripts %}
                 <script>
-                    function displayMenu() {
+                     function displayMenu() {
                         var hamburger = document.querySelector(".icon-hamburger");
-                        var menu = document.querySelector(".hamburger-menu");
-
-                        var decoRelative = document.querySelectorAll(".deco-relative");
-                        var decoHamburger = document.querySelectorAll(".deco-hamburger");
-                        decoRelative.forEach(function(item) {
-                        item.classList.toggle('open');
-                        });
-                        decoHamburger.forEach(function(item) {
-                        item.classList.toggle('open');
-                        });
-                        hamburger.classList.toggle('open');
-                        menu.classList.toggle('open-menu');
+                        var menu = document.querySelector(".nav-mobile");
+                        var container = document.querySelector(".container-nav-mobile");
+                        hamburger.classList.toggle("open");
+                        menu.classList.toggle("open-menu");
+                        container.classList.toggle("open-container");
                     }
                 </script>
         {% endblock %}

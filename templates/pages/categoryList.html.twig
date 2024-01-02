@@ -13,6 +13,4 @@
 {% for category in categories %}
     <h3><a href="{{ path('app_category_products', {'id': category.id}) }}">{{ category.name }}</a></h3>
 {% endfor %}
-
-
 {% endblock %}
