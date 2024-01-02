@@ -46,6 +46,16 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
 
+    public function countDiscounts()
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->select('count(u.id)');
+    
+        $query = $queryBuilder->getQuery();
+    
+        return $query->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Orders[] Returns an array of Orders objects
 //     */

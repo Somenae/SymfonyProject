@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UsersRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\OrdersRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SalesRepository;
 
@@ -34,6 +35,7 @@ class AdminPagesController extends AbstractController
         CategoryRepository $categoryrepository,
         ProductRepository $productrepository,
         Salesrepository $salesrepository,
+        OrdersRepository $ordersrepository, 
     ): Response { {
             if (!$security->isGranted('ROLE_ADMIN')) {
                 return $this->redirectToRoute('app_admin_login');
@@ -45,6 +47,7 @@ class AdminPagesController extends AbstractController
         $countCategories = $categoryrepository->countCategories();
         $countProducts = $productrepository->countProducts();
         $countDiscounts = $salesrepository->countDiscounts();
+        $countOrder = $ordersrepository->countDiscounts();
 
 
         return $this->render('admin_pages/dashboard.html.twig', [
@@ -54,6 +57,7 @@ class AdminPagesController extends AbstractController
             'countCategories' => $countCategories,
             'countProducts' => $countProducts,
             'countDiscounts' => $countDiscounts,
+            'countOrder' => $countOrder,
         ]);
     }
 }
