@@ -9,8 +9,7 @@
 	<h2>
 		<a href="{{ path ('app_admin_dashboard')}}">Dashboard</a>
 		>
-		<a href="{{ path ('app_listUsers')}}">Customers list ({{ countUsers }}
-			customers)</a>
+		<a href="{{ path ('app_listUsers')}}">Customers list</a>
 	</h2>
 	<br>
 
@@ -81,12 +80,6 @@
 		{% endif %}
 	</table>
 
-	<!-- Display pagination links -->
-	<div class="navigation">
-		{% if users is not null %}
-			{{ knp_pagination_render(users, 'bundles/KnpPaginatorBundle/Pagination/bootstrap_v5_pagination.html.twig') }}
-		{% endif %}
-	</div>
 
 
 {% endblock %}
