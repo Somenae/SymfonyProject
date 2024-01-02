@@ -5,6 +5,11 @@
 
 
 {% block main %}
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+	</div>
+{% endfor %}
 
 <section class="main-body d-flex justify-content-center pb-0 pt-5">
 <div class="box-promo my-0">
