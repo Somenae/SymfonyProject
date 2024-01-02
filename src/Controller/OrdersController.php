@@ -93,8 +93,8 @@ class OrdersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $cart = $cartrepo->findLastCartByIdUser($user->getId());
-            $orderState = $stateRepository->findByLabel('Shipped');
-            $shipping = $shippingRepository->findByCompanyName('El Bato');
+            $orderState = $stateRepository->findByLabel('Attente de payement');
+            $shipping = $shippingRepository->findByCompanyName('Vintyle');
 
             $orders->setUsers($user);
             $orders->setCart($cart);
