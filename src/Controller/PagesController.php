@@ -27,7 +27,7 @@ class PagesController extends AbstractController
             $productsPromo = $productrepo->getRandomProductPromo();
         }
 
-      
+
         return $this->render('pages/index.html.twig', [
             'products' =>  $productsNoPromo,
             'productsPromo' =>  $productsPromo,
@@ -108,4 +108,21 @@ class PagesController extends AbstractController
     {
         return $this->render('pages/datas.html.twig');
     }
+
+    #[Route('/searchProducts', name: 'app_search_products')]
+    public function search(Request $request, ProductRepository $productrepository): Response
+    {
+        $searchTerm = $request->query->get('search');
+
+        $products = [];
+        if ($searchTerm !== null) {
+            $products = $productrepository->search($searchTerm);
+        }
+
+        return $this->render('pages/productsList.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
 }
+

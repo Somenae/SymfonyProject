@@ -12,3 +12,18 @@ landing_page:
     path: /landing
     controller: App\Controller\PagesController::index
     methods: ['GET']
+
+
+fallback:
+    path: /{req}
+    defaults: 
+        _controller: App\Controller\DefaultController::index
+    requirements:
+        req: ".*"
+
+admin_fallback:
+    path: /admin/{reqAdmin}
+    defaults: 
+        _controller: App\Controller\DefaultController::indexAdmin
+    requirements:
+        reqAdmin: ".*"

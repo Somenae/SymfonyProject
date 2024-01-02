@@ -25,7 +25,12 @@
 
 			<div class="categorie row">
 
+				{% if categories is empty %}
+				<p class="text-center">Il n'y a aucune catégorie correspondant à votre recherche.</a>
+				{% endif %}
+
 				{% for category in categories %}
+
 
 					<!-- Image de la catégorie -->
 
