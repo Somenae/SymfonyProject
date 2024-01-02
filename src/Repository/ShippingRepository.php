@@ -21,6 +21,11 @@ class ShippingRepository extends ServiceEntityRepository
         parent::__construct($registry, Shipping::class);
     }
 
+    public function findByCompanyName($label)
+    {
+        return $this->findBy(["company"=> $label]);
+    }
+
 //    /**
 //     * @return Shipping[] Returns an array of Shipping objects
 //     */

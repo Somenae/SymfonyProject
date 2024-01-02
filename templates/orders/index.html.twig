@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<h1>Commande</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom Produit</th>
+      <th>Quantité</th>
+      <th>Prix par unité</th>
+      <th>Reduction appliquée</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for line in cartline %}
+    <tr>
+      <th>{{ line.product.name }}</th>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.product.price }}€</td>
+
+       {% if line.product.productsales is same as (NULL) %}
+       <td>Pas de promotion actuellement</td>
+        {% else %}
+        <td>{{ line.product.productsales.amountpercentage }}%</td>
+        {% endif %}
+
+
+      <td>{{ line.product.description }}</td>
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+<h2>Prix du panier: {{ price }}€</h2>
+
+{% endblock %}
