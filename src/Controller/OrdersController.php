@@ -87,6 +87,13 @@ class OrdersController extends AbstractController
         if ($user->getAddress() === NULL) {
             return $this->redirectToRoute('app_user_account');
         }
+
+        $cart = $cartrepo->findLastCartByIdUser($user->getId());
+        
+        if ($cart->getCartLine()[0] === NULL) {
+            return $this->redirectToRoute('app_index');
+        }
+
         $form = $this->createForm(OrdersFormType::class, $orders, [
             'address' => [$user->getAddress()],
         ]);
@@ -94,9 +101,7 @@ class OrdersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $cart = $cartrepo->findLastCartByIdUser($user->getId());
             $orderState = $stateRepository->findByLabel('Shipped');
-            /* $shipping = $shippingRepository->findByCompanyName('El Bato'); */
 
             $orders->setUsers($user);
             $orders->setCart($cart);
@@ -123,7 +128,6 @@ class OrdersController extends AbstractController
 
             $orders->setTotalPrice($price);
             $orders->setOrderState($orderState[0]);
-            /* $orders->setShipping($shipping[0]); */
             $em->persist($orders);
 
             foreach ($cartline as $line) {
