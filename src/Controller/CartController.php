@@ -87,9 +87,10 @@ class CartController extends AbstractController
             $cart = new Cart;
             // $cart->setCreationDate(getDate()["year"]."-".getDate()["mon"]."-".getDate()["mday"]);
             $cart->setCreationDate(new DateTime());
+            $cart->setUser($security->getUser());
            }
            $cartline = new CartLine;
-           $cartline->setQuantity($_POST('quantity'));
+           $cartline->setQuantity($_POST['quantity']);
            $cartline->setProduct($product);
            $cartline->setCart($cart);
            $em->persist($cart);

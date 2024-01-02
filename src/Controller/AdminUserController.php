@@ -24,40 +24,40 @@ class AdminUserController extends AbstractController
 
     // Afficher la liste des utilisateurs --------------------------------------------------------------------------------
 
-    #[Route('/listUsers', name: 'app_listUsers')]
-    public function listUsers(Request $request, UsersRepository $usersrepository, PaginatorInterface $paginator, Security $security): Response
-    {
+    // #[Route('/listUsers', name: 'app_listUsers')]
+    // public function listUsers(Request $request, UsersRepository $usersrepository, Security $security): Response
+    // {
 
-        if (!$security->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_admin_login');
-        }
+    //     if (!$security->isGranted('ROLE_ADMIN')) {
+    //         return $this->redirectToRoute('app_admin_login');
+    //     }
 
-        $trinom = $request->query->get('lastname', 'asc');
-        $triprenom = $request->query->get('firstname', 'asc');
-        $trimail = $request->query->get('email', 'asc');
+    //     $trinom = $request->query->get('lastname', 'asc');
+    //     $triprenom = $request->query->get('firstname', 'asc');
+    //     $trimail = $request->query->get('email', 'asc');
 
-        $query = $usersrepository->findAll(); // chercher tous les users
+    //     $query = $usersrepository->findAll(); // chercher tous les users
 
-        if (empty($query)) {
-            $users = null;
-        } else {
-            $users = $paginator->paginate(
-                $query,
-                $request->query->getInt('page', 1), // numéro de page
-                5 // limite par page
-            );
-        }
-        $countUsers = $usersrepository->countUsers();
+    //     if (empty($query)) {
+    //         $users = null;
+    //     } else {
+    //         $users = $paginator->paginate(
+    //             $query,
+    //             $request->query->getInt('page', 1), // numéro de page
+    //             5 // limite par page
+    //         );
+    //     }
+    //     $countUsers = $usersrepository->countUsers();
 
 
-        return $this->render('admin_user/index.html.twig', [
-            'users' => $users,
-            'countUsers' => $countUsers,
-            'trinom' => $trinom,
-            'triprenom' => $triprenom,
-            'trimail' => $trimail,
-        ]);
-    }
+    //     return $this->render('admin_user/index.html.twig', [
+    //         'users' => $users,
+    //         'countUsers' => $countUsers,
+    //         'trinom' => $trinom,
+    //         'triprenom' => $triprenom,
+    //         'trimail' => $trimail,
+    //     ]);
+    // }
 
 
     // Afficher un user --------------------------------------------------------------------------------

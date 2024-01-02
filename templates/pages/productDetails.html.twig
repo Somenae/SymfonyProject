@@ -58,13 +58,14 @@
 						Quantité :
 						<div class="row d-flex align-item-botton mt-2">
 							<div class="col">
-								<div class="form-group">
-									<input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Saisissez une valeur">
-								</div>
-							</div>
-							<div class="col">
-								<input type="submit" class="btn btn-primary" value="Ajouter au panier">
-							</div>
+							<form action="{{ path('app_cart_add', {'id': product.id}) }}" name="addCart" method="POST">
+                                <div class="form-group">
+                                    <input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Saisissez une valeur" value="1">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                                </form>
 						</div>
 
                         <hr class="my-4">
