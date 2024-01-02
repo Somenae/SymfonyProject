@@ -46,24 +46,22 @@ class CartController extends AbstractController
            
             $cartline =  $cart->getCartLine();
 
-            foreach($cartline as $line){
-                $pricel= ($line->getProduct()->getPrice());
-               
-                if ($line->getProduct()->getProductTaxes() !== NULL){
-                    $pricel = $pricel *(1+(($line->getProduct()->getProductTaxes()->getAmount())/100));
-
+                foreach ($cartline as $line) {
+                    $pricel = ($line->getQuantity()) * ($line->getProduct()->getPrice());
+ 
+                    if ($line->getProduct()->getProductTaxes() !== NULL) {
+                        $pricel = $pricel * (1 + (($line->getProduct()->getProductTaxes()->getAmount()) / 100));
+                    }
+ 
+                    if ($line->getProduct()->getProductSales() !== NULL) {
+                        $pricel = $pricel * (1 - (($line->getProduct()->getProductSales()->getAmountPercentage()) / 100));
+                    }
+                   echo ($pricel);
+                    $price = $price + $pricel;
                 }
-                if ($line->getProduct()->getProductSales() !== NULL){
-                    $pricel = $pricel *(1-(($line->getProduct()->getProductSales()->getAmountPercentage())/100));
-                    echo($line->getProduct()->getProductSales()->getAmountPercentage()%100);
-                    echo " Poucentage de reduc    " ;
-                }
-                $price = $price +  $pricel*$line->getQuantity();
-
-              
-
-            }
-            $price =round($price, 2);
+            
+           
+            $price = round($price, 2);
             return $this->render('pages/cartDisplay.html.twig', [
                 'cartline' =>  $cartline,
                 'price' => $price

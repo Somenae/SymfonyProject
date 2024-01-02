@@ -24,7 +24,11 @@ RIEN DANS LE PANIER
     <tr>
       <th scope="row">{{ line.product.name }}</th>
       <td>{{ line.quantity }}</td>
+      {% if line.product.ProductTaxes is same as (NULL) %}
       <td>{{ line.product.price }}€</td>
+       {% else %}
+       <td>{{ line.product.price * (1 + ((line.getProduct.getProductTaxes.getAmount) / 100)) }}€</td>
+        {% endif %}
 
        {% if line.product.productsales is same as (NULL) %}
        <td>Pas de promotion actuellement</td>
