@@ -55,7 +55,6 @@
       <th scope="col">Quantité</th>
       <th scope="col">Prix par unité</th>
       <th scope="col">Reduction appliquée</th>
-      <th scope="col">description</th>
       <th scope="col">Modifier/supprimer</th>
     </tr>
   </thead>
@@ -63,16 +62,15 @@
   <h3>Produits dans la commandes:<h3>
   {% for line in orderlines %}
     <tr>
-      <th scope="row">{{ line.product.name }}</th>
+      <th scope="row">{{ line.ProductsName }}</th>
       <td>{{ line.quantity }}</td>
-      <td>{{ line.product.price }}€</td>
+      <td>{{ line.ProductUnitPrice }}€</td>
 
-       {% if line.product.productsales is same as (NULL) %}
+       {% if line.sales is same as (NULL) %}
        <td>Pas de promotion actuellement</td>
         {% else %}
-        <td>{{ line.product.productsales.amountpercentage }}%</td>
+        <td>{{ line.sales }}%</td>
         {% endif %}
-        <td>{{ line.product.description }}</td>
       <td><a class="text-danger" href="{{ path('app_cart_remove',{'id' : line.id}) }}">Supprimer</a></td>
     </tr>
  {% endfor %}
