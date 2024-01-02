@@ -52,7 +52,7 @@ RIEN DANS LE PANIER
 				</table>
 				<h2>Prix du panier:
 					{{ price }}€</h2>
-				<button class="btn btn-success">Commander</button>
+				<a class="btn btn-success" href='{{ path('app_user_order') }}'>Commander</a>
         </div>
 			{% endif %}
 		</section>
